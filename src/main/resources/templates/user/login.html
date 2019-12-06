@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body>
+<section class="signin" id="login">
+    <header>
+        <h2>Login to your account</h2>
+        <h4 class="mobile-hint-header">
+            <span>If you dont have an account, you can always</span>
+            <a th:href="@{/user/register}">register</a>
+        </h4>
+    </header>
+
+    <!--/*@thymesVar id="loginModel" type="com.stoyanov.onlineshoestore.app.models.view.UserLoginViewModel"*/-->
+    <form th:action="@{/user/login}" th:method="POST" th:object="${loginModel}">
+        <fieldset>
+            <section class="input-wrapper">
+                <div class="input-icon">
+                    <input type="text" name="username" th:field="*{username}" placeholder="Username">
+                    <i class="fas fa-user"></i>
+                </div>
+            </section>
+
+            <section class="input-wrapper">
+                <div class="input-icon">
+                    <input type="password" name="password" th:field="*{password}" placeholder="Password">
+                    <i class="fas fa-key"></i>
+                </div>
+            </section>
+
+            <section class="signin-buttons">
+                <input class="button go-back" type="button" value="Go Back">
+                <input class="button" type="submit" value="Login">
+            </section>
+        </fieldset>
+    </form>
+
+    <!--
+
+    <div class="alt-separator">
+        <h3>Or login with</h3>
+    </div>
+
+    <div class="alt-signin">
+        <button class="alt-btn" id="google-signin">
+            <i class="fab fa-google"></i>
+            <span>Google</span>
+        </button>
+
+        <button class="alt-btn" id="instagram-signin">
+            <i class="fab fa-instagram"></i>
+            <span>Instagram</span>
+        </button>
+
+        <button class="alt-btn" id="facebook-signin">
+            <i class="fab fa-facebook"></i>
+            <span>Facebook</span>
+        </button>
+    </div>
+
+    -->
+</section>
+</body>
+</html>
