@@ -1,4 +1,6 @@
-package com.stoyanov.onlineshoestore.app.models.entity;
+package com.stoyanov.onlineshoestore.app.models.entity.user;
+
+import com.stoyanov.onlineshoestore.app.models.entity.BaseEntity;
 
 import javax.persistence.*;
 

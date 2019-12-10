@@ -1,6 +1,7 @@
 package com.stoyanov.onlineshoestore.app.models.entity.offers;
 
 import com.stoyanov.onlineshoestore.app.enums.ShoeType;
+import com.stoyanov.onlineshoestore.app.models.entity.user.User;
 
 import javax.persistence.*;
 import java.util.List;

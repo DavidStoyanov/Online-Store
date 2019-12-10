@@ -1,13 +1,18 @@
 package com.stoyanov.onlineshoestore.app.controllers;
 
-import com.stoyanov.onlineshoestore.app.models.service.UserLoginServiceModel;
-import com.stoyanov.onlineshoestore.app.models.service.UserRegisterServiceModel;
-import com.stoyanov.onlineshoestore.app.models.view.UserRegisterViewModel;
+import com.stoyanov.onlineshoestore.app.errors.BadLoginArgsException;
+import com.stoyanov.onlineshoestore.app.errors.UserAlreadyExist;
+import com.stoyanov.onlineshoestore.app.models.service.user.UserLoginServiceModel;
+import com.stoyanov.onlineshoestore.app.models.service.user.UserRegisterServiceModel;
+import com.stoyanov.onlineshoestore.app.models.service.user.UserSessionModel;
+import com.stoyanov.onlineshoestore.app.models.view.user.UserLoginViewModel;
+import com.stoyanov.onlineshoestore.app.models.view.user.UserRegisterViewModel;
 import com.stoyanov.onlineshoestore.app.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,25 +52,49 @@ public class UserController {
         }
 
         UserRegisterServiceModel serviceModel = this.mapper.map(viewModel, UserRegisterServiceModel.class);
-        this.userService.register(serviceModel);
+
+        try {
+            this.userService.register(serviceModel);
+        } catch (UserAlreadyExist exception) {
+            bindingResult.rejectValue("username", "error.registerModel", exception.getMessage());
+            return "user/register.html";
+        }
 
         return "redirect:/user/login";
     }
 
 
     @ModelAttribute("loginModel")
-    public UserLoginServiceModel loginModel() {
-        return new UserLoginServiceModel();
+    public UserLoginViewModel loginModel() {
+        return new UserLoginViewModel();
     }
 
     @GetMapping("/login")
-    public String login(@ModelAttribute("loginModel") UserLoginServiceModel loginModel) {
+    public String login(@ModelAttribute("loginModel") UserLoginViewModel loginModel) {
         return "user/login.html";
     }
 
     @PostMapping("/login")
-    public void loginConfirm() {
+    public ModelAndView loginConfirm(@Valid @ModelAttribute("loginModel") UserLoginViewModel viewModel,
+                               BindingResult bindingResult,
+                               ModelAndView mav) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("user/login.html");
+        }
 
+        UserLoginServiceModel serviceModel = this.mapper.map(viewModel, UserLoginServiceModel.class);
+
+        try {
+            UserSessionModel userModel = this.userService.login(serviceModel);
+            mav.addObject("user", userModel);
+            mav.setViewName("redirect:/home");
+            return mav;
+        } catch (BadLoginArgsException exception) {
+            bindingResult.rejectValue("password", "error.loginModel", exception.getMessage());
+            mav.setViewName("user/login.html");
+        }
+
+        return mav;
     }
 
     @GetMapping("/logout")

@@ -1,4 +1,4 @@
-package com.stoyanov.onlineshoestore.app.models.service;
+package com.stoyanov.onlineshoestore.app.models.service.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.stoyanov.onlineshoestore.app.models.service;
+package com.stoyanov.onlineshoestore.app.models.service.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,4 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserLoginServiceModel {
+
+    private String username;
+    private String password;
 }

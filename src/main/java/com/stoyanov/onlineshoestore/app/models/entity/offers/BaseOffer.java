@@ -2,6 +2,7 @@ package com.stoyanov.onlineshoestore.app.models.entity.offers;
 
 import com.stoyanov.onlineshoestore.app.enums.Condition;
 import com.stoyanov.onlineshoestore.app.models.entity.BaseEntity;
+import com.stoyanov.onlineshoestore.app.models.entity.user.User;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ public abstract class BaseOffer extends BaseEntity {
     private String description;
     private Condition condition;
     private BigDecimal price;
+    private User createdBy;
 
     public BaseOffer() {
     }
@@ -54,5 +56,15 @@ public abstract class BaseOffer extends BaseEntity {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by", referencedColumnName = "id")
+    public User getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
     }
 }
