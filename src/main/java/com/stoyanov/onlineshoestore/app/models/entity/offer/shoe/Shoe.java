@@ -26,7 +26,7 @@ public class Shoe extends BaseOffer {
     }
 
     @Column(name = "sizes")
-    @ElementCollection(targetClass = ShoeSize.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = ShoeSize.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "shoe_sizes",
             joinColumns = @JoinColumn(name = "shoe_id"))
     public List<ShoeSize> getSizes() {

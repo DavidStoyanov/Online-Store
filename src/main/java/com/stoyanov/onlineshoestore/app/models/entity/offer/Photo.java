@@ -1,7 +1,6 @@
 package com.stoyanov.onlineshoestore.app.models.entity.offer;
 
 import com.stoyanov.onlineshoestore.app.models.entity.base.BaseEntity;
-import com.stoyanov.onlineshoestore.app.models.entity.user.User;
 
 import javax.persistence.*;
 
@@ -12,7 +11,7 @@ public class Photo extends BaseEntity {
     private String name;
     private String imageUrl;
     private Integer position;
-    private User publisher;
+    private BaseOffer offer;
 
     public Photo() {
     }
@@ -44,13 +43,13 @@ public class Photo extends BaseEntity {
         this.position = position;
     }
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "publisher_id", referencedColumnName = "id")
-    public User getPublisher() {
-        return this.publisher;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "offer_id", referencedColumnName = "id")
+    public BaseOffer getOffer() {
+        return this.offer;
     }
 
-    public void setPublisher(User publisher) {
-        this.publisher = publisher;
+    public void setOffer(BaseOffer offer) {
+        this.offer = offer;
     }
 }

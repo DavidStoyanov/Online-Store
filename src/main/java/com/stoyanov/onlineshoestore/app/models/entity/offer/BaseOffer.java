@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "offers")
@@ -21,7 +22,7 @@ public abstract class BaseOffer extends BaseEntity {
     private Condition condition;
     private User createdBy;
     private Date createdOn;
-    private List<String> photos;
+    private List<Photo> photos;
 
     public BaseOffer() {
     }
@@ -83,15 +84,13 @@ public abstract class BaseOffer extends BaseEntity {
         this.createdOn = createdOn;
     }
 
-    @Column(name = "photo")
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "offer_photos",
-            joinColumns = @JoinColumn(name = "offer_id", referencedColumnName = "id"))
-    public List<String> getPhotos() {
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
+            mappedBy = "offer", targetEntity = Photo.class)
+    public List<Photo> getPhotos() {
         return this.photos;
     }
 
-    public void setPhotos(List<String> photos) {
+    public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
 }

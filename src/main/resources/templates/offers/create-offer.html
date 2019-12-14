@@ -16,6 +16,8 @@
         <!--/*@thymesVar id="createModel" type="com.stoyanov.onlineshoestore.app.models.view.offer.OfferCreateViewModel"*/-->
         <form th:action="@{/offer/create}" th:method="POST" th:object="${createModel}" enctype="multipart/form-data">
             <fieldset>
+                <input type="hidden" name="photos" value='[{"name":"pandata","imageUrl":"kr5dyk1yy2xree1gmnvh","position":1},{"name":"jpg","imageUrl":"owwi1flhynuh7fpd0y3q","position":2}]'  >
+
                 <section class="input-wrapper">
                     <div class="input-icon">
                         <input type="text" name="title" th:field="*{title}" placeholder="Title"/>
@@ -79,9 +81,9 @@
                     </th:block>
                 </section>
 
-                <section class="">
+                <section class="offer-photos">
                     <div class="" th:each="index : ${#numbers.sequence(1, 5)}">
-                        <input type="file" name="photos" />
+                        <input type="file" />
                     </div>
                 </section>
 

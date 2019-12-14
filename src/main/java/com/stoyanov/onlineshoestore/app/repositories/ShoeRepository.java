@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface ShoeRepository extends JpaRepository<Shoe, String> {
 
     Optional<Shoe> findById(String id);
+
+    boolean existsByIdAndCreatedBy_Username(String id, String username);
 }

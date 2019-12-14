@@ -13,8 +13,8 @@
 
         <h2>Correct offer</h2>
 
-        <!--/*@thymesVar id="editModel" type="com.stoyanov.onlineshoestore.app.models.view.offer.OfferEditViewModel"*/-->
-        <form th:action="@{/offer/create}" th:method="POST" th:object="${editModel}" enctype="multipart/form-data">
+        <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.view.offer.OfferEditViewModel"*/-->
+        <form th:action="@{/offer/edit/{id}(id = *{id})}" th:method="POST" th:object="${offer}" enctype="multipart/form-data">
             <fieldset>
                 <input type="hidden" name="id" th:field="*{id}">
 
@@ -82,13 +82,19 @@
                 </section>
 
                 <section class="">
-                    <div class="" th:each="index : ${#numbers.sequence(1, 5)}">
+                    <!--/*@thymesVar id="photo" type="com.stoyanov.onlineshoestore.app.models.entity.offer.Photo"*/-->
+                    <div class="" th:each="photo, index : *{photos}" th:object="${photo}">
+                        <div>
+                            <p th:text="'Posiiton:' + *{position}"></p>
+                            <img th:src="@{'https://res.cloudinary.com/dxvn93xbh/image/upload/' + ${photo.imageUrl} + '.jpg'}"
+                                 alt="offer photo" width="300px" height="300px">
+                        </div>
                         <input type="file" name="photos" />
                     </div>
                 </section>
 
                 <section class="">
-                    <input type="submit" class="button" value="Create">
+                    <input type="submit" class="button" value="Save changed">
                 </section>
             </fieldset>
         </form>

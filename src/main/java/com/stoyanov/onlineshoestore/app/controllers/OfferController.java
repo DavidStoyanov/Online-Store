@@ -1,8 +1,8 @@
 package com.stoyanov.onlineshoestore.app.controllers;
 
 import com.stoyanov.onlineshoestore.app.controllers.base.BaseController;
-import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.OfferCreateServiceModel;
-import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.OfferEditServiceModel;
+import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeCreateServiceModel;
+import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeEditServiceModel;
 import com.stoyanov.onlineshoestore.app.models.view.offer.OfferCreateViewModel;
 import com.stoyanov.onlineshoestore.app.models.view.offer.OfferEditViewModel;
 import com.stoyanov.onlineshoestore.app.services.ShoeService;
@@ -51,7 +51,7 @@ public class OfferController extends BaseController {
             return new ModelAndView("offers/create-offer.html");
         }
 
-        OfferCreateServiceModel serviceModel = this.mapper.map(viewModel, OfferCreateServiceModel.class);
+        ShoeCreateServiceModel serviceModel = this.mapper.map(viewModel, ShoeCreateServiceModel.class);
 
         String username = this.getUsername(httpSession);
         this.shoeService.createByUser(serviceModel, username);
@@ -71,8 +71,27 @@ public class OfferController extends BaseController {
                              ModelAndView mav) {
 
         OfferEditViewModel offer = this.mapper.map(this.shoeService.getOneById(id), OfferEditViewModel.class);
-        mav.addObject("editModel", offer);
-        mav.setViewName("offers/create-offer.html)");
+        mav.addObject("offer", offer);
+        mav.setViewName("offers/edit-offer.html");
+        return mav;
+    }
+
+    @PostMapping("/edit/{id}")
+    public ModelAndView editConfirm(@Valid @ModelAttribute("editModel") OfferEditViewModel viewModel,
+                                    @PathVariable String id,
+                                    BindingResult bindingResult,
+                                    HttpSession httpSession,
+                                    ModelAndView mav) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("offers/edit-offer.html");
+        }
+
+        ShoeEditServiceModel serviceModel = this.mapper.map(viewModel, ShoeEditServiceModel.class);
+
+        String username = this.getUsername(httpSession);
+        this.shoeService.editByUser(serviceModel, username);
+
+        mav.setViewName("redirect:/offers");
         return mav;
     }
 }
