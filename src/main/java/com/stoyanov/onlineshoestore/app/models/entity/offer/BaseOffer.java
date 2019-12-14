@@ -1,11 +1,14 @@
-package com.stoyanov.onlineshoestore.app.models.entity.offers;
+package com.stoyanov.onlineshoestore.app.models.entity.offer;
 
 import com.stoyanov.onlineshoestore.app.enums.Condition;
-import com.stoyanov.onlineshoestore.app.models.entity.BaseEntity;
+import com.stoyanov.onlineshoestore.app.models.entity.base.BaseEntity;
 import com.stoyanov.onlineshoestore.app.models.entity.user.User;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "offers")
@@ -14,9 +17,11 @@ public abstract class BaseOffer extends BaseEntity {
 
     private String title;
     private String description;
-    private Condition condition;
     private BigDecimal price;
+    private Condition condition;
     private User createdBy;
+    private Date createdOn;
+    private List<String> photos;
 
     public BaseOffer() {
     }
@@ -39,6 +44,15 @@ public abstract class BaseOffer extends BaseEntity {
         this.description = description;
     }
 
+    @Column(name = "price", nullable = false)
+    public BigDecimal getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
     @Column(name = "offer_condition")
     @Enumerated(EnumType.STRING)
     public Condition getCondition() {
@@ -49,15 +63,6 @@ public abstract class BaseOffer extends BaseEntity {
         this.condition = condition;
     }
 
-    @Column(name = "price", nullable = false)
-    public BigDecimal getPrice() {
-        return this.price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", referencedColumnName = "id")
     public User getCreatedBy() {
@@ -66,5 +71,27 @@ public abstract class BaseOffer extends BaseEntity {
 
     public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
+    }
+
+    @Column(name = "created_on", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    public Date getCreatedOn() {
+        return this.createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    @Column(name = "photo")
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "offer_photos",
+            joinColumns = @JoinColumn(name = "offer_id", referencedColumnName = "id"))
+    public List<String> getPhotos() {
+        return this.photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
     }
 }

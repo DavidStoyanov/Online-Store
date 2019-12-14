@@ -1,4 +1,4 @@
-package com.stoyanov.onlineshoestore.app.models.entity;
+package com.stoyanov.onlineshoestore.app.models.entity.base;
 
 import org.hibernate.annotations.GenericGenerator;
 

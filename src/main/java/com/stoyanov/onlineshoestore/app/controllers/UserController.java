@@ -1,5 +1,6 @@
 package com.stoyanov.onlineshoestore.app.controllers;
 
+import com.stoyanov.onlineshoestore.app.controllers.base.BaseController;
 import com.stoyanov.onlineshoestore.app.errors.BadLoginArgsException;
 import com.stoyanov.onlineshoestore.app.errors.UserAlreadyExist;
 import com.stoyanov.onlineshoestore.app.models.service.user.UserLoginServiceModel;
@@ -24,7 +25,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController {
 
     private final UserService userService;
     private final ModelMapper mapper;
@@ -46,7 +47,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerConfirm(@Valid @ModelAttribute("registerModel") UserRegisterViewModel viewModel, BindingResult bindingResult) {
+    public String registerConfirm(@Valid @ModelAttribute("registerModel") UserRegisterViewModel viewModel,
+                                  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "user/register.html";
         }
@@ -77,6 +79,7 @@ public class UserController {
     @PostMapping("/login")
     public ModelAndView loginConfirm(@Valid @ModelAttribute("loginModel") UserLoginViewModel viewModel,
                                BindingResult bindingResult,
+                               HttpSession httpSession,
                                ModelAndView mav) {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("user/login.html");
@@ -86,9 +89,8 @@ public class UserController {
 
         try {
             UserSessionModel userModel = this.userService.login(serviceModel);
-            mav.addObject("user", userModel);
+            this.renewAuthentication(httpSession, userModel);
             mav.setViewName("redirect:/home");
-            return mav;
         } catch (BadLoginArgsException exception) {
             bindingResult.rejectValue("password", "error.loginModel", exception.getMessage());
             mav.setViewName("user/login.html");

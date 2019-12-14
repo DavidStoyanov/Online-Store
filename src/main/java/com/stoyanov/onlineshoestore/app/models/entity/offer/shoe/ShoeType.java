@@ -1,4 +1,4 @@
-package com.stoyanov.onlineshoestore.app.enums;
+package com.stoyanov.onlineshoestore.app.models.entity.offer.shoe;
 
 public enum ShoeType {
     SPRING_AUTUMN,

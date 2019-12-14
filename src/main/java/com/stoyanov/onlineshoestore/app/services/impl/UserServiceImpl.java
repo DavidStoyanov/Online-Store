@@ -7,6 +7,7 @@ import com.stoyanov.onlineshoestore.app.models.service.user.UserLoginServiceMode
 import com.stoyanov.onlineshoestore.app.models.service.user.UserRegisterServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.user.UserSessionModel;
 import com.stoyanov.onlineshoestore.app.repositories.UserRepository;
+import com.stoyanov.onlineshoestore.app.services.HashingService;
 import com.stoyanov.onlineshoestore.app.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper mapper;
 
+    private final HashingService hashingService;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper mapper) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper mapper, HashingService hashingService) {
         this.userRepository = userRepository;
         this.mapper = mapper;
+        this.hashingService = hashingService;
     }
 
     @Override
@@ -34,6 +38,8 @@ public class UserServiceImpl implements UserService {
         }
 
         serviceModel.trimUsername();
+        serviceModel.setPassword(this.hashingService.hash(serviceModel.getPassword()));
+
         User user = this.mapper.map(serviceModel, User.class);
         this.userRepository.save(user);
     }
@@ -41,10 +47,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserSessionModel login(UserLoginServiceModel serviceModel) throws BadLoginArgsException {
         Optional<User> optionalUser = this.userRepository.findByUsername(serviceModel.getUsername());
-        if (optionalUser.isEmpty() || !optionalUser.get().getPassword().equals(serviceModel.getPassword())) {
+        if (optionalUser.isEmpty()) {
             throw new BadLoginArgsException("Invalid username or password");
         }
 
-        return this.mapper.map(optionalUser.get(), UserSessionModel.class);
+        User user = optionalUser.get();
+
+        String password = this.hashingService.hash(serviceModel.getPassword());
+        if (!user.getPassword().equals(password)) {
+            throw new BadLoginArgsException("Invalid username or password");
+        }
+
+        return this.mapper.map(user, UserSessionModel.class);
     }
 }
