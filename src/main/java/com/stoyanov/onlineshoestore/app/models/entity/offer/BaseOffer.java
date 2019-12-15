@@ -64,7 +64,7 @@ public abstract class BaseOffer extends BaseEntity {
         this.condition = condition;
     }
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", referencedColumnName = "id")
     public User getCreatedBy() {
         return this.createdBy;

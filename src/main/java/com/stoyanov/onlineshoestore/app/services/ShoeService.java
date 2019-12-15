@@ -1,6 +1,7 @@
 package com.stoyanov.onlineshoestore.app.services;
 
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeCreateServiceModel;
+import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeDetailsServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeEditServiceModel;
 
 public interface ShoeService {
@@ -11,5 +12,5 @@ public interface ShoeService {
 
     void deleteByUsername(String offerId, String username);
 
-    ShoeEditServiceModel getOneById(String id);
+    ShoeDetailsServiceModel getOneById(String id);
 }

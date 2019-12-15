@@ -1,36 +1,45 @@
 package com.stoyanov.onlineshoestore.app.services.impl;
 
+import com.cloudinary.Cloudinary;
 import com.stoyanov.onlineshoestore.app.services.CloudService;
-import com.stoyanov.onlineshoestore.app.services.CloudinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CloudServiceImpl implements CloudService {
 
-    private final CloudinaryService cloudinaryService;
+    private final Cloudinary cloudinary;
+    private final HashMap<String, Object> options;
 
     @Autowired
-    public CloudServiceImpl(CloudinaryService cloudinaryService) {
-        this.cloudinaryService = cloudinaryService;
+    public CloudServiceImpl(Cloudinary cloudinary) {
+        this.cloudinary = cloudinary;
+        this.options = new HashMap<>();
+        this.initOptions();
     }
 
-    @Override
-    public String upload(MultipartFile file) {
-        if (!file.isEmpty()) {
-            try {
-                return this.cloudinaryService.upload(file);
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            }
-        }
+    private void initOptions() {
+        //this.options.put("public_id", "photo");
+    }
 
-        return null;
+    public String upload(MultipartFile multipartFile) {
+        try {
+            File file = File.createTempFile("temp-file", multipartFile.getOriginalFilename());
+            multipartFile.transferTo(file);
+            Map upload = this.cloudinary.uploader().upload(file, this.options);
+            return upload.get("public_id").toString();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -47,7 +56,7 @@ public class CloudServiceImpl implements CloudService {
     @Override
     public void destroy(String id) {
         try {
-            this.cloudinaryService.destroy(id);
+            this.cloudinary.uploader().destroy(id, this.options);
         } catch (IOException e) {
             e.printStackTrace();
         }

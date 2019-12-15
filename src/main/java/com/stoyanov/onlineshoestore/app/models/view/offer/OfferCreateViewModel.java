@@ -8,6 +8,7 @@ import com.stoyanov.onlineshoestore.app.models.view.photo.PhotoModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,7 +22,7 @@ public class OfferCreateViewModel {
     private String description;
     private Condition condition;
     private BigDecimal price;
-    private String photos;
+    private List<MultipartFile> photos;
 
     private ShoeType type;
     private List<ShoeSize> sizes;

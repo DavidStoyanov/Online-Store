@@ -1,8 +1,8 @@
 package com.stoyanov.onlineshoestore.app.controllers;
 
 import com.stoyanov.onlineshoestore.app.controllers.base.BaseController;
-import com.stoyanov.onlineshoestore.app.errors.BadLoginArgsException;
-import com.stoyanov.onlineshoestore.app.errors.UserAlreadyExist;
+import com.stoyanov.onlineshoestore.app.errors.user.BadLoginArgsException;
+import com.stoyanov.onlineshoestore.app.errors.user.UserAlreadyExist;
 import com.stoyanov.onlineshoestore.app.models.service.user.UserLoginServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.user.UserRegisterServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.user.UserSessionModel;
@@ -13,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;

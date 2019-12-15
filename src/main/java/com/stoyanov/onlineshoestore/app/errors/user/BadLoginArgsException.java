@@ -1,4 +1,4 @@
-package com.stoyanov.onlineshoestore.app.errors;
+package com.stoyanov.onlineshoestore.app.errors.user;
 
 public class BadLoginArgsException extends Exception {
 

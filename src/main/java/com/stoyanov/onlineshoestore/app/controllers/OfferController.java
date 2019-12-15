@@ -2,8 +2,10 @@ package com.stoyanov.onlineshoestore.app.controllers;
 
 import com.stoyanov.onlineshoestore.app.controllers.base.BaseController;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeCreateServiceModel;
+import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeDetailsServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeEditServiceModel;
 import com.stoyanov.onlineshoestore.app.models.view.offer.OfferCreateViewModel;
+import com.stoyanov.onlineshoestore.app.models.view.offer.OfferDetailsViewModel;
 import com.stoyanov.onlineshoestore.app.models.view.offer.OfferEditViewModel;
 import com.stoyanov.onlineshoestore.app.services.ShoeService;
 import org.modelmapper.ModelMapper;
@@ -70,8 +72,9 @@ public class OfferController extends BaseController {
                              @PathVariable String id,
                              ModelAndView mav) {
 
-        OfferEditViewModel offer = this.mapper.map(this.shoeService.getOneById(id), OfferEditViewModel.class);
+        OfferDetailsViewModel offer = this.mapper.map(this.shoeService.getOneById(id), OfferDetailsViewModel.class);
         mav.addObject("offer", offer);
+
         mav.setViewName("offers/edit-offer.html");
         return mav;
     }
@@ -93,5 +96,25 @@ public class OfferController extends BaseController {
 
         mav.setViewName("redirect:/offers");
         return mav;
+    }
+
+    @GetMapping("/details/{id}")
+    public ModelAndView details(@PathVariable String id, ModelAndView mav) {
+        ShoeDetailsServiceModel model = this.shoeService.getOneById(id);
+        OfferDetailsViewModel offer = this.mapper.map(model, OfferDetailsViewModel.class);
+        mav.addObject("offer", offer);
+
+        mav.setViewName("offers/details-offer.html");
+        return mav;
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteConfirm(@PathVariable String id, HttpSession httpSession) {
+        String username = this.getUsername(httpSession);
+        this.shoeService.deleteByUsername(id, username);
+
+
+
+        return "redirect:/offers";
     }
 }

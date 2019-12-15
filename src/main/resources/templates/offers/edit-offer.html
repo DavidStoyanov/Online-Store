@@ -13,10 +13,10 @@
 
         <h2>Correct offer</h2>
 
-        <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.view.offer.OfferEditViewModel"*/-->
+        <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.view.offer.OfferDetailsViewModel"*/-->
         <form th:action="@{/offer/edit/{id}(id = *{id})}" th:method="POST" th:object="${offer}" enctype="multipart/form-data">
             <fieldset>
-                <input type="hidden" name="id" th:field="*{id}">
+                <input type="hidden" name="id" th:value="*{id}">
 
                 <section class="input-wrapper">
                     <div class="input-icon">
@@ -81,15 +81,19 @@
                     </th:block>
                 </section>
 
+                <section class="offer-photos">
+                    <div class="" th:each="index : ${#numbers.sequence(1, 5)}">
+                        <input type="file" name="photos"/>
+                    </div>
+                </section>
+
                 <section class="">
                     <!--/*@thymesVar id="photo" type="com.stoyanov.onlineshoestore.app.models.entity.offer.Photo"*/-->
-                    <div class="" th:each="photo, index : *{photos}" th:object="${photo}">
+                    <div class="" th:each="photo : *{photos}">
                         <div>
-                            <p th:text="'Posiiton:' + *{position}"></p>
                             <img th:src="@{'https://res.cloudinary.com/dxvn93xbh/image/upload/' + ${photo.imageUrl} + '.jpg'}"
                                  alt="offer photo" width="300px" height="300px">
                         </div>
-                        <input type="file" name="photos" />
                     </div>
                 </section>
 

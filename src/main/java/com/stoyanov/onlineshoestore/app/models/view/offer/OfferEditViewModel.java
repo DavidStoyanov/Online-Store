@@ -7,10 +7,10 @@ import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -22,7 +22,7 @@ public class OfferEditViewModel {
     private String description;
     private Condition condition;
     private BigDecimal price;
-    private Set<Photo> photos;
+    private List<MultipartFile> photos;
 
     private ShoeType type;
     private List<ShoeSize> sizes;

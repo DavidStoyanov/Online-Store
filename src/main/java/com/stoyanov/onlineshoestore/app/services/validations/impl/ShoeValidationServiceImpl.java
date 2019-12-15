@@ -27,6 +27,17 @@ public class ShoeValidationServiceImpl implements ShoeValidationService {
     public boolean isValid(ShoeEditServiceModel serviceModel, String username) {
         boolean isOwnerOfOffer = this.shoeRepository
                 .existsByIdAndCreatedBy_Username(serviceModel.getId(), username);
-        return true;
+        //todo: validate
+
+        return true && isOwnerOfOffer;
+    }
+
+    @Override
+    public boolean isValid(String offerId, String username) {
+        boolean isOwnerOfOffer = this.shoeRepository
+                .existsByIdAndCreatedBy_Username(offerId, username);
+        //todo: validate
+
+        return true && isOwnerOfOffer;
     }
 }

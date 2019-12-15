@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body>
+<section class="signup" id="register">
+
+    <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.view.offer.OfferDetailsViewModel"*/-->
+    <div th:object="${offer}">
+        <section>
+            <h4>Title:</h4>
+            <h4 th:text="*{title}"></h4>
+        </section>
+
+        <section>
+            <h4>Description:</h4>
+            <h4 th:text="*{description}"></h4>
+        </section>
+
+        <section>
+            <h4>Price:</h4>
+            <h4 th:text="*{price}"></h4>
+        </section>
+
+        <section>
+            <h4>Condition:</h4>
+            <h4 th:text="*{condition}"></h4>
+        </section>
+
+        <section>
+            <h4>Type:</h4>
+            <h4 th:text="*{type}"></h4>
+        </section>
+
+        <section>
+            <h4>Sizes:</h4>
+            <h4 th:text="*{sizes}"></h4>
+        </section>
+
+        <section class="">
+            <!--/*@thymesVar id="photo" type="com.stoyanov.onlineshoestore.app.models.entity.offer.Photo"*/-->
+            <div class="" th:each="photo : *{photos}">
+                <div>
+                    <img th:src="@{'https://res.cloudinary.com/dxvn93xbh/image/upload/' + ${photo.imageUrl} + '.jpg'}"
+                         alt="offer photo" width="300px" height="300px">
+                </div>
+            </div>
+        </section>
+
+    </div>
+</section>
+</body>
+</html>

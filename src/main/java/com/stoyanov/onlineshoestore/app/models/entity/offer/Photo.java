@@ -34,7 +34,7 @@ public class Photo extends BaseEntity {
         this.imageUrl = imageUrl;
     }
 
-    @Column(name = "position", nullable = false)
+    @Column(name = "position", nullable = true)
     public Integer getPosition() {
         return this.position;
     }
@@ -43,7 +43,7 @@ public class Photo extends BaseEntity {
         this.position = position;
     }
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "offer_id", referencedColumnName = "id")
     public BaseOffer getOffer() {
         return this.offer;
