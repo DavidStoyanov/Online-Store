@@ -15,7 +15,7 @@ import com.stoyanov.onlineshoestore.app.repositories.PhotoRepository;
 import com.stoyanov.onlineshoestore.app.repositories.ShoeRepository;
 import com.stoyanov.onlineshoestore.app.repositories.UserRepository;
 import com.stoyanov.onlineshoestore.app.services.CloudService;
-import com.stoyanov.onlineshoestore.app.services.DataService;
+import com.stoyanov.onlineshoestore.app.services.DateService;
 import com.stoyanov.onlineshoestore.app.services.ShoeService;
 import com.stoyanov.onlineshoestore.app.services.validations.ShoeValidationService;
 import org.modelmapper.ModelMapper;
@@ -34,7 +34,7 @@ public class ShoeServiceImpl implements ShoeService {
     private final UserRepository userRepository;
     private final PhotoRepository photoRepository;
 
-    private final DataService dataService;
+    private final DateService dateService;
     private final CloudService cloudService;
     private final ShoeValidationService shoeValidationService;
 
@@ -45,14 +45,14 @@ public class ShoeServiceImpl implements ShoeService {
                            UserRepository userRepository,
                            PhotoRepository photoRepository,
                            ModelMapper mapper,
-                           DataService dataService,
+                           DateService dateService,
                            CloudService cloudService,
                            ShoeValidationService shoeValidationService) {
         this.shoeRepository = shoeRepository;
         this.userRepository = userRepository;
         this.photoRepository = photoRepository;
         this.mapper = mapper;
-        this.dataService = dataService;
+        this.dateService = dateService;
         this.cloudService = cloudService;
         this.shoeValidationService = shoeValidationService;
     }
@@ -72,7 +72,7 @@ public class ShoeServiceImpl implements ShoeService {
 
         Shoe shoe = this.mapper.map(serviceModel, Shoe.class);
         shoe.setCreatedBy(user);
-        shoe.setCreatedOn(this.dataService.getCurrentTime());
+        shoe.setCreatedOn(this.dateService.getCurrentTime());
 
         List<MultipartFile> photos = serviceModel.getPhotos().stream()
                 .filter(file -> !file.isEmpty())

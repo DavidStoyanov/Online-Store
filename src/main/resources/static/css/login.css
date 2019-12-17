@@ -1,0 +1,110 @@
+.signin-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between; }
+  .signin-buttons > input[type="submit"] {
+    flex: 8 1 auto;
+    background-color: var(--theme-1-soft-blue); }
+
+.site-content .container.auth-cnr {
+  max-width: 500px;
+  margin: 0 auto; }
+
+form > fieldset {
+  border: none; }
+
+.input-wrapper {
+  padding-bottom: 1em; }
+
+.input-icon {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-wrap: nowrap;
+  border: 1px solid var(--theme-1-ink);
+  border-radius: 0.3em;
+  background-color: #FFF; }
+  .input-icon input {
+    display: block;
+    padding-right: 1.5em;
+    margin: 0.5em 1em;
+    outline: none;
+    border: none;
+    width: 100%;
+    background-color: #FFF; }
+    .input-icon input:focus::placeholder {
+      opacity: 0.5; }
+  .input-icon i {
+    display: block;
+    padding: 0 0.75em;
+    position: absolute;
+    right: 0; }
+    .input-icon i:focus {
+      color: var(--theme-1-soft-blue); }
+
+.button, button {
+  display: block;
+  padding: 0.5em 1em;
+  outline: none;
+  border: 1.5px solid var(--theme-1-ink);
+  border-radius: 1.5em;
+  cursor: pointer; }
+
+.mobile-hint-header a {
+  color: var(--basic-link-color); }
+
+.signin, .signup {
+  flex-basis: 40%; }
+  @media screen and (max-width: 900px) {
+    .signin, .signup {
+      padding: 3em 0 1em 0; } }
+  @media screen and (min-width: 901px) {
+    .signin .mobile-hint-header, .signup .mobile-hint-header {
+      display: none; } }
+
+.signin .alt-separator {
+  padding: 1.5em 0;
+  text-align: center; }
+.signin .alt-signin {
+  display: flex;
+  justify-content: space-between; }
+  @media screen and (max-width: 600px) {
+    .signin .alt-signin {
+      flex-wrap: wrap; } }
+  .signin .alt-signin > button.alt-btn {
+    flex: 0 1 30%;
+    align-items: center;
+    border-radius: 1em;
+    position: relative; }
+    @media screen and (max-width: 600px) {
+      .signin .alt-signin > button.alt-btn {
+        flex-basis: 100%;
+        margin-bottom: 0.2em; } }
+  .signin .alt-signin > button i {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; }
+    @media screen and (max-width: 600px) {
+      .signin .alt-signin > button i {
+        font-size: 1.2em; } }
+  .signin .alt-signin > button i:before {
+    padding: 0 0.75em; }
+  .signin .alt-signin > button span {
+    margin-left: 1.5em;
+    text-align: left; }
+  .signin .alt-signin #google-signin {
+    order: 2;
+    color: var(--basic-color-google);
+    background-color: var(--bgrd-color-google); }
+  .signin .alt-signin #instagram-signin {
+    order: 3;
+    color: var(--basic-color-insgr);
+    background-image: var(--bgrd-img-insgr); }
+  .signin .alt-signin #facebook-signin {
+    order: 1;
+    color: var(--basic-color-fb);
+    background-color: var(--bgrd-color-fb); }

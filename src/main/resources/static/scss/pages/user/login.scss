@@ -1,0 +1,77 @@
+@import "../../snipets/mixins";
+@import "../../snipets/snipets";
+@import "authorize";
+
+.signin {
+
+  &-buttons {
+    @extend %authorize-main-btns;
+  }
+
+  .alt-separator {
+    padding: 1.5em 0;
+    text-align: center;
+  }
+
+  .alt-signin {
+    display: flex;
+    justify-content: space-between;
+
+    @include bp('phone') {
+      flex-wrap: wrap;
+    }
+
+    & > button.alt-btn {
+      flex: 0 1 30%;
+      align-items: center;
+      border-radius: 1em;
+      position: relative;
+
+      @include bp('phone') {
+        flex-basis: 100%;
+        margin-bottom: 0.2em;
+      }
+    }
+
+    & > button i {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      @include bp('phone') {
+        font-size: 1.2em;
+      }
+    }
+
+    & > button i:before {
+      padding: 0 0.75em;
+    }
+
+    & > button span {
+      margin-left: 1.5em;
+      text-align: left;
+    }
+
+    #google-signin {
+      order: 2;
+      color: var(--basic-color-google);
+      background-color: var(--bgrd-color-google);
+    }
+
+    #instagram-signin {
+      order: 3;
+      color: var(--basic-color-insgr);
+      background-image: var(--bgrd-img-insgr);
+    }
+
+    #facebook-signin {
+      order: 1;
+      color: var(--basic-color-fb);
+      background-color: var(--bgrd-color-fb);
+    }
+  }
+}

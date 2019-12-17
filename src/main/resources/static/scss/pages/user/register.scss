@@ -1,0 +1,10 @@
+@import "../../snipets/mixins";
+@import "../../snipets/snipets";
+@import "authorize";
+
+.signup {
+
+  &-buttons {
+    @extend %authorize-main-btns;
+  }
+}

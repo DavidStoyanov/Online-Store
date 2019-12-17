@@ -1,0 +1,93 @@
+.site-nav {
+    display: flex;
+    flex-direction: row;
+    font-size: 1.2em;
+    
+    @at-root #toggle-main-navigation {
+        @extend %invisible-input;
+    }
+    
+    ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-content: flex-start; //start
+        padding: 0.5em;
+        margin: 0;
+    
+        @include bp('mobile-device') {
+            display: none;
+            padding: 1em 0;
+        
+            @at-root #toggle-main-navigation:checked + .site-nav ul {
+                display: flex;
+                flex-direction: column;
+                align-content: stretch;
+            }
+        }
+        
+        & > li {
+        
+        }
+    }
+
+    ul.auth-nav {
+        @include bp('desktop-device') { margin-left: auto; }
+    }
+    
+    li {
+        display: block;
+        padding: 0 0.75em;
+        overflow: hidden;
+        
+        @include bp('mobile-device') {
+            padding: 0;
+            padding-top: 0.75em;
+        }
+    
+        &:focus a, &:hover a {
+            color: var(--theme-1-ink);
+            background-color: var(--theme-1-aluminium);
+        }
+    }
+    
+    a {
+        display: block;
+        font-weight: bold;
+        position: relative;
+        text-decoration: none;
+        border-radius: var(--basic-border-radius);
+        padding: var(--basic-padding-input);
+        color: var(--theme-1-ink);
+        background-color: var(--theme-1-pool-blue-rgba);
+    }
+    
+    #nav-toggle-btn {
+        display: flex;
+        justify-content: center;
+        font-weight: bold;
+        color: var(--theme-1-ink);
+        background-color: var(--theme-1-pool-blue-rgba);
+    
+        &:focus, &:hover {
+            color: var(--theme-1-ink);
+            background-color: var(--theme-1-aluminium);
+        }
+        
+        &:before {
+            display: inline-block;
+            content: '\f0c9';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            padding-right: 0.5rem;
+        }
+    
+        @at-root #toggle-main-navigation:checked + .site-nav #nav-toggle-btn {
+            &:before { content: '\f00d'; }
+        }
+        
+        @include bp('mobile-device') { display: flex; }
+        @include bp('desktop-device') { display: none; }
+    }
+}

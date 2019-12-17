@@ -3,73 +3,67 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" th:href="@{/css/site.css}">
+    <th:block th:include="~{fragments/head}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/login.css}">
 </head>
-<body>
-<section class="signin" id="login">
-    <header>
-        <h2>Login to your account</h2>
-        <h4 class="mobile-hint-header">
-            <span>If you dont have an account, you can always</span>
-            <a th:href="@{/user/register}">register</a>
-        </h4>
-    </header>
+<body class="page sign-in">
 
-    <!--/*@thymesVar id="loginModel" type="com.stoyanov.onlineshoestore.app.models.view.user.UserLoginViewModel"*/-->
-    <form th:action="@{/user/login}" th:method="POST" th:object="${loginModel}">
-        <fieldset>
-            <section class="input-wrapper">
-                <div class="input-icon">
-                    <input type="text" name="username" th:field="*{username}" placeholder="Username"/>
-                    <i class="fas fa-user"></i>
-                </div>
-            </section>
+<header class="site-header banner">
+    <th:block th:include="~{fragments/site-header}"/>
+</header>
 
-            <section class="input-wrapper">
-                <div class="input-icon">
-                    <input type="password" name="password" th:field="*{password}" placeholder="Password"/>
-                    <i class="fas fa-key"></i>
-                </div>
-            </section>
+<main class="site-content">
 
-            <section th:if="${#fields.hasErrors('password')}">
-                <small th:text="${#fields.errors('password').get(0)}"></small>
-            </section>
+    <div class="container auth-cnr">
+        <section class="signin" id="login">
+            <header>
+                <h2>Login to your account</h2>
+                <h4 class="mobile-hint-header">
+                    <span>If you dont have an account, you can always</span>
+                    <a th:href="@{/user/register}">register</a>
+                </h4>
+            </header>
 
-            <section class="signin-buttons">
-                <input class="button go-back" type="button" value="Go Back">
-                <input class="button" type="submit" value="Login">
-            </section>
-        </fieldset>
-    </form>
+            <!--/*@thymesVar id="loginModel" type="com.stoyanov.onlineshoestore.app.models.view.user.UserLoginViewModel"*/-->
+            <form th:action="@{/user/login}" th:method="POST" th:object="${loginModel}">
+                <fieldset>
+                    <section class="input-wrapper">
+                        <div class="input-icon">
+                            <input type="text" name="username" th:field="*{username}" placeholder="Username"/>
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </section>
 
-    <!--
+                    <section class="input-wrapper">
+                        <div class="input-icon">
+                            <input type="password" name="password" th:field="*{password}" placeholder="Password"/>
+                            <i class="fas fa-key"></i>
+                        </div>
+                    </section>
 
-    <div class="alt-separator">
-        <h3>Or login with</h3>
+                    <section class="error-info" th:if="${#fields.hasErrors('password')}">
+                        <small class="danger" th:text="${#fields.errors('password').get(0)}"></small>
+                    </section>
+
+                    <section class="signin-buttons">
+                        <input class="button" type="submit" value="Login">
+                    </section>
+                </fieldset>
+            </form>
+        </section>
     </div>
 
-    <div class="alt-signin">
-        <button class="alt-btn" id="google-signin">
-            <i class="fab fa-google"></i>
-            <span>Google</span>
-        </button>
+</main>
 
-        <button class="alt-btn" id="instagram-signin">
-            <i class="fab fa-instagram"></i>
-            <span>Instagram</span>
-        </button>
+<footer class="site-footer">
+    <th:block th:include="~{fragments/footer}"/>
+</footer>
 
-        <button class="alt-btn" id="facebook-signin">
-            <i class="fab fa-facebook"></i>
-            <span>Facebook</span>
-        </button>
-    </div>
+<a id="scroll-to-top" href="#head-inner">
+    <span></span>
+</a>
 
-    -->
-</section>
+<th:block th:include="~{fragments/scripts}"/>
+
 </body>
 </html>

@@ -1,0 +1,48 @@
+.btn {
+    display: block;
+    padding: var(--basic-padding-input);
+    border-radius: var(--basic-border-radius);
+    cursor: pointer;
+}
+
+.no-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+#scroll-to-top {
+    display: none;
+    position: fixed;
+    bottom: 7%;
+    right: 5%;
+    overflow: hidden;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: transform 0.1s ease-in-out;
+    padding: 1.5rem;
+    z-index: 100;
+    
+    color: var(--basic-color);
+    background-color: rgba(black, 0.5);
+    
+    &:hover {
+        transform: scale(1.2);
+    }
+    
+    span {
+        position: relative;
+        overflow: hidden;
+        &:after {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            display: block;
+            content: '\f077';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+        }
+    }
+}

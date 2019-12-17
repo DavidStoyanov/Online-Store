@@ -3,59 +3,77 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" th:href="@{/css/site.css}">
+    <th:block th:include="~{fragments/head}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/register.css}">
 </head>
 <body>
-    <section class="signup" id="register">
 
-        <h2>Create an account</h2>
-        <h4 class="mobile-hint-header">
-            <span>Already got an account?</span>
-            <a th:href="@{/user/login}">Log in</a>
-        </h4>
+<header class="site-header banner">
+    <th:block th:include="~{fragments/site-header}"/>
+</header>
 
-        <!--/*@thymesVar id="registerModel" type="com.stoyanov.onlineshoestore.app.models.view.user.UserRegisterViewModel"*/-->
-        <form th:action="@{/user/register}" th:method="POST" th:object="${registerModel}">
-            <fieldset>
-                <section class="input-wrapper">
-                    <div class="input-icon">
-                        <input type="text" name="username" th:field="*{username}" placeholder="Username"/>
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <th:block th:if="${#fields.hasErrors('username')}">
-                        <small th:text="${#fields.errors('username').get(0)}"></small>
-                    </th:block>
-                </section>
+<main class="site-content">
 
-                <section class="input-wrapper">
-                    <div class="input-icon">
-                        <input type="email" name="email" th:field="*{email}" placeholder="Email address"/>
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <th:block th:if="${#fields.hasErrors('email')}">
-                        <small th:text="${#fields.errors('email').get(0)}"></small>
-                    </th:block>
-                </section>
+    <div class="container auth-cnr">
+        <section class="signup" id="register">
+            <h2>Create an account</h2>
+            <h4 class="mobile-hint-header">
+                <span>Already got an account?</span>
+                <a th:href="@{/user/login}">Log in</a>
+            </h4>
 
-                <section class="input-wrapper">
-                    <div class="input-icon">
-                        <input type="password" name="password" th:field="*{password}" placeholder="Chose a password"/>
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <th:block th:if="${#fields.hasErrors('password')}">
-                        <small th:text="${#fields.errors('password').get(0)}"></small>
-                    </th:block>
-                </section>
+            <!--/*@thymesVar id="registerModel" type="com.stoyanov.onlineshoestore.app.models.view.user.UserRegisterViewModel"*/-->
+            <form th:action="@{/user/register}" th:method="POST" th:object="${registerModel}">
+                <fieldset>
+                    <section class="input-wrapper">
+                        <div class="input-icon">
+                            <input type="text" name="username" th:field="*{username}" placeholder="Username"/>
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <th:block class="error-info" th:if="${#fields.hasErrors('username')}">
+                            <small class="danger" th:text="${#fields.errors('username').get(0)}"></small>
+                        </th:block>
+                    </section>
 
-                <section class="signup-buttons">
-                    <input class="button go-back" type="button" value="Go Back">
-                    <input type="submit" class="button" value="Register">
-                </section>
-            </fieldset>
-        </form>
-    </section>
+                    <section class="input-wrapper">
+                        <div class="input-icon">
+                            <input type="email" name="email" th:field="*{email}" placeholder="Email address"/>
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <th:block class="error-info" th:if="${#fields.hasErrors('email')}">
+                            <small class="danger" th:text="${#fields.errors('email').get(0)}"></small>
+                        </th:block>
+                    </section>
+
+                    <section class="input-wrapper">
+                        <div class="input-icon">
+                            <input type="password" name="password" th:field="*{password}" placeholder="Chose a password"/>
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <th:block class="error-info" th:if="${#fields.hasErrors('password')}">
+                            <small class="danger" th:text="${#fields.errors('password').get(0)}"></small>
+                        </th:block>
+                    </section>
+
+                    <section class="signup-buttons">
+                        <input type="submit" class="button" value="Register">
+                    </section>
+                </fieldset>
+            </form>
+        </section>
+    </div>
+
+</main>
+
+<footer class="site-footer">
+    <th:block th:include="~{fragments/footer}"/>
+</footer>
+
+<a id="scroll-to-top" href="#head-inner">
+    <span></span>
+</a>
+
+<th:block th:include="~{fragments/scripts}"/>
+
 </body>
 </html>

@@ -1,0 +1,40 @@
+<th:block>
+    <input type="checkbox" id="toggle-main-navigation">
+
+    <nav class="site-nav" id="navigation">
+        <label class="btn no-select" id="nav-toggle-btn" for="toggle-main-navigation">
+            <span>Menu</span>
+        </label>
+
+        <ul>
+            <li>
+                <a th:href="@{/offers}">
+                    <span class="title">Offers</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/contacts}">
+                    <span class="title">Contacts</span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="auth-nav">
+            <li>
+                <a th:href="@{/user/login}">
+                    <span class="title">Login</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/user/register}">
+                    <span class="title">Register</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/user/logout}">
+                    <span class="title">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</th:block>

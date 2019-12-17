@@ -1,0 +1,17 @@
+.site-footer {
+    position: relative;
+    padding: 0.5em;
+    color: var(--basic-color);
+    background-color: var(--footer-bgrd-color);
+    
+    p.con-state {
+        font-size: 0.7em;
+        font-weight: 700;
+        font-style: italic;
+        font-family: Verdana, sans-serif;
+        letter-spacing: 0.1em;
+        text-align: center;
+        opacity: 0.6;
+        color: var(--basic-color);
+    }
+}

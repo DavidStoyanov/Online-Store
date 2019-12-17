@@ -89,7 +89,7 @@ public class UserController extends BaseController {
         try {
             UserSessionModel userModel = this.userService.login(serviceModel);
             this.renewAuthentication(httpSession, userModel);
-            mav.setViewName("redirect:/home");
+            mav.setViewName("redirect:/");
         } catch (BadLoginArgsException exception) {
             bindingResult.rejectValue("password", "error.loginModel", exception.getMessage());
             mav.setViewName("user/login.html");

@@ -58,7 +58,7 @@ public class OfferController extends BaseController {
         String username = this.getUsername(httpSession);
         this.shoeService.createByUser(serviceModel, username);
 
-        mav.setViewName("redirect:/home");
+        mav.setViewName("redirect:/");
         return mav;
     }
 
@@ -112,8 +112,6 @@ public class OfferController extends BaseController {
     public String deleteConfirm(@PathVariable String id, HttpSession httpSession) {
         String username = this.getUsername(httpSession);
         this.shoeService.deleteByUsername(id, username);
-
-
 
         return "redirect:/offers";
     }

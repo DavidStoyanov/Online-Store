@@ -9,8 +9,10 @@
     <link type="text/css" rel="stylesheet" th:href="@{/css/site.css}">
 </head>
 <body>
+
     <div>
         <h2 th:if="${session.user != null}" th:text="${session.user.username}"></h2>
     </div>
+
 </body>
 </html>

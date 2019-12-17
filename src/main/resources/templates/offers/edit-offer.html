@@ -3,16 +3,19 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" th:href="@{/css/site.css}">
+    <th:block th:include="~{fragments/head}"/>
+    <script th:src="@{/js/offer-form-photo.js}"></script>
 </head>
 <body>
-    <section class="signup" id="register">
 
+<header class="site-header banner">
+    <th:block th:include="~{fragments/site-header}"/>
+</header>
+
+<main class="site-content">
+
+    <div class="container offer offer-edit">
         <h2>Correct offer</h2>
-
         <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.view.offer.OfferDetailsViewModel"*/-->
         <form th:action="@{/offer/edit/{id}(id = *{id})}" th:method="POST" th:object="${offer}" enctype="multipart/form-data">
             <fieldset>
@@ -102,6 +105,15 @@
                 </section>
             </fieldset>
         </form>
-    </section>
+    </div>
+
+</main>
+
+<footer class="site-footer">
+    <th:block th:include="~{fragments/footer}"/>
+</footer>
+
+<th:block th:include="~{fragments/scripts}"/>
+
 </body>
 </html>

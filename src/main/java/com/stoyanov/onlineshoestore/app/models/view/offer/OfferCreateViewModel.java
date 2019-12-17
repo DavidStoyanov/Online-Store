@@ -1,10 +1,8 @@
 package com.stoyanov.onlineshoestore.app.models.view.offer;
 
 import com.stoyanov.onlineshoestore.app.enums.Condition;
-import com.stoyanov.onlineshoestore.app.models.entity.offer.Photo;
 import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeSize;
 import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeType;
-import com.stoyanov.onlineshoestore.app.models.view.photo.PhotoModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
