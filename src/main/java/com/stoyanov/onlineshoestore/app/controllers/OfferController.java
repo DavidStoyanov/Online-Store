@@ -26,13 +26,11 @@ public class OfferController extends BaseController {
 
     private final ModelMapper mapper;
 
-
     @Autowired
     public OfferController(ShoeService shoeService, ModelMapper modelMapper) {
         this.shoeService = shoeService;
         this.mapper = modelMapper;
     }
-
 
     @ModelAttribute("createModel")
     public OfferCreateViewModel createModel() {
@@ -55,8 +53,9 @@ public class OfferController extends BaseController {
 
         ShoeCreateServiceModel serviceModel = this.mapper.map(viewModel, ShoeCreateServiceModel.class);
 
-        String username = this.getUsername(httpSession);
-        this.shoeService.createByUser(serviceModel, username);
+        //TODO: refactor
+        // String username = this.getUsername(httpSession);
+        this.shoeService.createByUser(serviceModel, "refactor");
 
         mav.setViewName("redirect:/");
         return mav;
@@ -91,8 +90,9 @@ public class OfferController extends BaseController {
 
         ShoeEditServiceModel serviceModel = this.mapper.map(viewModel, ShoeEditServiceModel.class);
 
-        String username = this.getUsername(httpSession);
-        this.shoeService.editByUser(serviceModel, username);
+        //TODO: refactor
+        // String username = this.getUsername(httpSession);
+        this.shoeService.editByUser(serviceModel, "refactor");
 
         mav.setViewName("redirect:/offers");
         return mav;
@@ -110,8 +110,9 @@ public class OfferController extends BaseController {
 
     @PostMapping("/delete/{id}")
     public String deleteConfirm(@PathVariable String id, HttpSession httpSession) {
-        String username = this.getUsername(httpSession);
-        this.shoeService.deleteByUsername(id, username);
+        //TODO: refactor
+        // String username = this.getUsername(httpSession);
+        this.shoeService.deleteByUsername(id, "refactor");
 
         return "redirect:/offers";
     }

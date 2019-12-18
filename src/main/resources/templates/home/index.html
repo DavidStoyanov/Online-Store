@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:include="~{fragments/head}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/css/register.css}">
@@ -15,8 +16,11 @@
 <main class="site-content">
     <div class="container">
 
-        <div>
-            <h2 th:if="${session.user != null}" th:text="${session.user.username}"></h2>
+        <div sec:authorize="hasAuthority('USER')">
+            hasAuthority('USER')
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            Text visible only to authenticated users.
         </div>
 
     </div>

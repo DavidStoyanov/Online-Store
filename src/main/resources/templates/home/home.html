@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" th:href="@{/css/site.css}">
+    <th:block th:include="~{fragments/head}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/register.css}">
 </head>
 <body>
 
-    <div>
-        <h2 th:if="${session.user != null}" th:text="${session.user.username}"></h2>
+<header class="site-header banner">
+    <th:block th:include="~{fragments/site-header}"/>
+</header>
+
+<main class="site-content">
+    <div class="container">
+
+        <div sec:authorize="hasAuthority('USER')">
+            hasAuthority('USER')
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            Text visible only to authenticated users.
+        </div>
+
     </div>
+</main>
+
+<footer class="site-footer">
+    <th:block th:include="~{fragments/footer}"/>
+</footer>
+
+<a id="scroll-to-top" href="#head-inner">
+    <span></span>
+</a>
+
+<th:block th:include="~{fragments/scripts}"/>
 
 </body>
 </html>

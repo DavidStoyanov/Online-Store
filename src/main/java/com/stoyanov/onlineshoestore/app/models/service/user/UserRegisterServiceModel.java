@@ -12,8 +12,4 @@ public class UserRegisterServiceModel {
     private String username;
     private String password;
     private String email;
-
-    public void trimUsername() {
-        this.username = this.username.trim();
-    }
 }

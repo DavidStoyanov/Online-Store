@@ -24,25 +24,24 @@
                 </h4>
             </header>
 
-            <!--/*@thymesVar id="loginModel" type="com.stoyanov.onlineshoestore.app.models.view.user.UserLoginViewModel"*/-->
-            <form th:action="@{/user/login}" th:method="POST" th:object="${loginModel}">
+            <form th:action="@{/user/login}" th:method="POST">
                 <fieldset>
                     <section class="input-wrapper">
                         <div class="input-icon">
-                            <input type="text" name="username" th:field="*{username}" placeholder="Username"/>
+                            <input type="text" name="username" placeholder="Username"/>
                             <i class="fas fa-user"></i>
                         </div>
                     </section>
 
                     <section class="input-wrapper">
                         <div class="input-icon">
-                            <input type="password" name="password" th:field="*{password}" placeholder="Password"/>
+                            <input type="password" name="password" placeholder="Password"/>
                             <i class="fas fa-key"></i>
                         </div>
                     </section>
 
-                    <section class="error-info" th:if="${#fields.hasErrors('password')}">
-                        <small class="danger" th:text="${#fields.errors('password').get(0)}"></small>
+                    <section class="error-info" th:if="${error != null}">
+                        <small class="danger" th:text="${error}"></small>
                     </section>
 
                     <section class="signin-buttons">

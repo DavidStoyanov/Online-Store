@@ -20,6 +20,7 @@ import com.stoyanov.onlineshoestore.app.services.ShoeService;
 import com.stoyanov.onlineshoestore.app.services.validations.ShoeValidationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -67,7 +68,6 @@ public class ShoeServiceImpl implements ShoeService {
         if (optionalUser.isEmpty()) {
             throw new UserNotFoundException();
         }
-
         User user = optionalUser.get();
 
         Shoe shoe = this.mapper.map(serviceModel, Shoe.class);

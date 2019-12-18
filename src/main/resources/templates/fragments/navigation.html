@@ -6,6 +6,14 @@
             <span>Menu</span>
         </label>
 
+        <ul sec:authorize="hasAuthority('MODERATOR')">
+            <li>
+                <a th:href="@{/offer/create}">
+                    <span class="title">Add Offer</span>
+                </a>
+            </li>
+        </ul>
+
         <ul>
             <li>
                 <a th:href="@{/offers}">
@@ -20,21 +28,27 @@
         </ul>
 
         <ul class="auth-nav">
-            <li>
-                <a th:href="@{/user/login}">
-                    <span class="title">Login</span>
-                </a>
-            </li>
-            <li>
-                <a th:href="@{/user/register}">
-                    <span class="title">Register</span>
-                </a>
-            </li>
-            <li>
-                <a th:href="@{/user/logout}">
-                    <span class="title">Logout</span>
-                </a>
-            </li>
+            <th:block sec:authorize="!isAuthenticated()">
+                <li>
+                    <a th:href="@{/user/login}">
+                        <span class="title">Login</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/user/register}">
+                        <span class="title">Register</span>
+                    </a>
+                </li>
+            </th:block>
+            <th:block sec:authorize="isAuthenticated()">
+                <li>
+                    <form id="logoutForm" th:action="@{/user/logout?login}" th:method="POST">
+                        <a th:href="@{/user/logout}">
+                            <span class="title">Logout</span>
+                        </a>
+                    </form>
+                </li>
+            </th:block>
         </ul>
     </nav>
 </th:block>
