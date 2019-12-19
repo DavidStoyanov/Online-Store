@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/offers.css}">
+    <script type="text/javascript" src="/js/offers.js"></script>
+</head>
+<body class="page offers">
+
+<header class="site-header banner">
+    <th:block th:include="~{fragments/site-header}"/>
+</header>
+
+<main class="site-content">
+    <div class="container offers-cnr">
+        <p class="danger" th:text="${offerExpiredError}"></p>
+
+        <section class="offers">
+            <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.view.offer.OfferDetailsViewModel"*/-->
+            <div class="offer-cnr" th:each="offer : ${offers}" th:object="${offer}" th:data-offer-id="*{id}">
+                <section class="offer-img-wrapper">
+                    <th:block>
+                        <img th:if="*{!photos.isEmpty()}" alt="" th:src="'https://res.cloudinary.com/dxvn93xbh/image/upload/' + *{photos.get(0).imageUrl} + '.jpg'">
+                        <img src="" alt="">
+                    </th:block>
+                    <div class="offer-views">
+                        <i class="fas fa-eye"></i>
+                        <span class="offer-views-count">0</span>
+                    </div>
+                    <div class="offer-price">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span class="offer-price-amount" th:text="*{price}"></span>
+                    </div>
+                </section>
+                <section class="offer-title">
+                    <p th:text="*{title}"></p>
+                </section>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<footer class="site-footer">
+    <th:block th:include="~{fragments/footer}"/>
+</footer>
+
+<a id="scroll-to-top" href="#head-inner">
+    <span></span>
+</a>
+
+<th:block th:include="~{fragments/scripts}"/>
+
+</body>
+</html>

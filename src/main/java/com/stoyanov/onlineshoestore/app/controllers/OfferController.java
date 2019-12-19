@@ -1,6 +1,7 @@
 package com.stoyanov.onlineshoestore.app.controllers;
 
 import com.stoyanov.onlineshoestore.app.controllers.base.BaseController;
+import com.stoyanov.onlineshoestore.app.errors.offer.OfferNotFoundException;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeCreateServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeDetailsServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeEditServiceModel;
@@ -10,6 +11,8 @@ import com.stoyanov.onlineshoestore.app.models.view.offer.OfferEditViewModel;
 import com.stoyanov.onlineshoestore.app.services.ShoeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/offer")
@@ -45,7 +49,6 @@ public class OfferController extends BaseController {
     @PostMapping("/create")
     public ModelAndView createConfirm(@Valid @ModelAttribute("createModel") OfferCreateViewModel viewModel,
                                       BindingResult bindingResult,
-                                      HttpSession httpSession,
                                       ModelAndView mav) {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("offers/create-offer.html");
@@ -53,11 +56,9 @@ public class OfferController extends BaseController {
 
         ShoeCreateServiceModel serviceModel = this.mapper.map(viewModel, ShoeCreateServiceModel.class);
 
-        //TODO: refactor
-        // String username = this.getUsername(httpSession);
-        this.shoeService.createByUser(serviceModel, "refactor");
+        this.shoeService.create(serviceModel);
 
-        mav.setViewName("redirect:/");
+        mav.setViewName("redirect:/offers");
         return mav;
     }
 
@@ -82,7 +83,6 @@ public class OfferController extends BaseController {
     public ModelAndView editConfirm(@Valid @ModelAttribute("editModel") OfferEditViewModel viewModel,
                                     @PathVariable String id,
                                     BindingResult bindingResult,
-                                    HttpSession httpSession,
                                     ModelAndView mav) {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("offers/edit-offer.html");
@@ -90,9 +90,7 @@ public class OfferController extends BaseController {
 
         ShoeEditServiceModel serviceModel = this.mapper.map(viewModel, ShoeEditServiceModel.class);
 
-        //TODO: refactor
-        // String username = this.getUsername(httpSession);
-        this.shoeService.editByUser(serviceModel, "refactor");
+        this.shoeService.edit(serviceModel);
 
         mav.setViewName("redirect:/offers");
         return mav;
@@ -109,11 +107,16 @@ public class OfferController extends BaseController {
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteConfirm(@PathVariable String id, HttpSession httpSession) {
-        //TODO: refactor
-        // String username = this.getUsername(httpSession);
-        this.shoeService.deleteByUsername(id, "refactor");
+    public String deleteConfirm(@PathVariable String id) {
+        this.shoeService.delete(id);
 
         return "redirect:/offers";
+    }
+
+    @ExceptionHandler(OfferNotFoundException.class)
+    public ModelAndView offerNotFound(OfferNotFoundException exception) {
+        ModelAndView mav = new ModelAndView("offers/offers.html");
+        mav.addObject("offerExpiredError", exception.getMessage());
+        return mav;
     }
 }

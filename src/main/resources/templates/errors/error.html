@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/register.css}">
+</head>
+<body>
+
+<header class="site-header banner">
+    <th:block th:include="~{fragments/site-header}"/>
+</header>
+
+<main class="site-content">
+    <div class="container">
+
+        <h4>Sorry, the resource you are searching for does not exist.</h4>
+        <p>Return to <a th:href="@{/templates/home}">Home</a></p>
+
+    </div>
+</main>
+
+<footer class="site-footer">
+    <th:block th:include="~{fragments/footer}"/>
+</footer>
+
+<a id="scroll-to-top" href="#head-inner">
+    <span></span>
+</a>
+
+<th:block th:include="~{fragments/scripts}"/>
+
+</body>
+</html>

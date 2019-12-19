@@ -1,8 +1,6 @@
 package com.stoyanov.onlineshoestore.app.services.impl;
 
 import com.stoyanov.onlineshoestore.app.errors.offer.OfferCreateException;
-import com.stoyanov.onlineshoestore.app.errors.offer.OfferDeleteException;
-import com.stoyanov.onlineshoestore.app.errors.offer.OfferEditException;
 import com.stoyanov.onlineshoestore.app.errors.offer.OfferNotFoundException;
 import com.stoyanov.onlineshoestore.app.errors.user.UserNotFoundException;
 import com.stoyanov.onlineshoestore.app.models.entity.offer.Photo;
@@ -20,10 +18,14 @@ import com.stoyanov.onlineshoestore.app.services.ShoeService;
 import com.stoyanov.onlineshoestore.app.services.validations.ShoeValidationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,6 +42,7 @@ public class ShoeServiceImpl implements ShoeService {
     private final ShoeValidationService shoeValidationService;
 
     private final ModelMapper mapper;
+
 
     @Autowired
     public ShoeServiceImpl(ShoeRepository shoeRepository,
@@ -59,16 +62,13 @@ public class ShoeServiceImpl implements ShoeService {
     }
 
     @Override
-    public void createByUser(ShoeCreateServiceModel serviceModel, String username) {
+    public void create(ShoeCreateServiceModel serviceModel) {
         if (!this.shoeValidationService.isValid(serviceModel)) {
             throw new OfferCreateException();
         }
 
-        Optional<User> optionalUser = this.userRepository.findByUsername(username);
-        if (optionalUser.isEmpty()) {
-            throw new UserNotFoundException();
-        }
-        User user = optionalUser.get();
+        User user = this.userRepository.findByUsername(getCurrentAuthUsername())
+                .orElseThrow(UserNotFoundException::new);
 
         Shoe shoe = this.mapper.map(serviceModel, Shoe.class);
         shoe.setCreatedBy(user);
@@ -79,20 +79,18 @@ public class ShoeServiceImpl implements ShoeService {
                 .collect(Collectors.toList());
         if (!photos.isEmpty()) {
             shoe.setPhotos(this.uploadPhotos(photos, shoe));
+        } else {
+            shoe.setPhotos(Collections.emptyList());
         }
 
         this.shoeRepository.save(shoe);
     }
 
     @Override
-    public void editByUser(ShoeEditServiceModel serviceModel, String username) {
+    public void edit(ShoeEditServiceModel serviceModel) {
         Optional<Shoe> optionalShoe = this.shoeRepository.findById(serviceModel.getId());
         if (optionalShoe.isEmpty()) {
             throw new OfferNotFoundException();
-        }
-
-        if (!this.shoeValidationService.isValid(serviceModel, username)) {
-            throw new OfferEditException();
         }
 
         Shoe shoe = optionalShoe.get();
@@ -116,13 +114,10 @@ public class ShoeServiceImpl implements ShoeService {
     }
 
     @Override
-    public void deleteByUsername(String offerId, String username) {
+    public void delete(String offerId) {
         Optional<Shoe> optionalShoe = this.shoeRepository.findById(offerId);
         if (optionalShoe.isEmpty()) {
             throw new OfferNotFoundException();
-        }
-        if (!this.shoeValidationService.isValid(offerId, username)) {
-            throw new OfferDeleteException();
         }
 
         Shoe shoe = optionalShoe.get();
@@ -142,6 +137,13 @@ public class ShoeServiceImpl implements ShoeService {
         return this.mapper.map(shoe, ShoeDetailsServiceModel.class);
     }
 
+    @Override
+    public List<ShoeDetailsServiceModel> getAll() {
+        return this.shoeRepository.findAll().stream()
+                .map(shoe -> this.mapper.map(shoe, ShoeDetailsServiceModel.class))
+                .collect(Collectors.toList());
+    }
+
     private void destroyPhotos(Shoe shoe) {
         shoe.getPhotos().forEach(photo -> this.cloudService.destroy(photo.getImageUrl()));
     }
@@ -158,5 +160,14 @@ public class ShoeServiceImpl implements ShoeService {
                     return photo;
                 })
                 .collect(Collectors.toList());
+    }
+
+
+    private String getCurrentAuthUsername() {
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        return authentication.getName();
     }
 }

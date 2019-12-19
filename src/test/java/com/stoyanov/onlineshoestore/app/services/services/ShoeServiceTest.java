@@ -12,6 +12,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 class ShoeServiceTest extends ServiceTestBase {
@@ -23,14 +26,14 @@ class ShoeServiceTest extends ServiceTestBase {
     ShoeService service;
 
     @Test
-    void deleteByUsername_whenShoeDoesNotExist_shouldThrowOfferNotFoundException() {
+    void delete_whenShoeDoesNotExist_shouldThrowOfferNotFoundException() {
         String shoeId = "shoe-id";
 
         Mockito.when(shoeRepository.findById(shoeId))
                 .thenReturn(Optional.empty());
 
         Assertions.assertThrows(OfferNotFoundException.class,
-                () -> service.deleteByUsername(shoeId, "username"));
+                () -> service.delete(shoeId));
     }
 
     @Test
@@ -57,5 +60,32 @@ class ShoeServiceTest extends ServiceTestBase {
 
         Assertions.assertThrows(OfferNotFoundException.class,
                 () -> service.getOneById(shoeId));
+    }
+
+    @Test
+    void getAll_whenTheRepositoryIsEmpty_shouldReturnEmptyList() {
+        Mockito.when(shoeRepository.findAll())
+                .thenReturn(Collections.emptyList());
+
+        Assertions.assertEquals(0, service.getAll().size());
+    }
+
+    @Test
+    void getAll_whenTheRepositoryIsNotEmpty_shouldReturnListOfShoes() {
+        Shoe shoe1 = new Shoe();
+        shoe1.setId("shoe-1");
+        Shoe shoe2 = new Shoe();
+        shoe2.setId("shoe-2");
+
+        ArrayList<Shoe> list = new ArrayList<>(
+                List.of(shoe1, shoe2)
+        );
+
+        Mockito.when(shoeRepository.findAll())
+                .thenReturn(list);
+
+        Assertions.assertEquals(2, service.getAll().size());
+        Assertions.assertEquals("shoe-1", service.getAll().get(0).getId());
+        Assertions.assertEquals("shoe-2", service.getAll().get(1).getId());
     }
 }
