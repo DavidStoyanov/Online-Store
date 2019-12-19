@@ -113,10 +113,15 @@ public class OfferController extends BaseController {
         return "redirect:/offers";
     }
 
-    @ExceptionHandler(OfferNotFoundException.class)
-    public ModelAndView offerNotFound(OfferNotFoundException exception) {
+    @ExceptionHandler({OfferNotFoundException.class, Exception.class})
+    public ModelAndView offerNotFound(Exception exception) {
         ModelAndView mav = new ModelAndView("offers/offers.html");
-        mav.addObject("offerExpiredError", exception.getMessage());
+        if (exception instanceof OfferNotFoundException) {
+            mav.addObject("offerExpiredError", exception.getMessage());
+        } else {
+            mav.addObject("offerExpiredError", "Something wrong happened, we will fix it as soon as possible");
+        }
+
         return mav;
     }
 }

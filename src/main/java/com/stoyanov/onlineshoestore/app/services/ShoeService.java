@@ -1,5 +1,7 @@
 package com.stoyanov.onlineshoestore.app.services;
 
+import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeSize;
+import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeType;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeCreateServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeDetailsServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeEditServiceModel;
@@ -17,6 +19,10 @@ public interface ShoeService {
 
     @PreAuthorize("hasAnyAuthority('MODERATOR', 'ROOT')")
     void delete(String offerId);
+
+    List<ShoeSize> getShoeSizes();
+
+    List<ShoeType> getShoeTypes();
 
     ShoeDetailsServiceModel getOneById(String id);
 

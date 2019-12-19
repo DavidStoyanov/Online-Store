@@ -4,6 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{fragments/head}"/>
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
     <script th:src="@{/js/offer-form-photo.js}"></script>
 </head>
 <body>
@@ -30,9 +31,7 @@
                 </section>
 
                 <section class="">
-                    <select name="type" th:field="*{type}">
-                        <option value="SNEAKERS">Sneakers</option>
-                        <option value="BOOTS">Boots</option>
+                    <select id="shoeTypes" name="type" th:field="*{type}">
                     </select>
                     <th:block th:if="${#fields.hasErrors('type')}">
                         <small th:text="${#fields.errors('type').get(0)}"></small>
@@ -72,10 +71,7 @@
                 </section>
 
                 <section class="">
-                    <select name="sizes" multiple th:field="*{sizes}">
-                        <option value="FOURTY">40</option>
-                        <option value="FOURTY_ONE">41</option>
-                        <option value="FOURTY_TWO">42</option>
+                    <select id="shoeSizes" name="sizes" multiple th:field="*{sizes}">
                     </select>
                     <th:block th:if="${#fields.hasErrors('sizes')}">
                         <small th:text="${#fields.errors('sizes').get(0)}"></small>

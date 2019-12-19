@@ -16,12 +16,7 @@
 <main class="site-content">
     <div class="container">
 
-        <div sec:authorize="hasAuthority('USER')">
-            hasAuthority('USER')
-        </div>
-        <div sec:authorize="isAuthenticated()">
-            Text visible only to authenticated users.
-        </div>
+    <h2>Welcome, [[${username}]]!</h2>
 
     </div>
 </main>

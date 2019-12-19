@@ -1,0 +1,49 @@
+.contacts .our-place .iframe-wrapper, .contacts .call-us form input, .contacts .call-us form textarea, .contacts .call-us form .field.submit button {
+  padding: 0.5em;
+  outline: none;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #DDD;
+  border-top-color: #999;
+  border-left-color: #999;
+  border-radius: var(--basic-border-radius);
+  background-color: var(--basic-color); }
+  .contacts .our-place .iframe-wrapper:focus, .contacts .call-us form input:focus, .contacts .call-us form textarea:focus, .contacts .call-us form .field.submit button:focus, .contacts .our-place .iframe-wrapper:hover, .contacts .call-us form input:hover, .contacts .call-us form textarea:hover, .contacts .call-us form .field.submit button:hover {
+    border-color: var(--theme-1-pool-blue-rgba);
+    border-top-color: var(--theme-1-soft-blue);
+    border-left-color: var(--theme-1-soft-blue); }
+
+.contacts {
+  display: flex;
+  flex-wrap: wrap; }
+  .contacts > section {
+    margin-bottom: 2em; }
+  .contacts textarea[name="message"] {
+    resize: none; }
+  .contacts .info, .contacts .our-place, .contacts .call-us {
+    flex-basis: 100%; }
+  .contacts .info p {
+    display: block;
+    margin-bottom: 0.5em; }
+  .contacts .our-place .iframe-wrapper iframe {
+    display: block;
+    width: 100%; }
+  .contacts .call-us form {
+    display: flex;
+    flex-wrap: wrap; }
+    .contacts .call-us form input, .contacts .call-us form textarea {
+      width: 100%; }
+    .contacts .call-us form .field {
+      flex-basis: 100%;
+      margin-bottom: 1em; }
+      .contacts .call-us form .field label {
+        display: block;
+        padding: 0.5em 0.25em; }
+    .contacts .call-us form .field.submit button {
+      width: 25%;
+      font-weight: bold;
+      padding: var(--basic-padding-input);
+      background-image: linear-gradient(to right bottom, var(--theme-1-pool-blue-rgba), var(--theme-1-soft-blue)); }
+      @media screen and (max-width: 600px) {
+        .contacts .call-us form .field.submit button {
+          width: 100%; } }

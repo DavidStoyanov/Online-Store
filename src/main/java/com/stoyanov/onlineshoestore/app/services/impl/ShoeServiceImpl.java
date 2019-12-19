@@ -1,10 +1,13 @@
 package com.stoyanov.onlineshoestore.app.services.impl;
 
+import com.stoyanov.onlineshoestore.app.controllers.rest.OfferRestController;
 import com.stoyanov.onlineshoestore.app.errors.offer.OfferCreateException;
 import com.stoyanov.onlineshoestore.app.errors.offer.OfferNotFoundException;
 import com.stoyanov.onlineshoestore.app.errors.user.UserNotFoundException;
 import com.stoyanov.onlineshoestore.app.models.entity.offer.Photo;
 import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.Shoe;
+import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeSize;
+import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeType;
 import com.stoyanov.onlineshoestore.app.models.entity.user.User;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeCreateServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeDetailsServiceModel;
@@ -20,10 +23,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
 import java.util.List;
@@ -127,6 +128,16 @@ public class ShoeServiceImpl implements ShoeService {
     }
 
     @Override
+    public List<ShoeSize> getShoeSizes() {
+        return List.of(ShoeSize.values());
+    }
+
+    @Override
+    public List<ShoeType> getShoeTypes() {
+        return List.of(ShoeType.values());
+    }
+
+    @Override
     public ShoeDetailsServiceModel getOneById(String id) {
         Optional<Shoe> optionalShoe = this.shoeRepository.findById(id);
         if (optionalShoe.isEmpty()) {
@@ -143,6 +154,8 @@ public class ShoeServiceImpl implements ShoeService {
                 .map(shoe -> this.mapper.map(shoe, ShoeDetailsServiceModel.class))
                 .collect(Collectors.toList());
     }
+
+
 
     private void destroyPhotos(Shoe shoe) {
         shoe.getPhotos().forEach(photo -> this.cloudService.destroy(photo.getImageUrl()));

@@ -1,0 +1,71 @@
+@import "../../snipets/mixins";
+@import "../../snipets/snipets";
+
+.contacts {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > section {
+    margin-bottom: 2em;
+  }
+
+  textarea[name="message"] {
+    resize: none;
+  }
+
+  .info, .our-place, .call-us { flex-basis: 100%; }
+
+  .info {
+
+    p {
+      display: block;
+      margin-bottom: 0.5em;
+    }
+  }
+
+  .our-place {
+
+    .iframe-wrapper {
+      @extend %fancy-colorize;
+
+      iframe {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+
+  .call-us {
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+
+      input, textarea {
+        width: 100%;
+        @extend %fancy-colorize;
+      }
+
+      .field {
+        flex-basis: 100%;
+        margin-bottom: 1em;
+
+        label {
+          display: block;
+          padding: 0.5em 0.25em;
+        }
+      }
+
+      .field.submit button {
+        @extend %fancy-colorize;
+        width: 25%;
+        font-weight: bold;
+        padding: var(--basic-padding-input);
+        background-image: linear-gradient(to right bottom, var(--theme-1-pool-blue-rgba), var(--theme-1-soft-blue));
+
+        @include bp('phone') { width: 100% }
+      }
+    }
+  }
+
+}
