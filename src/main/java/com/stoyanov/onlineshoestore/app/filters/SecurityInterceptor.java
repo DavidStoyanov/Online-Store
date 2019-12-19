@@ -4,23 +4,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@Component
+//@Component
 public class SecurityInterceptor implements Filter {
 
     @Override
@@ -32,6 +23,7 @@ public class SecurityInterceptor implements Filter {
                 .getContext()
                 .getAuthentication();
 
+        //todo cast exception fix
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         long count = userDetails.getAuthorities().stream()
                 .filter(x -> x.getAuthority().equals("ROLE_ANONYMOUS"))
