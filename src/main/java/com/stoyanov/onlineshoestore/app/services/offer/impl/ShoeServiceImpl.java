@@ -1,6 +1,5 @@
-package com.stoyanov.onlineshoestore.app.services.impl;
+package com.stoyanov.onlineshoestore.app.services.offer.impl;
 
-import com.stoyanov.onlineshoestore.app.controllers.rest.OfferRestController;
 import com.stoyanov.onlineshoestore.app.errors.offer.OfferCreateException;
 import com.stoyanov.onlineshoestore.app.errors.offer.OfferNotFoundException;
 import com.stoyanov.onlineshoestore.app.errors.user.UserNotFoundException;
@@ -17,14 +16,14 @@ import com.stoyanov.onlineshoestore.app.repositories.ShoeRepository;
 import com.stoyanov.onlineshoestore.app.repositories.UserRepository;
 import com.stoyanov.onlineshoestore.app.services.CloudService;
 import com.stoyanov.onlineshoestore.app.services.DateService;
-import com.stoyanov.onlineshoestore.app.services.ShoeService;
+import com.stoyanov.onlineshoestore.app.services.offer.ShoeService;
 import com.stoyanov.onlineshoestore.app.services.validations.ShoeValidationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.security.core.Authentication;
 
 import java.util.Collections;
 import java.util.List;

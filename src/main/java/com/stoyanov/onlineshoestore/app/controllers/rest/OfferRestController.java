@@ -1,6 +1,6 @@
 package com.stoyanov.onlineshoestore.app.controllers.rest;
 
-import com.stoyanov.onlineshoestore.app.services.ShoeService;
+import com.stoyanov.onlineshoestore.app.services.offer.ShoeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

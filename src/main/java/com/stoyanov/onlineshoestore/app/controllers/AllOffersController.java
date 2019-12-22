@@ -1,7 +1,7 @@
 package com.stoyanov.onlineshoestore.app.controllers;
 
 import com.stoyanov.onlineshoestore.app.models.view.offer.OfferDetailsViewModel;
-import com.stoyanov.onlineshoestore.app.services.ShoeService;
+import com.stoyanov.onlineshoestore.app.services.offer.ShoeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
