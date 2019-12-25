@@ -2,7 +2,7 @@ package com.stoyanov.onlineshoestore.app.controllers;
 
 import com.stoyanov.onlineshoestore.app.models.service.contact.SendEmailServiceModel;
 import com.stoyanov.onlineshoestore.app.models.view.contact.SendEmailViewModel;
-import com.stoyanov.onlineshoestore.app.services.ContactService;
+import com.stoyanov.onlineshoestore.app.services.services.ContactService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

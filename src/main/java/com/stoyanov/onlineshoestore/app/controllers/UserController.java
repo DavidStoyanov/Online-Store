@@ -3,7 +3,7 @@ package com.stoyanov.onlineshoestore.app.controllers;
 import com.stoyanov.onlineshoestore.app.errors.user.UserAlreadyExist;
 import com.stoyanov.onlineshoestore.app.models.service.user.UserRegisterServiceModel;
 import com.stoyanov.onlineshoestore.app.models.view.user.UserRegisterViewModel;
-import com.stoyanov.onlineshoestore.app.services.UserService;
+import com.stoyanov.onlineshoestore.app.services.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

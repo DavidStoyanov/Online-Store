@@ -5,7 +5,7 @@ import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.Shoe;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeDetailsServiceModel;
 import com.stoyanov.onlineshoestore.app.repositories.ShoeRepository;
 import com.stoyanov.onlineshoestore.app.services.base.ServiceTestBase;
-import com.stoyanov.onlineshoestore.app.services.offer.ShoeService;
+import com.stoyanov.onlineshoestore.app.services.offers.ShoeService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

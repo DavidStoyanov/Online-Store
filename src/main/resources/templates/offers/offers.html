@@ -18,7 +18,7 @@
         <p class="danger" th:text="${offerExpiredError}"></p>
 
         <section class="offers">
-            <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.view.offer.OfferDetailsViewModel"*/-->
+            <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.view.offer.offer.OfferDetailsViewModel"*/-->
             <div class="offer-cnr" th:each="offer : ${offers}" th:object="${offer}" th:data-offer-id="*{id}">
                 <section class="offer-img-wrapper">
                     <th:block>

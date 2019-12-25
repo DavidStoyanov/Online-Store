@@ -1,4 +1,4 @@
-package com.stoyanov.onlineshoestore.app.models.service.offer.offer;
+package com.stoyanov.onlineshoestore.app.models.view.offer.shoe;
 
 import com.stoyanov.onlineshoestore.app.enums.Condition;
 import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeSize;
@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class OfferDetailsServiceModel {
+public class ShoeDetailsViewModel {
 
     private String id;
     private String title;
@@ -22,4 +22,6 @@ public class OfferDetailsServiceModel {
     private BigDecimal price;
     private Condition condition;
     private List<PhotoModel> photos;
+    private ShoeType type;
+    private List<ShoeSize> sizes;
 }

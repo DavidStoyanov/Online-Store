@@ -15,8 +15,8 @@
 
     <div class="container offer offer-edit">
         <h2>Correct offer</h2>
-        <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.view.offer.OfferDetailsViewModel"*/-->
-        <form th:action="@{/offer/edit/{id}(id = *{id})}" th:method="POST" th:object="${offer}" enctype="multipart/form-data">
+        <!--/*@thymesVar id="saveModel" type="com.stoyanov.onlineshoestore.app.models.view.offer.shoe.ShoeSaveViewModel"*/-->
+        <form th:action="@{/offer/edit/{id}(id = *{id})}" th:method="POST" th:object="${saveModel}" enctype="multipart/form-data">
             <fieldset>
                 <input type="hidden" name="id" th:value="*{id}">
 
@@ -90,8 +90,8 @@
                 </section>
 
                 <section class="">
-                    <!--/*@thymesVar id="photo" type="com.stoyanov.onlineshoestore.app.models.entity.offer.Photo"*/-->
-                    <div class="" th:each="photo : *{photos}">
+                    <!--/*@thymesVar id="photo" type="com.stoyanov.onlineshoestore.app.models.view.photo.PhotoModel"*/-->
+                    <div class="" th:each="photo : *{photos}" th:object="${photo}">
                         <div>
                             <img th:src="@{'https://res.cloudinary.com/dxvn93xbh/image/upload/' + ${photo.imageUrl} + '.jpg'}"
                                  alt="offer photo" width="300px" height="300px">

@@ -4,8 +4,8 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{fragments/head}"/>
-    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
-    <script th:src="@{/js/offer-form-photo.js}"></script>
+    <script th:src="@{/js/offer-form.js}"></script>
+    <script th:src="@{/js/form-generate.js}"></script>
 </head>
 <body>
 
@@ -17,65 +17,69 @@
 
     <div class="container offer offer-create">
         <h2>Publish offer</h2>
-        <!--/*@thymesVar id="createModel" type="com.stoyanov.onlineshoestore.app.models.view.offer.OfferCreateViewModel"*/-->
-        <form th:action="@{/offer/create}" th:method="POST" th:object="${createModel}" enctype="multipart/form-data">
+        <!--/*@thymesVar id="saveModel" type="com.stoyanov.onlineshoestore.app.models.view.offer.shoe.ShoeSaveViewModel"*/-->
+        <form id="offerForm" th:action="@{/offer/create}" th:method="POST" th:object="${saveModel}" enctype="multipart/form-data">
             <fieldset>
                 <section class="input-wrapper">
                     <div class="input-icon">
-                        <input type="text" name="title" th:field="*{title}" placeholder="Title"/>
+                        <input type="text" name="title" placeholder="Title"/>
                         <i class=""></i>
                     </div>
-                    <th:block th:if="${#fields.hasErrors('title')}">
+                    <!--<th:block th:if="${#fields.hasErrors('title')}">
                         <small th:text="${#fields.errors('title').get(0)}"></small>
-                    </th:block>
+                    </th:block>-->
                 </section>
 
-                <section class="">
-                    <select id="shoeTypes" name="type" th:field="*{type}">
-                    </select>
-                    <th:block th:if="${#fields.hasErrors('type')}">
-                        <small th:text="${#fields.errors('type').get(0)}"></small>
-                    </th:block>
+                <section>
+                    <label>
+                        <span>Category:</span>
+                        <select id="categoryId" name="category_id">
+                            <option value="none" selected>Choose category</option>
+                            <option value="1">Shoes</option>
+                            <option value="2">Clothes</option>
+                        </select>
+                    </label>
+                </section>
+
+                <section id="offerData">
+                    <!--<section class="">
+                        <select id="shoeTypes" name="type">
+                        </select>
+                        <th:block th:if="${#fields.hasErrors('type')}">
+                            <small th:text="${#fields.errors('type').get(0)}"></small>
+                        </th:block>
+                    </section>
+
+                    <section class="">
+                        <select id="shoeSizes" name="sizes" multiple>
+                        </select>
+                        <th:block th:if="${#fields.hasErrors('sizes')}">
+                            <small th:text="${#fields.errors('sizes').get(0)}"></small>
+                        </th:block>
+                    </section>-->
                 </section>
 
                 <section class="input-wrapper">
                     <div class="input-icon">
-                        <textarea name="description" th:field="*{description}" placeholder="Description">
+                        <textarea name="description" placeholder="Description">
                         </textarea>
                         <i class=""></i>
                     </div>
-                    <th:block th:if="${#fields.hasErrors('description')}">
-                        <small th:text="${#fields.errors('description').get(0)}"></small>
-                    </th:block>
                 </section>
 
                 <section class="input-wrapper">
                     <div class="input-icon">
-                        <input type="number" name="price" step="0.01" th:field="*{price}" placeholder="Price"/>
+                        <input type="number" name="price" step="0.01" placeholder="Price"/>
                         <i class=""></i>
                     </div>
-                    <th:block th:if="${#fields.hasErrors('price')}">
-                        <small th:text="${#fields.errors('price').get(0)}"></small>
-                    </th:block>
                 </section>
 
                 <section class="">
-                    <select name="condition" th:field="*{condition}">
+                    <select name="condition">
                         <option value="EXCELLENT">Excellent</option>
                         <option value="GOOD">Good</option>
                         <option value="AVERAGE">Average</option>
                     </select>
-                    <th:block th:if="${#fields.hasErrors('condition')}">
-                        <small th:text="${#fields.errors('condition').get(0)}"></small>
-                    </th:block>
-                </section>
-
-                <section class="">
-                    <select id="shoeSizes" name="sizes" multiple th:field="*{sizes}">
-                    </select>
-                    <th:block th:if="${#fields.hasErrors('sizes')}">
-                        <small th:text="${#fields.errors('sizes').get(0)}"></small>
-                    </th:block>
                 </section>
 
                 <section class="offer-photos">

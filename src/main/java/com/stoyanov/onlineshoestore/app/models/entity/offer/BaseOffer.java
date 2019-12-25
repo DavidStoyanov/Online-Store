@@ -35,7 +35,7 @@ public abstract class BaseOffer extends BaseEntity {
         this.title = title;
     }
 
-    @Column(name = "description", precision = 8, scale = 2, nullable = false)
+    @Column(name = "description", nullable = false)
     public String getDescription() {
         return this.description;
     }
@@ -44,7 +44,7 @@ public abstract class BaseOffer extends BaseEntity {
         this.description = description;
     }
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", nullable = false, precision = 8, scale = 2)
     public BigDecimal getPrice() {
         return this.price;
     }

@@ -1,9 +1,9 @@
 package com.stoyanov.onlineshoestore.app.models.entity.offer.shoe;
 
-        import com.stoyanov.onlineshoestore.app.models.entity.offer.BaseOffer;
+import com.stoyanov.onlineshoestore.app.models.entity.offer.BaseOffer;
 
-        import javax.persistence.*;
-        import java.util.List;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "shoes")

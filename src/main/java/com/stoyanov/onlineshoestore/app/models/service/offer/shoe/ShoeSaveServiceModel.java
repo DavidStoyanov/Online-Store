@@ -1,27 +1,19 @@
 package com.stoyanov.onlineshoestore.app.models.service.offer.shoe;
 
-import com.stoyanov.onlineshoestore.app.enums.Condition;
 import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeSize;
 import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeType;
-import com.stoyanov.onlineshoestore.app.models.view.photo.PhotoModel;
+import com.stoyanov.onlineshoestore.app.models.service.offer.base.OfferSaveServiceModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class ShoeDetailsServiceModel {
+public class ShoeSaveServiceModel extends OfferSaveServiceModel {
 
-    private String id;
-    private String title;
-    private String description;
-    private BigDecimal price;
-    private Condition condition;
-    private List<PhotoModel> photos;
     private ShoeType type;
     private List<ShoeSize> sizes;
 }

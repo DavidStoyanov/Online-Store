@@ -1,8 +1,6 @@
-package com.stoyanov.onlineshoestore.app.models.service.offer.offer;
+package com.stoyanov.onlineshoestore.app.models.view.offer.clothes;
 
 import com.stoyanov.onlineshoestore.app.enums.Condition;
-import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeSize;
-import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeType;
 import com.stoyanov.onlineshoestore.app.models.view.photo.PhotoModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class OfferDetailsServiceModel {
+public class ClothesDetailsViewModel {
 
     private String id;
     private String title;

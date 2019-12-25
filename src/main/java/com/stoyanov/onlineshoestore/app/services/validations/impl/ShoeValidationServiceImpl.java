@@ -1,14 +1,14 @@
 package com.stoyanov.onlineshoestore.app.services.validations.impl;
 
-import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeCreateServiceModel;
-import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeEditServiceModel;
+import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeSaveServiceModel;
 import com.stoyanov.onlineshoestore.app.repositories.ShoeRepository;
 import com.stoyanov.onlineshoestore.app.services.validations.ShoeValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ShoeValidationServiceImpl implements ShoeValidationService {
+public class ShoeValidationServiceImpl extends BaseOfferValidationService
+        implements ShoeValidationService {
 
     private final ShoeRepository shoeRepository;
 
@@ -18,26 +18,16 @@ public class ShoeValidationServiceImpl implements ShoeValidationService {
     }
 
     @Override
-    public boolean isValid(ShoeCreateServiceModel serviceModel) {
+    public boolean isValid(ShoeSaveServiceModel serviceModel) {
+        boolean valid = super.isValid(serviceModel);
+
+        //todo: validate return valid bool
+        return valid;
+    }
+
+    @Override
+    public boolean isValid(String id) {
         //todo: validate
         return true;
-    }
-
-    @Override
-    public boolean isValid(ShoeEditServiceModel serviceModel, String username) {
-        boolean isOwnerOfOffer = this.shoeRepository
-                .existsByIdAndCreatedBy_Username(serviceModel.getId(), username);
-        //todo: validate
-
-        return true && isOwnerOfOffer;
-    }
-
-    @Override
-    public boolean isValid(String offerId, String username) {
-        boolean isOwnerOfOffer = this.shoeRepository
-                .existsByIdAndCreatedBy_Username(offerId, username);
-        //todo: validate
-
-        return true && isOwnerOfOffer;
     }
 }

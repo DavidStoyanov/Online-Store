@@ -1,13 +1,10 @@
 package com.stoyanov.onlineshoestore.app.services.validations;
 
-import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeCreateServiceModel;
-import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeEditServiceModel;
+import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeSaveServiceModel;
 
 public interface ShoeValidationService {
 
-    boolean isValid(ShoeCreateServiceModel serviceModel);
+    boolean isValid(ShoeSaveServiceModel serviceModel);
 
-    boolean isValid(ShoeEditServiceModel serviceModel, String username);
-
-    boolean isValid(String offerId, String username);
+    boolean isValid(String id);
 }
