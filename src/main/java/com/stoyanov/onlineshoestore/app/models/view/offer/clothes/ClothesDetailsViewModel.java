@@ -20,4 +20,5 @@ public class ClothesDetailsViewModel {
     private BigDecimal price;
     private Condition condition;
     private List<PhotoModel> photos;
+    private String matter;
 }

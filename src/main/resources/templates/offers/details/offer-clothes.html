@@ -15,7 +15,7 @@
 <main class="site-content">
 
     <div class="container offer-details">
-        <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.view.offer.shoe.ShoeDetailsViewModel"*/-->
+        <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.view.offer.clothes.ClothesDetailsViewModel"*/-->
         <div th:object="${offer}">
             <section>
                 <h4>Title:</h4>
@@ -38,13 +38,8 @@
             </section>
 
             <section>
-                <h4>Type:</h4>
-                <h4 th:text="*{type}"></h4>
-            </section>
-
-            <section>
-                <h4>Sizes:</h4>
-                <h4 th:text="*{sizes}"></h4>
+                <h4>Matter:</h4>
+                <h4 th:text="*{matter}"></h4>
             </section>
 
             <section class="">
@@ -58,8 +53,8 @@
             </section>
 
             <section sec:authorize="hasAnyAuthority('MODERATOR', 'ROOT')">
-                <a th:href="@{/offer/edit/1/{id}(id = *{id})}">Edit Offer</a>
-                <form th:action="@{/offer/delete/1/{id}(id = *{id})}" th:method="POST">
+                <a th:href="@{/offer/edit/2/{id}(id = *{id})}">Edit Offer</a>
+                <form th:action="@{/offer/delete/2/{id}(id = *{id})}" th:method="POST">
                     <button class="button danger" type="submit">Delete</button>
                 </form>
             </section>

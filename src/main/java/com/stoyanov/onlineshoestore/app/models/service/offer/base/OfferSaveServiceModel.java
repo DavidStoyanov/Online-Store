@@ -15,6 +15,7 @@ import java.util.List;
 public class OfferSaveServiceModel {
 
     private String id;
+    private String categoryId;
     private String title;
     private String description;
     private BigDecimal price;

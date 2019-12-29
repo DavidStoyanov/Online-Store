@@ -4,7 +4,6 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{fragments/head}"/>
-    <script th:src="@{/js/offer-form.js}"></script>
     <script th:src="@{/js/form-generate.js}"></script>
 </head>
 <body>
@@ -33,7 +32,7 @@
                 <section>
                     <label>
                         <span>Category:</span>
-                        <select id="categoryId" name="category_id">
+                        <select id="categoryId" name="categoryId">
                             <option value="none" selected>Choose category</option>
                             <option value="1">Shoes</option>
                             <option value="2">Clothes</option>
@@ -42,27 +41,11 @@
                 </section>
 
                 <section id="offerData">
-                    <!--<section class="">
-                        <select id="shoeTypes" name="type">
-                        </select>
-                        <th:block th:if="${#fields.hasErrors('type')}">
-                            <small th:text="${#fields.errors('type').get(0)}"></small>
-                        </th:block>
-                    </section>
-
-                    <section class="">
-                        <select id="shoeSizes" name="sizes" multiple>
-                        </select>
-                        <th:block th:if="${#fields.hasErrors('sizes')}">
-                            <small th:text="${#fields.errors('sizes').get(0)}"></small>
-                        </th:block>
-                    </section>-->
                 </section>
 
                 <section class="input-wrapper">
                     <div class="input-icon">
-                        <textarea name="description" placeholder="Description">
-                        </textarea>
+                        <textarea name="description" placeholder="Description"></textarea>
                         <i class=""></i>
                     </div>
                 </section>

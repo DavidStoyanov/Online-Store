@@ -1,6 +1,7 @@
 $(() => {
     $('.offers .offer-cnr').on('click', function() {
         const offerId = $(this).attr('data-offer-id');
-        window.location = "/offer/details/" + offerId;
+        const offerCategoryId = $(this).attr('data-offer-category-id');
+        window.location = '/offer/details/' + offerCategoryId + '/' + offerId;
     })
 });

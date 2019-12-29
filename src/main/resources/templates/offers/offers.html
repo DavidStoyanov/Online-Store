@@ -19,7 +19,7 @@
 
         <section class="offers">
             <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.view.offer.offer.OfferDetailsViewModel"*/-->
-            <div class="offer-cnr" th:each="offer : ${offers}" th:object="${offer}" th:data-offer-id="*{id}">
+            <div class="offer-cnr" th:each="offer : ${offers}" th:object="${offer}" th:data-offer-category-id="*{categoryId}" th:data-offer-id="*{id}">
                 <section class="offer-img-wrapper">
                     <th:block>
                         <img th:if="*{!photos.isEmpty()}" alt="" th:src="'https://res.cloudinary.com/dxvn93xbh/image/upload/' + *{photos.get(0).imageUrl} + '.jpg'">

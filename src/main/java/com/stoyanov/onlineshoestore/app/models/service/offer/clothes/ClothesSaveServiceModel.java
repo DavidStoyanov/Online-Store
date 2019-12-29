@@ -9,4 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ClothesSaveServiceModel extends OfferSaveServiceModel {
+
+    private String matter;
 }

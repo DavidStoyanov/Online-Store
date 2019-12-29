@@ -1,13 +1,16 @@
 package com.stoyanov.onlineshoestore.app.services.offers.impl;
 
+import com.stoyanov.onlineshoestore.app.errors.offer.CategoryNotFoundException;
 import com.stoyanov.onlineshoestore.app.errors.offer.OfferCreateException;
 import com.stoyanov.onlineshoestore.app.errors.offer.OfferNotFoundException;
 import com.stoyanov.onlineshoestore.app.errors.user.UserNotFoundException;
+import com.stoyanov.onlineshoestore.app.models.entity.offer.Category;
 import com.stoyanov.onlineshoestore.app.models.entity.offer.Photo;
 import com.stoyanov.onlineshoestore.app.models.entity.offer.clothes.Clothes;
 import com.stoyanov.onlineshoestore.app.models.entity.user.User;
 import com.stoyanov.onlineshoestore.app.models.service.offer.clothes.ClothesDetailsServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.offer.clothes.ClothesSaveServiceModel;
+import com.stoyanov.onlineshoestore.app.repositories.CategoryRepository;
 import com.stoyanov.onlineshoestore.app.repositories.ClothesRepository;
 import com.stoyanov.onlineshoestore.app.repositories.PhotoRepository;
 import com.stoyanov.onlineshoestore.app.repositories.UserRepository;
@@ -31,6 +34,7 @@ public class ClothesServiceImpl extends BaseOfferService
 
     private final ClothesRepository clothesRepository;
     private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
     private final PhotoRepository photoRepository;
 
     private final DateService dateService;
@@ -41,6 +45,7 @@ public class ClothesServiceImpl extends BaseOfferService
     @Autowired
     public ClothesServiceImpl(ClothesRepository clothesRepository,
                               UserRepository userRepository,
+                              CategoryRepository categoryRepository,
                               PhotoRepository photoRepository,
                               ModelMapper mapper,
                               DateService dateService,
@@ -49,6 +54,7 @@ public class ClothesServiceImpl extends BaseOfferService
         super(cloudService);
         this.clothesRepository = clothesRepository;
         this.userRepository = userRepository;
+        this.categoryRepository = categoryRepository;
         this.photoRepository = photoRepository;
         this.mapper = mapper;
         this.dateService = dateService;
@@ -64,8 +70,12 @@ public class ClothesServiceImpl extends BaseOfferService
         User user = this.userRepository.findByUsername(super.getCurrentAuthUsername())
                 .orElseThrow(UserNotFoundException::new);
 
+        Category category = this.categoryRepository.findById(serviceModel.getCategoryId())
+                .orElseThrow(CategoryNotFoundException::new);
+
         Clothes clothes = this.mapper.map(serviceModel, Clothes.class);
         clothes.setCreatedBy(user);
+        clothes.setCategory(category);
         clothes.setCreatedOn(this.dateService.getCurrentTime());
 
         List<MultipartFile> photos = serviceModel.getPhotos().stream()
@@ -90,6 +100,9 @@ public class ClothesServiceImpl extends BaseOfferService
         Clothes clothes = this.clothesRepository.findById(serviceModel.getId())
                 .orElseThrow(OfferNotFoundException::new);
 
+        Category category = this.categoryRepository.findById(serviceModel.getCategoryId())
+                .orElseThrow(CategoryNotFoundException::new);
+
         List<MultipartFile> photos = serviceModel.getPhotos().stream()
                 .filter(file -> !file.isEmpty())
                 .collect(Collectors.toList());
@@ -106,6 +119,7 @@ public class ClothesServiceImpl extends BaseOfferService
         }
 
         this.mapper.map(serviceModel, clothes);
+        clothes.setCategory(category);
 
         this.clothesRepository.saveAndFlush(clothes);
     }

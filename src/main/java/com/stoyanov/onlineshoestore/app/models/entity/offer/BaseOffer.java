@@ -16,6 +16,7 @@ import java.util.List;
 public abstract class BaseOffer extends BaseEntity {
 
     private String title;
+    private Category category;
     private String description;
     private BigDecimal price;
     private Condition condition;
@@ -33,6 +34,16 @@ public abstract class BaseOffer extends BaseEntity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    public Category getCategory() {
+        return this.category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Column(name = "description", nullable = false)

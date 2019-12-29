@@ -15,9 +15,11 @@ import java.util.List;
 public class ClothesSaveViewModel {
 
     private String id;
+    private String categoryId;
     private String title;
     private String description;
     private BigDecimal price;
     private Condition condition;
     private List<MultipartFile> photos;
+    private String matter;
 }

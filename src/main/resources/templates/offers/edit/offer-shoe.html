@@ -4,6 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{fragments/head}"/>
+    <script th:src="@{/js/form-generate.js}"></script>
 </head>
 <body>
 
@@ -15,8 +16,8 @@
 
     <div class="container offer offer-edit">
         <h2>Correct offer</h2>
-        <!--/*@thymesVar id="saveModel" type="com.stoyanov.onlineshoestore.app.models.view.offer.shoe.ShoeSaveViewModel"*/-->
-        <form th:action="@{/offer/edit/{id}(id = *{id})}" th:method="POST" th:object="${saveModel}" enctype="multipart/form-data">
+        <!--/*@thymesVar id="saveModel" type="com.stoyanov.onlineshoestore.app.models.view.offer.shoe.ShoeDetailsViewModel"*/-->
+        <form th:action="@{/offer/edit/1/{id}(id = *{id})}" th:method="POST" th:object="${saveModel}" enctype="multipart/form-data">
             <fieldset>
                 <input type="hidden" name="id" th:value="*{id}">
 
@@ -30,14 +31,47 @@
                     </th:block>
                 </section>
 
-                <section class="">
-                    <select name="type" th:field="*{type}">
-                        <option value="SNEAKERS">Sneakers</option>
-                        <option value="BOOTS">Boots</option>
-                    </select>
-                    <th:block th:if="${#fields.hasErrors('type')}">
-                        <small th:text="${#fields.errors('type').get(0)}"></small>
-                    </th:block>
+                <section>
+                    <label>
+                        <span>Category:</span>
+                        <select id="categoryId" name="categoryId">
+                            <option value="none">Choose category</option>
+                            <option value="1" selected>Shoes</option>
+                            <option value="2">Clothes</option>
+                        </select>
+                    </label>
+                </section>
+
+                <section id="offerData">
+                    <section class="">
+                        <select id="shoeTypes" name="type" th:field="*{type}">
+                            <option value="SPRING_AUTUMN">SPRING_AUTUMN</option>
+                            <option value="SUMMER">SUMMER</option>
+                            <option value="WINTER">WINTER</option>
+                            <option value="SNEAKERS">SNEAKERS</option>
+                            <option value="BOOTS">BOOTS</option>
+                            <option value="OTHER">OTHER</option></select>
+                    </section>
+
+                    <section class="">
+                        <select id="shoeSizes" name="sizes" th:field="*{sizes}" multiple="">
+                            <option value="THIRTY_FIVE">35</option>
+                            <option value="THIRTY_SIX">36</option>
+                            <option value="THIRTY_SEVEN">37</option>
+                            <option value="THIRTY_EIGHT">38</option>
+                            <option value="THIRTY_NINE">39</option>
+                            <option value="FOURTY">40</option>
+                            <option value="FOURTY_ONE">41</option>
+                            <option value="FOURTY_TWO">42</option>
+                            <option value="FOURTY_THREE">43</option>
+                            <option value="FOURTY_FOUR">44</option>
+                            <option value="FOURTY_FIVE">45</option>
+                            <option value="FOURTY_SIX">46</option>
+                            <option value="FOURTY_SEVEN">47</option>
+                            <option value="FOURTY_EIGHT">48</option>
+                            <option value="FOURTY_NINE">49</option>
+                            <option value="FIFTY">50</option></select>
+                    </section>
                 </section>
 
                 <section class="input-wrapper">

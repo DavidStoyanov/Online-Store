@@ -2,8 +2,11 @@ package com.stoyanov.onlineshoestore.app.controllers;
 
 import com.stoyanov.onlineshoestore.app.controllers.base.BaseController;
 import com.stoyanov.onlineshoestore.app.errors.offer.OfferNotFoundException;
+import com.stoyanov.onlineshoestore.app.models.service.offer.clothes.ClothesDetailsServiceModel;
+import com.stoyanov.onlineshoestore.app.models.service.offer.clothes.ClothesSaveServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeDetailsServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeSaveServiceModel;
+import com.stoyanov.onlineshoestore.app.models.view.offer.clothes.ClothesDetailsViewModel;
 import com.stoyanov.onlineshoestore.app.models.view.offer.shoe.ShoeDetailsViewModel;
 import com.stoyanov.onlineshoestore.app.models.view.offer.shoe.ShoeSaveViewModel;
 import com.stoyanov.onlineshoestore.app.services.offers.ClothesService;
@@ -37,53 +40,73 @@ public class OfferController extends BaseController {
         return "offers/create-offer.html";
     }
 
-    @PostMapping("/delete/{id}")
-    public String deleteConfirm(@PathVariable String id) {
-        this.shoeService.delete(id);
-
-        return "redirect:/offers";
-    }
-
 
     @PostMapping("/create/1")
-    public String createConfirm(@ModelAttribute ShoeSaveViewModel viewModel) {
+    public String createShoe(@ModelAttribute ShoeSaveViewModel viewModel) {
         ShoeSaveServiceModel serviceModel = this.mapper.map(viewModel, ShoeSaveServiceModel.class);
         this.shoeService.create(serviceModel);
 
         return"redirect:/offers";
     }
 
-//    @GetMapping("/edit/1/{id}")
-//    public ModelAndView edit(@ModelAttribute("editModel") OfferEditViewModel viewModel,
-//                             @PathVariable String id,
-//                             ModelAndView mav) {
-//
-//        OfferDetailsViewModel offer = this.mapper.map(this.shoeService.getOneById(id), OfferDetailsViewModel.class);
-//        mav.addObject("offer", offer);
-//
-//        mav.setViewName("offers/edit-offer.html");
-//        return mav;
-//    }
-//
-//    @PostMapping("/edit/{id}")
-//    public ModelAndView editConfirm(@Valid @ModelAttribute("editModel") OfferEditViewModel viewModel,
-//                                    @PathVariable String id,
-//                                    BindingResult bindingResult,
-//                                    ModelAndView mav) {
-//        if (bindingResult.hasErrors()) {
-//            return new ModelAndView("offers/edit-offer.html");
-//        }
-//
-//        ShoeSaveServiceModel serviceModel = this.mapper.map(viewModel, ShoeSaveServiceModel.class);
-//
-//        this.shoeService.edit(serviceModel);
-//
-//        mav.setViewName("redirect:/offers");
-//        return mav;
-//    }
+    @PostMapping("/create/2")
+    public String createClothes(@ModelAttribute ClothesSaveServiceModel viewModel) {
+        ClothesSaveServiceModel serviceModel = this.mapper.map(viewModel, ClothesSaveServiceModel.class);
+        this.clothesService.create(serviceModel);
+
+        return"redirect:/offers";
+    }
+
+    @GetMapping("/edit/1/{id}")
+    public ModelAndView editShoe(@PathVariable String id, ModelAndView mav) {
+        ShoeDetailsViewModel viewModel = this.mapper.map(this.shoeService.getOneById(id), ShoeDetailsViewModel.class);
+        mav.addObject("saveModel", viewModel);
+
+        mav.setViewName("offers/edit/offer-shoe.html");
+        return mav;
+    }
+
+    @GetMapping("/edit/2/{id}")
+    public ModelAndView editClothes(@PathVariable String id, ModelAndView mav) {
+        ClothesDetailsViewModel viewModel = this.mapper.map(this.clothesService.getOneById(id), ClothesDetailsViewModel.class);
+        mav.addObject("saveModel", viewModel);
+
+        mav.setViewName("offers/edit/offer-clothes.html");
+        return mav;
+    }
+
+    @PostMapping("/edit/1/{id}")
+    public String editShoeConfirm(@ModelAttribute ShoeSaveViewModel viewModel, @PathVariable String id) {
+        ShoeSaveServiceModel serviceModel = this.mapper.map(viewModel, ShoeSaveServiceModel.class);
+        this.shoeService.edit(serviceModel);
+
+        return "redirect:/offer/details/1/" + id;
+    }
+
+    @PostMapping("/edit/2/{id}")
+    public String editClothesConfirm(@ModelAttribute ClothesSaveServiceModel viewModel, @PathVariable String id) {
+        ClothesSaveServiceModel serviceModel = this.mapper.map(viewModel, ClothesSaveServiceModel.class);
+        this.clothesService.edit(serviceModel);
+
+        return "redirect:/offer/details/2/" + id;
+    }
+
+    @PostMapping("/delete/1/{id}")
+    public String deleteShoeConfirm(@PathVariable String id) {
+        this.shoeService.delete(id);
+
+        return "redirect:/offers";
+    }
+
+    @PostMapping("/delete/2/{id}")
+    public String deleteClothesConfirm(@PathVariable String id) {
+        this.clothesService.delete(id);
+
+        return "redirect:/offers";
+    }
 
     @GetMapping("/details/1/{id}")
-    public ModelAndView details(@PathVariable String id, ModelAndView mav) {
+    public ModelAndView detailsShoe(@PathVariable String id, ModelAndView mav) {
         ShoeDetailsServiceModel serviceModel = this.shoeService.getOneById(id);
         ShoeDetailsViewModel offer = this.mapper.map(serviceModel, ShoeDetailsViewModel.class);
         mav.addObject("offer", offer);
@@ -92,14 +115,26 @@ public class OfferController extends BaseController {
         return mav;
     }
 
+    @GetMapping("/details/2/{id}")
+    public ModelAndView detailsClothes(@PathVariable String id, ModelAndView mav) {
+        ClothesDetailsServiceModel serviceModel = this.clothesService.getOneById(id);
+        ClothesDetailsViewModel offer = this.mapper.map(serviceModel, ClothesDetailsViewModel.class);
+        mav.addObject("offer", offer);
+
+        mav.setViewName("offers/details/offer-clothes.html");
+        return mav;
+    }
+
     @ExceptionHandler({OfferNotFoundException.class, Exception.class})
-    //@ExceptionHandler(OfferNotFoundException.class)
     public ModelAndView offerNotFound(Exception exception) {
         ModelAndView mav = new ModelAndView("offers/offers.html");
         if (exception instanceof OfferNotFoundException) {
             mav.addObject("offerExpiredError", exception.getMessage());
+            exception.printStackTrace();
         } else {
-            mav.addObject("offerExpiredError", "Something wrong happened, we will fix it as soon as possible");
+            mav.addObject("offerExpiredError",
+                    "Something wrong happened, we will fix it as soon as possible");
+            exception.printStackTrace();
         }
 
         return mav;

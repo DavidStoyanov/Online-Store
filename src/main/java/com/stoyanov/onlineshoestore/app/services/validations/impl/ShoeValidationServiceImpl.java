@@ -19,10 +19,15 @@ public class ShoeValidationServiceImpl extends BaseOfferValidationService
 
     @Override
     public boolean isValid(ShoeSaveServiceModel serviceModel) {
-        boolean valid = super.isValid(serviceModel);
+        if (!super.isValid(serviceModel)) {
+            return false;
+        }
 
-        //todo: validate return valid bool
-        return valid;
+        if (serviceModel.getSizes().isEmpty()) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override

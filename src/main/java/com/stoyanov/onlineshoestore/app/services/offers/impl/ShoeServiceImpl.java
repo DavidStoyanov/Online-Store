@@ -1,8 +1,10 @@
 package com.stoyanov.onlineshoestore.app.services.offers.impl;
 
+import com.stoyanov.onlineshoestore.app.errors.offer.CategoryNotFoundException;
 import com.stoyanov.onlineshoestore.app.errors.offer.OfferCreateException;
 import com.stoyanov.onlineshoestore.app.errors.offer.OfferNotFoundException;
 import com.stoyanov.onlineshoestore.app.errors.user.UserNotFoundException;
+import com.stoyanov.onlineshoestore.app.models.entity.offer.Category;
 import com.stoyanov.onlineshoestore.app.models.entity.offer.Photo;
 import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.Shoe;
 import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeSize;
@@ -10,6 +12,7 @@ import com.stoyanov.onlineshoestore.app.models.entity.offer.shoe.ShoeType;
 import com.stoyanov.onlineshoestore.app.models.entity.user.User;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeDetailsServiceModel;
 import com.stoyanov.onlineshoestore.app.models.service.offer.shoe.ShoeSaveServiceModel;
+import com.stoyanov.onlineshoestore.app.repositories.CategoryRepository;
 import com.stoyanov.onlineshoestore.app.repositories.PhotoRepository;
 import com.stoyanov.onlineshoestore.app.repositories.ShoeRepository;
 import com.stoyanov.onlineshoestore.app.repositories.UserRepository;
@@ -32,6 +35,7 @@ public class ShoeServiceImpl extends BaseOfferService implements ShoeService {
 
     private final ShoeRepository shoeRepository;
     private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
     private final PhotoRepository photoRepository;
 
     private final DateService dateService;
@@ -43,6 +47,7 @@ public class ShoeServiceImpl extends BaseOfferService implements ShoeService {
     @Autowired
     public ShoeServiceImpl(ShoeRepository shoeRepository,
                            UserRepository userRepository,
+                           CategoryRepository categoryRepository,
                            PhotoRepository photoRepository,
                            DateService dateService,
                            CloudService cloudService,
@@ -51,6 +56,7 @@ public class ShoeServiceImpl extends BaseOfferService implements ShoeService {
         super(cloudService);
         this.shoeRepository = shoeRepository;
         this.userRepository = userRepository;
+        this.categoryRepository = categoryRepository;
         this.photoRepository = photoRepository;
         this.dateService = dateService;
         this.shoeValidationService = shoeValidationService;
@@ -66,8 +72,12 @@ public class ShoeServiceImpl extends BaseOfferService implements ShoeService {
         User user = this.userRepository.findByUsername(getCurrentAuthUsername())
                 .orElseThrow(UserNotFoundException::new);
 
+        Category category = this.categoryRepository.findById(serviceModel.getCategoryId())
+                .orElseThrow(CategoryNotFoundException::new);
+
         Shoe shoe = this.mapper.map(serviceModel, Shoe.class);
         shoe.setCreatedBy(user);
+        shoe.setCategory(category);
         shoe.setCreatedOn(this.dateService.getCurrentTime());
 
         List<MultipartFile> photos = serviceModel.getPhotos().stream()
@@ -91,6 +101,9 @@ public class ShoeServiceImpl extends BaseOfferService implements ShoeService {
         Shoe shoe = this.shoeRepository.findById(serviceModel.getId())
                 .orElseThrow(OfferNotFoundException::new);
 
+        Category category = this.categoryRepository.findById(serviceModel.getCategoryId())
+                .orElseThrow(CategoryNotFoundException::new);
+
         List<MultipartFile> photos = serviceModel.getPhotos().stream()
                 .filter(file -> !file.isEmpty())
                 .collect(Collectors.toList());
@@ -105,7 +118,9 @@ public class ShoeServiceImpl extends BaseOfferService implements ShoeService {
             this.uploadPhotos(shoe, photos);
         }
 
+        shoe.setSizes(Collections.emptyList());
         this.mapper.map(serviceModel, shoe);
+        shoe.setCategory(category);
 
         this.shoeRepository.saveAndFlush(shoe);
     }

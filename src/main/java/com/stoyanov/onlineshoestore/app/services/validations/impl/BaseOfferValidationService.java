@@ -4,17 +4,23 @@ import com.stoyanov.onlineshoestore.app.models.service.offer.base.OfferSaveServi
 
 import java.math.BigDecimal;
 
+import static com.stoyanov.onlineshoestore.app.util.BigDecimalUtil.isNumberHigher;
+import static com.stoyanov.onlineshoestore.app.util.BigDecimalUtil.isNumberLower;
+
 
 public class BaseOfferValidationService {
 
-    public boolean isValid(OfferSaveServiceModel offerModel) {
-        //todo: make variables (booleans) return bool
-        if (offerModel.getPrice().compareTo(new BigDecimal(0)) > 0 &&
-                offerModel.getPrice().compareTo(new BigDecimal(10000)) <= 0) {
+    protected boolean isValid(OfferSaveServiceModel offerModel) {
+        if (offerModel.getTitle().length() < 8) {
             return false;
         }
 
-        if (offerModel.getTitle().isBlank()) {
+        if (offerModel.getDescription().length() < 10) {
+            return false;
+        }
+
+        if (isNumberLower(offerModel.getPrice(), new BigDecimal(0)) ||
+                isNumberHigher(offerModel.getPrice(), new BigDecimal(10000))) {
             return false;
         }
 

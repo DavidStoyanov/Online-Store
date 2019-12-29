@@ -5,6 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:include="~{fragments/head}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/register.css}">
 </head>
 <body>
 
@@ -15,7 +16,8 @@
 <main class="site-content">
     <div class="container">
 
-    <h2>Welcome, [[${username}]]!</h2>
+        <h4>Something wrong happened, we will fix it as soon as possible</h4>
+        <p>Return to <a th:href="@{/templates/home}">Home</a></p>
 
     </div>
 </main>
