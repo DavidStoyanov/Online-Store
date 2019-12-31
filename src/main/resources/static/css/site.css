@@ -128,6 +128,38 @@ section.error-info {
 small.danger {
   color: var(--basic-color-danger); }
 
+table, th, td {
+  border: 1px solid black; }
+
+.table {
+  background-color: rgba(55, 55, 55, 0.2);
+  border-radius: 0.2em;
+  box-shadow: 0 0 1px 0px black inset, 0 0 1px 0px black;
+  overflow: hidden; }
+  .table > thead {
+    font-weight: bold; }
+    .table > thead th:not(:first-child) {
+      width: 8em; }
+  .table > tbody tr:nth-child(odd) {
+    background-color: rgba(20, 20, 20, 0.2); }
+  .table > tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.4); }
+  .table > tbody label {
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    height: 100%; }
+    .table > tbody label > input[type=checkbox] {
+      cursor: inherit;
+      transform: scale(1.5); }
+    .table > tbody label > input[type=checkbox]:disabled.disabled {
+      cursor: default; }
+  .table > tbody label.disabled {
+    cursor: default; }
+  .table th, .table td {
+    padding: 0.5em; }
+
 @keyframes fade-in-search {
   0% {
     transform: translateX(-100%); }

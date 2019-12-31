@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface GenericOfferService<S, D> {
 
-    @PreAuthorize("hasAnyAuthority('MODERATOR', 'ROOT')")
+    @PreAuthorize("hasAnyAuthority('ROOT', 'MODERATOR')")
     void create(S serviceModel);
 
-    @PreAuthorize("hasAnyAuthority('MODERATOR', 'ROOT')")
+    @PreAuthorize("hasAnyAuthority('ROOT', 'MODERATOR')")
     void edit(S serviceModel);
 
-    @PreAuthorize("hasAnyAuthority('MODERATOR', 'ROOT')")
+    @PreAuthorize("hasAnyAuthority('ROOT', 'MODERATOR')")
     void delete(String id);
 
     D getOneById(String id);

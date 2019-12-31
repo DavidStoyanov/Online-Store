@@ -1,4 +1,4 @@
-package com.stoyanov.onlineshoestore.app.models.view.user;
+package com.stoyanov.onlineshoestore.app.models.service.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserDetailsViewModel {
+public class UserDetailsServiceModel {
 
     private String id;
     private String username;

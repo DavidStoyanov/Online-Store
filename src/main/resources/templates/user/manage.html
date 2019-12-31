@@ -5,6 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:include="~{fragments/head}"/>
+    <!--    <link rel="stylesheet" href="/css/bootstrap.min.css">-->
 </head>
 <body>
 
@@ -15,11 +16,67 @@
 <main class="site-content">
     <div class="container">
 
-        <div sec:authorize="hasAuthority('USER')">
-            hasAuthority('USER')
-        </div>
-        <div sec:authorize="isAuthenticated()">
-            Text visible only to authenticated users.
+        <div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>ADMIN</th>
+                    <th>MODERATOR</th>
+                    <th>USER</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--/*@thymesVar id="user" type="com.stoyanov.onlineshoestore.app.models.view.user.UserDetailsViewModel"*/-->
+                <tr th:each="user, iter : ${users}" th:object="${user}">
+                    <input type="hidden" name="username" th:value="*{username}" th:form="manageForm + ${iter.index}">
+                    <td th:text="${#strings.substring(user.id, 0, 6) + '...' + #strings.substring(user.id, 33, 36)}">0e8bc4...00a</td>
+                    <td th:text="*{username}"></td>
+                    <td>
+                        <th:block sec:authorize="hasAuthority('ROOT')">
+                            <label>
+                                <input type="checkbox" name="authorities.admin" th:checked="*{authorities.contains('ADMIN')}" th:form="manageForm + ${iter.index}">
+                            </label>
+                        </th:block>
+                        <th:block sec:authorize="hasAuthority('ADMIN') && !hasAuthority('ROOT')">
+                                <th:block th:unless="*{authorities.contains('ADMIN')}">
+                                    <label>
+                                        <input type="checkbox" name="authorities.admin" th:checked="*{authorities.contains('ADMIN')}" th:form="manageForm + ${iter.index}">
+                                    </label>
+                                </th:block>
+                                <th:block th:if="*{authorities.contains('ADMIN')}">
+                                    <label class="disabled">
+                                        <input type="checkbox" name="authorities.admin" th:checked="*{authorities.contains('ADMIN')}" th:form="manageForm + ${iter.index}" disabled>
+                                    </label>
+                                </th:block>
+                        </th:block>
+                    </td>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="authorities.moderator" th:checked="*{authorities.contains('MODERATOR')}" th:form="manageForm + ${iter.index}">
+                        </label>
+                    </td>
+                    <td>
+                        <label class="disabled">
+                            <input type="checkbox" name="authorities.user" th:checked="*{authorities.contains('USER')}" th:form="manageForm + ${iter.index}" disabled>
+                        </label>
+                    </td>
+                    <td>
+                        <input class="button btn" type="submit" value="Submit" th:form="manageForm + ${iter.index}">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div>
+                <!--/*@thymesVar id="user" type="com.stoyanov.onlineshoestore.app.models.view.user.UserDetailsViewModel"*/-->
+                <th:block th:each="user, iter : ${users}" th:object="${user}">
+                    <form th:id="manageForm + ${iter.index}" th:action="@{/users/manage}" th:method="POST"></form>
+                </th:block>
+            </div>
+
+
         </div>
 
     </div>

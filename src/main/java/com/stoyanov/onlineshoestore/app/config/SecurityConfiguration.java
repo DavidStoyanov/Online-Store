@@ -18,7 +18,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .cors().disable()
 
                 .authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/img/**", "/**/favicon.ico", "/offers", "/offer/details/**", "/contacts").permitAll()
+                .antMatchers("/css/**", "/js/**", "/img/**", "/**/icon.png", "/offers", "/offer/details/**", "/contacts").permitAll()
                 .antMatchers("/", "/index", "/user/register", "/user/login").anonymous()
                 .antMatchers("/offer/create/**", "offer/edit/**").hasAnyAuthority("MODERATOR", "ROOT")
                 .anyRequest().authenticated()

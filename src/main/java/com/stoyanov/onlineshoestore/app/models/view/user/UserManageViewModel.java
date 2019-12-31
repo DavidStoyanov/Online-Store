@@ -4,14 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserDetailsViewModel {
+public class UserManageViewModel {
 
-    private String id;
     private String username;
-    private List<String> authorities;
+    private UserAuthoritiesModel authorities;
 }

@@ -6,8 +6,13 @@
             <span>Menu</span>
         </label>
 
-        <ul sec:authorize="hasAuthority('MODERATOR')">
-            <li>
+        <ul sec:authorize="hasAnyAuthority('ADMIN', 'MODERATOR')">
+            <li sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/users/manage}">
+                    <span class="title">Users</span>
+                </a>
+            </li>
+            <li sec:authorize="hasAuthority('MODERATOR')">
                 <a th:href="@{/offer/create}">
                     <span class="title">Add Offer</span>
                 </a>
