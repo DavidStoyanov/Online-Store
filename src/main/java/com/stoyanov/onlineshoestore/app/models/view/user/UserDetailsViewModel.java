@@ -1,4 +1,4 @@
-package com.stoyanov.onlineshoestore.app.models.service.user;
+package com.stoyanov.onlineshoestore.app.models.view.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserSessionModel {
+public class UserModel {
 
+    private String id;
     private String username;
-    private String email;
 }
