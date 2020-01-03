@@ -21,6 +21,7 @@ import com.stoyanov.onlineshoestore.app.services.services.DateService;
 import com.stoyanov.onlineshoestore.app.services.validations.ClothesValidationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,7 +50,7 @@ public class ClothesServiceImpl extends BaseOfferService
                               PhotoRepository photoRepository,
                               ModelMapper mapper,
                               DateService dateService,
-                              CloudService cloudService,
+                              @Qualifier("PCloudService") CloudService cloudService,
                               ClothesValidationService clothesValidationService) {
         super(cloudService);
         this.clothesRepository = clothesRepository;

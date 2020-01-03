@@ -1,0 +1,18 @@
+.offer-photos .all-photos {
+  display: flex;
+  flex-direction: row;
+  padding: 0.25em; }
+  .offer-photos .all-photos .photo-box {
+    border: 1px solid black;
+    padding: 0.5em;
+    width: 80px;
+    height: 60px;
+    background-color: #5CC5EF; }
+    .offer-photos .all-photos .photo-box img {
+      width: 100%;
+      height: auto; }
+  .offer-photos .all-photos #addPhoto {
+    cursor: pointer;
+    background-color: #3B5998; }
+.offer-photos input[type=file] {
+  display: none; }

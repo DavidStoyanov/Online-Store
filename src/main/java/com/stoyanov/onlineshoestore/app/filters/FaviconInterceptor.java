@@ -1,6 +1,5 @@
 package com.stoyanov.onlineshoestore.app.filters;
 
-import com.stoyanov.onlineshoestore.app.annotations.Interceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -11,12 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class FaviconInterceptor extends HandlerInterceptorAdapter {
 
-    private static final String FAVICON = "https://res.cloudinary.com/dxvn93xbh/image/upload/favicon.ico";
+    private static final String FAVICON = "https://p-sf1.pcloud.com/DLZipFp0SZetovCSZEz9oZZV78cN7Z3VZZPoFZZvA4ZNVZ25Z0VZ1gYeSH2pWiHR7sKihcpXIRMjeQiX";
 
     @Override
     public void postHandle(HttpServletRequest request,
-                           HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        System.out.println();
+                           HttpServletResponse response,
+                           Object handler,
+                           ModelAndView modelAndView) {
+
         if (modelAndView != null) {
             modelAndView.addObject("favicon", FAVICON);
         }

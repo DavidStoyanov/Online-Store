@@ -4,7 +4,9 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{fragments/head}"/>
+    <link rel="stylesheet" th:href="@{/css/save-offer.css}">
     <script th:src="@{/js/form-generate.js}"></script>
+    <script th:src="@{/js/offer-photos.js}"></script>
 </head>
 <body>
 
@@ -17,7 +19,7 @@
     <div class="container offer offer-create">
         <h2>Publish offer</h2>
         <!--/*@thymesVar id="saveModel" type="com.stoyanov.onlineshoestore.app.models.view.offer.shoe.ShoeSaveViewModel"*/-->
-        <form id="offerForm" th:action="@{/offer/create}" th:method="POST" th:object="${saveModel}" enctype="multipart/form-data">
+        <form id="offerForm" th:action="@{/offer/create}" th:method="POST" th:object="${saveModel}">
             <fieldset>
                 <section class="input-wrapper">
                     <div class="input-icon">
@@ -66,9 +68,15 @@
                 </section>
 
                 <section class="offer-photos">
-                    <div class="" th:each="index : ${#numbers.sequence(1, 5)}">
-                        <input type="file" name="photos"/>
+                    <div class="all-photos">
+                        <section class="photo-box" id="addPhoto">
+                            <span>add photo</span>
+                        </section>
                     </div>
+                    <section>
+                        <input type="file" id="photosInput" accept="image/gif, image/jpeg, image/png">
+                        <input id="photos" type="hidden" name="photos">
+                    </section>
                 </section>
 
                 <section class="">
