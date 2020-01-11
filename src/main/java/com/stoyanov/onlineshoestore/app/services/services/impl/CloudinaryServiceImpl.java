@@ -1,8 +1,7 @@
 package com.stoyanov.onlineshoestore.app.services.services.impl;
 
 import com.cloudinary.Cloudinary;
-import com.stoyanov.onlineshoestore.app.services.services.CloudService;
-import org.json.simple.JSONObject;
+import com.stoyanov.onlineshoestore.app.services.services.CloudinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service("CloudinaryService")
-public class CloudinaryServiceImpl implements CloudService {
+@Service
+public class CloudinaryServiceImpl implements CloudinaryService {
 
     private final Cloudinary cloudinary;
     private final HashMap<String, Object> options;
@@ -37,6 +36,7 @@ public class CloudinaryServiceImpl implements CloudService {
             File file = File.createTempFile("temp-file", multipartFile.getOriginalFilename());
             multipartFile.transferTo(file);
             Map upload = this.cloudinary.uploader().upload(file, this.options);
+
             return upload.get("public_id").toString();
         } catch (IOException exception) {
             exception.printStackTrace();

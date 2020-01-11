@@ -211,6 +211,17 @@ table, th, td {
   border-radius: var(--basic-border-radius);
   cursor: pointer; }
 
+.input {
+  padding: 0.5em;
+  outline: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #999999;
+  border-radius: var(--basic-border-radius);
+  background-color: var(--basic-color); }
+  .input:focus, .input:hover {
+    border-color: var(--theme-1-pool-blue-rgba); }
+
 .no-select {
   user-select: none;
   -webkit-user-select: none;
@@ -275,18 +286,16 @@ body {
     @media screen and (min-width: 901px) {
       .site-content .container.home, .site-content .container.contacts, .site-content .container.about-us {
         padding: 1em; } }
-    .site-content .container.home {
+    .site-content .container.home, .site-content .container.offer {
       max-width: 1000px;
       margin: 0 auto; }
     .site-content .container.contacts {
       max-width: 800px;
       margin: 0 auto; }
-    .site-content .container .about-us {
-      max-width: 1400px;
-      margin: 0 auto; }
 
 .site-header {
-  position: relative; }
+  position: relative;
+  font-size: 12px; }
   .site-header.banner {
     display: block;
     background-image: linear-gradient(to left bottom, rgba(0, 0, 0, 0.7), rgba(51, 51, 51, 0.3)), url("/img/header.jpg");
@@ -361,7 +370,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
-    align-content: flex-start;
+    align-content: center;
     padding: 0.5em;
     margin: 0; }
     @media screen and (max-width: 900px) {

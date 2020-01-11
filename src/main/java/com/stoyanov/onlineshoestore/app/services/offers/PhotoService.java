@@ -8,5 +8,7 @@ public interface PhotoService {
 
     String upload(MultipartFile photo);
 
-    List<String> upload(List<MultipartFile> photos);
+    String upload(List<MultipartFile> photos);
+
+    void destroy(Long photoId);
 }

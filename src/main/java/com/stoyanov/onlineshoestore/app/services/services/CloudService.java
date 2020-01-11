@@ -9,6 +9,4 @@ public interface CloudService {
     String upload(MultipartFile file);
 
     List<String> upload(List<MultipartFile> files);
-
-    void destroy(String id);
 }

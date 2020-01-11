@@ -17,7 +17,9 @@ import com.stoyanov.onlineshoestore.app.repositories.UserRepository;
 import com.stoyanov.onlineshoestore.app.services.offers.ClothesService;
 import com.stoyanov.onlineshoestore.app.services.offers.base.BaseOfferService;
 import com.stoyanov.onlineshoestore.app.services.services.CloudService;
+import com.stoyanov.onlineshoestore.app.services.services.CloudinaryService;
 import com.stoyanov.onlineshoestore.app.services.services.DateService;
+import com.stoyanov.onlineshoestore.app.services.services.PCloudService;
 import com.stoyanov.onlineshoestore.app.services.validations.ClothesValidationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +52,9 @@ public class ClothesServiceImpl extends BaseOfferService
                               PhotoRepository photoRepository,
                               ModelMapper mapper,
                               DateService dateService,
-                              @Qualifier("PCloudService") CloudService cloudService,
+                              CloudinaryService cloudinaryService,
                               ClothesValidationService clothesValidationService) {
-        super(cloudService);
+        super(cloudinaryService);
         this.clothesRepository = clothesRepository;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;

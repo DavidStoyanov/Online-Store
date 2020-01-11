@@ -1,11 +1,10 @@
 package com.stoyanov.onlineshoestore.app.services.offers.impl;
 
 import com.google.gson.Gson;
-import com.stoyanov.onlineshoestore.app.models.view.photo.PhotoResponse;
+import com.stoyanov.onlineshoestore.app.models.view.photo.PhotoUploadResponseModel;
 import com.stoyanov.onlineshoestore.app.services.offers.PhotoService;
-import com.stoyanov.onlineshoestore.app.services.services.CloudService;
-import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.stoyanov.onlineshoestore.app.services.services.PCloudService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,26 +14,33 @@ import java.util.List;
 @Service
 public class PhotoServiceImpl implements PhotoService {
 
-    private final CloudService cloudService;
+    private final PCloudService pCloudService;
 
     private final Gson gson;
 
-    public PhotoServiceImpl(@Qualifier("PCloudService") CloudService cloudService, Gson gson) {
-        this.cloudService = cloudService;
+    @Autowired
+    public PhotoServiceImpl(PCloudService pCloudService, Gson gson) {
+        this.pCloudService = pCloudService;
         this.gson = gson;
     }
 
     @Override
     public String upload(MultipartFile photo) {
-        String url = this.cloudService.upload(photo);
-        List<PhotoResponse> photos = new ArrayList<>();
-        PhotoResponse photoResponse = new PhotoResponse("photo", url);
-        photos.add(photoResponse);
-        return this.gson.toJson(photos);
+        PhotoUploadResponseModel responseModel = this.pCloudService.upload(photo);
+        List<PhotoUploadResponseModel> responseModels = new ArrayList<>();
+        responseModels.add(responseModel);
+
+        return this.gson.toJson(responseModels);
     }
 
     @Override
-    public List<String> upload(List<MultipartFile> photos) {
-        return this.cloudService.upload(photos);
+    public String upload(List<MultipartFile> photos) {
+        List<PhotoUploadResponseModel> responseModels = this.pCloudService.upload(photos);
+        return this.gson.toJson(responseModels);
+    }
+
+    @Override
+    public void destroy(Long photoId) {
+        this.pCloudService.destroy(photoId);
     }
 }

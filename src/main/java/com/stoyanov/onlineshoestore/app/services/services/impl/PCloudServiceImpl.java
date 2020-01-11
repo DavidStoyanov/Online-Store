@@ -1,7 +1,8 @@
 package com.stoyanov.onlineshoestore.app.services.services.impl;
 
 import com.pcloud.sdk.*;
-import com.stoyanov.onlineshoestore.app.services.services.CloudService;
+import com.stoyanov.onlineshoestore.app.models.view.photo.PhotoUploadResponseModel;
+import com.stoyanov.onlineshoestore.app.services.services.PCloudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,8 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service("PCloudService")
-public class PCloudServiceImpl implements CloudService {
+@Service
+public class PCloudServiceImpl implements PCloudService {
 
     private final ApiClient apiClient;
 
@@ -21,9 +22,10 @@ public class PCloudServiceImpl implements CloudService {
         this.apiClient = apiClient;
     }
 
-
     @Override
-    public String upload(MultipartFile multipartFile) {
+    public PhotoUploadResponseModel upload(MultipartFile multipartFile) {
+        PhotoUploadResponseModel photoResponse = null;
+
         try {
             File localFile = File.createTempFile("temp-file", multipartFile.getOriginalFilename());
             multipartFile.transferTo(localFile);
@@ -34,30 +36,34 @@ public class PCloudServiceImpl implements CloudService {
                     DataSource.create(localFile)
             ).execute();
 
-            return uploadedFile.createFileLink().bestUrl().getPath();
+            String name = multipartFile.getOriginalFilename();
+            String url = uploadedFile.createFileLink().bestUrl().getPath();
+            Long id = uploadedFile.fileId();
+            photoResponse = new PhotoUploadResponseModel(id, name, url);
         } catch (IOException | ApiError exception) {
             exception.printStackTrace();
-            return null;
         }
+
+        return photoResponse;
     }
 
     @Override
-    public List<String> upload(List<MultipartFile> files) {
-        List<String> urlList = new ArrayList<>();
+    public List<PhotoUploadResponseModel> upload(List<MultipartFile> files) {
+        List<PhotoUploadResponseModel> responseModels = new ArrayList<>();
         files.forEach(file -> {
-            String url = this.upload(file);
-            urlList.add(url);
+            PhotoUploadResponseModel responseModel = this.upload(file);
+            responseModels.add(responseModel);
         });
 
-        return urlList;
+        return responseModels;
     }
 
     @Override
-    public void destroy(String id) {
-//        try {
-//            this.cloudinary.uploader().destroy(id, this.options);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    public void destroy(Long id) {
+        try {
+            Boolean execute = this.apiClient.deleteFile(id).execute();
+        } catch (IOException | ApiError e) {
+            e.printStackTrace();
+        }
     }
 }

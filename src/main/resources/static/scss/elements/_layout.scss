@@ -27,19 +27,14 @@ body {
         &.home, &.contacts, &.about-us {
             @include bp('desktop-device') { padding: 1em };
         }
-    
-        &.home {
+
+        &.home, &.offer {
             max-width: 1000px;
             margin: 0 auto;
         }
     
         &.contacts {
             max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        & .about-us {
-            max-width: 1400px;
             margin: 0 auto;
         }
     }

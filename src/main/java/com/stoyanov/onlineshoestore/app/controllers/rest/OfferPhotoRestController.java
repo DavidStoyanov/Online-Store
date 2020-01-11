@@ -1,13 +1,12 @@
 package com.stoyanov.onlineshoestore.app.controllers.rest;
 
 import com.stoyanov.onlineshoestore.app.services.offers.PhotoService;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -24,6 +23,10 @@ public class OfferPhotoRestController {
     public String uploadPhotos(@RequestParam("file") MultipartFile multipartFile) {
         String response = photoService.upload(multipartFile);
         return response;
-        //todo: upload photo, return url(JSON) save it to input with image data, show the photo in section
+    }
+
+    @PostMapping("/photo/destroy")
+    public void destroyPhoto(@RequestParam("id") Long photoId) {
+        this.photoService.destroy(photoId);
     }
 }

@@ -1,18 +1,108 @@
-.offer-photos .all-photos {
+.offer-create .container.offer header {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-bottom: 1.5em;
+  margin-left: 1.5em; }
+.offer-create .container.offer fieldset > section {
+  margin-bottom: 2.5em; }
+  .offer-create .container.offer fieldset > section label.label-flex {
+    display: flex;
+    align-items: baseline; }
+    .offer-create .container.offer fieldset > section label.label-flex span {
+      font-size: 1.3em;
+      text-align: end;
+      flex: 0 0 20%;
+      margin-right: 1.5em; }
+    .offer-create .container.offer fieldset > section label.label-flex input, .offer-create .container.offer fieldset > section label.label-flex select, .offer-create .container.offer fieldset > section label.label-flex textarea {
+      border-color: #5DC8CD;
+      border-width: 1px;
+      flex: 0 0 75%; }
+      .offer-create .container.offer fieldset > section label.label-flex input:focus, .offer-create .container.offer fieldset > section label.label-flex input:hover, .offer-create .container.offer fieldset > section label.label-flex select:focus, .offer-create .container.offer fieldset > section label.label-flex select:hover, .offer-create .container.offer fieldset > section label.label-flex textarea:focus, .offer-create .container.offer fieldset > section label.label-flex textarea:hover {
+        border-color: #1E8185; }
+    .offer-create .container.offer fieldset > section label.label-flex textarea {
+      resize: none; }
+    .offer-create .container.offer fieldset > section label.label-flex select {
+      cursor: pointer; }
+.offer-create .container.offer .offer-photos, .offer-create .container.offer .submit-section {
+  display: flex; }
+  .offer-create .container.offer .offer-photos label, .offer-create .container.offer .offer-photos .elongation, .offer-create .container.offer .submit-section label, .offer-create .container.offer .submit-section .elongation {
+    font-size: 1.3em;
+    text-align: end;
+    flex: 0 0 20%;
+    margin-right: 1.5em; }
+  .offer-create .container.offer .offer-photos .button-wrapper, .offer-create .container.offer .submit-section .button-wrapper {
+    flex: 0 0 75%; }
+  .offer-create .container.offer .offer-photos .all-photos, .offer-create .container.offer .submit-section .all-photos {
+    flex: 0 0 75%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    max-width: 50em; }
+    .offer-create .container.offer .offer-photos .all-photos #addPhoto, .offer-create .container.offer .submit-section .all-photos #addPhoto {
+      padding: 0;
+      text-decoration: none; }
+      .offer-create .container.offer .offer-photos .all-photos #addPhoto:before, .offer-create .container.offer .submit-section .all-photos #addPhoto:before {
+        background: url("/img/icons/plus-circle-solid.svg") no-repeat center;
+        background-size: 50% 50%;
+        display: block;
+        content: '';
+        width: auto;
+        height: 6em; }
+      .offer-create .container.offer .offer-photos .all-photos #addPhoto span, .offer-create .container.offer .submit-section .all-photos #addPhoto span {
+        display: none; }
+  .offer-create .container.offer .offer-photos input[type=file], .offer-create .container.offer .submit-section input[type=file] {
+    display: none; }
+.offer-create input[type=submit] {
+  text-align: center;
+  border-radius: var(--basic-border-radius);
+  border: 0;
+  width: 10em;
+  margin: 10px auto;
+  background-color: #5DC8CD;
+  box-shadow: 0 5px 0 0 #1E8185;
+  transition: all 0.2s; }
+  .offer-create input[type=submit]:focus, .offer-create input[type=submit]:hover {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    box-shadow: none;
+    transform: translateY(5px); }
+.offer-create .box {
   display: flex;
-  flex-direction: row;
-  padding: 0.25em; }
-  .offer-photos .all-photos .photo-box {
-    border: 1px solid black;
-    padding: 0.5em;
-    width: 80px;
-    height: 60px;
-    background-color: #5CC5EF; }
-    .offer-photos .all-photos .photo-box img {
-      width: 100%;
-      height: auto; }
-  .offer-photos .all-photos #addPhoto {
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #5DC8CD;
+  border-radius: var(--basic-border-radius);
+  box-shadow: 0 0 0.4em 0.3em rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  width: 8em;
+  height: 6em;
+  padding: 0.25em;
+  margin: 0 1.5em 1.5em 0;
+  overflow: hidden; }
+  .offer-create .box img {
+    width: 100%;
+    height: auto; }
+.offer-create .photo-box {
+  position: relative;
+  cursor: move; }
+  .offer-create .photo-box a {
+    display: block;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 16px;
+    height: 16px;
     cursor: pointer;
-    background-color: #3B5998; }
-.offer-photos input[type=file] {
-  display: none; }
+    text-decoration: none;
+    z-index: 1000; }
+  .offer-create .photo-box a:nth-of-type(1) {
+    background-image: url("/img/icons/redo-alt-solid.svg");
+    top: 0;
+    left: 0; }
+  .offer-create .photo-box a:nth-of-type(2) {
+    background-image: url("/img/icons/times-circle-solid.svg");
+    top: 0;
+    right: 0; }
+  .offer-create .photo-box span {
+    display: none; }

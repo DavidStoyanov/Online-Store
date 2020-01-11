@@ -10,7 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PhotoResponse {
+public class PhotoUploadResponseModel {
+
+    @Expose
+    private Long id;
 
     @Expose
     private String name;
