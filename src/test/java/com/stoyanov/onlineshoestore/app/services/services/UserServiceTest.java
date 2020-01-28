@@ -1,8 +1,8 @@
 package com.stoyanov.onlineshoestore.app.services.services;
 
 import com.stoyanov.onlineshoestore.app.errors.user.UserAlreadyExist;
-import com.stoyanov.onlineshoestore.app.models.entity.user.User;
-import com.stoyanov.onlineshoestore.app.models.service.user.UserRegisterServiceModel;
+import com.stoyanov.onlineshoestore.app.models.entities.user.User;
+import com.stoyanov.onlineshoestore.app.models.services.user.UserRegisterServiceModel;
 import com.stoyanov.onlineshoestore.app.repositories.UserRepository;
 import com.stoyanov.onlineshoestore.app.services.base.ServiceTestBase;
 import org.junit.jupiter.api.Assertions;

@@ -1,58 +1,63 @@
-.offer-create .container.offer header {
+.offer-save .container.offer header {
   font-size: 1.5em;
   font-weight: 600;
   margin-bottom: 1.5em;
   margin-left: 1.5em; }
-.offer-create .container.offer fieldset > section {
+.offer-save .container.offer fieldset > section {
   margin-bottom: 2.5em; }
-  .offer-create .container.offer fieldset > section label.label-flex {
+  .offer-save .container.offer fieldset > section#offerData > section {
+    margin-bottom: 0.5em; }
+  .offer-save .container.offer fieldset > section label.label-flex {
     display: flex;
-    align-items: baseline; }
-    .offer-create .container.offer fieldset > section label.label-flex span {
+    align-items: baseline;
+    margin-right: 5em; }
+    .offer-save .container.offer fieldset > section label.label-flex span {
       font-size: 1.3em;
       text-align: end;
       flex: 0 0 20%;
       margin-right: 1.5em; }
-    .offer-create .container.offer fieldset > section label.label-flex input, .offer-create .container.offer fieldset > section label.label-flex select, .offer-create .container.offer fieldset > section label.label-flex textarea {
+    .offer-save .container.offer fieldset > section label.label-flex input, .offer-save .container.offer fieldset > section label.label-flex select, .offer-save .container.offer fieldset > section label.label-flex textarea {
       border-color: #5DC8CD;
       border-width: 1px;
       flex: 0 0 75%; }
-      .offer-create .container.offer fieldset > section label.label-flex input:focus, .offer-create .container.offer fieldset > section label.label-flex input:hover, .offer-create .container.offer fieldset > section label.label-flex select:focus, .offer-create .container.offer fieldset > section label.label-flex select:hover, .offer-create .container.offer fieldset > section label.label-flex textarea:focus, .offer-create .container.offer fieldset > section label.label-flex textarea:hover {
+      .offer-save .container.offer fieldset > section label.label-flex input:focus, .offer-save .container.offer fieldset > section label.label-flex input:hover, .offer-save .container.offer fieldset > section label.label-flex select:focus, .offer-save .container.offer fieldset > section label.label-flex select:hover, .offer-save .container.offer fieldset > section label.label-flex textarea:focus, .offer-save .container.offer fieldset > section label.label-flex textarea:hover {
         border-color: #1E8185; }
-    .offer-create .container.offer fieldset > section label.label-flex textarea {
+    .offer-save .container.offer fieldset > section label.label-flex textarea {
       resize: none; }
-    .offer-create .container.offer fieldset > section label.label-flex select {
+    .offer-save .container.offer fieldset > section label.label-flex select {
       cursor: pointer; }
-.offer-create .container.offer .offer-photos, .offer-create .container.offer .submit-section {
-  display: flex; }
-  .offer-create .container.offer .offer-photos label, .offer-create .container.offer .offer-photos .elongation, .offer-create .container.offer .submit-section label, .offer-create .container.offer .submit-section .elongation {
+.offer-save .container.offer .offer-photos, .offer-save .container.offer .submit-section {
+  display: flex;
+  margin-right: 5em; }
+  .offer-save .container.offer .offer-photos label, .offer-save .container.offer .offer-photos .elongation, .offer-save .container.offer .submit-section label, .offer-save .container.offer .submit-section .elongation {
     font-size: 1.3em;
     text-align: end;
     flex: 0 0 20%;
     margin-right: 1.5em; }
-  .offer-create .container.offer .offer-photos .button-wrapper, .offer-create .container.offer .submit-section .button-wrapper {
+  .offer-save .container.offer .offer-photos .button-wrapper, .offer-save .container.offer .submit-section .button-wrapper {
     flex: 0 0 75%; }
-  .offer-create .container.offer .offer-photos .all-photos, .offer-create .container.offer .submit-section .all-photos {
+  .offer-save .container.offer .offer-photos .all-photos, .offer-save .container.offer .submit-section .all-photos {
     flex: 0 0 75%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: flex-start;
     max-width: 50em; }
-    .offer-create .container.offer .offer-photos .all-photos #addPhoto, .offer-create .container.offer .submit-section .all-photos #addPhoto {
+    .offer-save .container.offer .offer-photos .all-photos #addPhoto, .offer-save .container.offer .submit-section .all-photos #addPhoto {
       padding: 0;
       text-decoration: none; }
-      .offer-create .container.offer .offer-photos .all-photos #addPhoto:before, .offer-create .container.offer .submit-section .all-photos #addPhoto:before {
+      .offer-save .container.offer .offer-photos .all-photos #addPhoto:before, .offer-save .container.offer .submit-section .all-photos #addPhoto:before {
         background: url("/img/icons/plus-circle-solid.svg") no-repeat center;
         background-size: 50% 50%;
         display: block;
         content: '';
         width: auto;
         height: 6em; }
-      .offer-create .container.offer .offer-photos .all-photos #addPhoto span, .offer-create .container.offer .submit-section .all-photos #addPhoto span {
+      .offer-save .container.offer .offer-photos .all-photos #addPhoto span, .offer-save .container.offer .submit-section .all-photos #addPhoto span {
         display: none; }
-  .offer-create .container.offer .offer-photos input[type=file], .offer-create .container.offer .submit-section input[type=file] {
+  .offer-save .container.offer .offer-photos input[type=file], .offer-save .container.offer .submit-section input[type=file] {
     display: none; }
-.offer-create input[type=submit] {
+.offer-save input[type=submit] {
   text-align: center;
   border-radius: var(--basic-border-radius);
   border: 0;
@@ -61,12 +66,12 @@
   background-color: #5DC8CD;
   box-shadow: 0 5px 0 0 #1E8185;
   transition: all 0.2s; }
-  .offer-create input[type=submit]:focus, .offer-create input[type=submit]:hover {
+  .offer-save input[type=submit]:focus, .offer-save input[type=submit]:hover {
     margin-top: 15px;
     margin-bottom: 5px;
     box-shadow: none;
     transform: translateY(5px); }
-.offer-create .box {
+.offer-save .box {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -78,15 +83,15 @@
   width: 8em;
   height: 6em;
   padding: 0.25em;
-  margin: 0 1.5em 1.5em 0;
+  margin: 0 1em 1em 0;
   overflow: hidden; }
-  .offer-create .box img {
+  .offer-save .box img {
     width: 100%;
     height: auto; }
-.offer-create .photo-box {
+.offer-save .photo-box {
   position: relative;
   cursor: move; }
-  .offer-create .photo-box a {
+  .offer-save .photo-box a {
     display: block;
     position: absolute;
     background-repeat: no-repeat;
@@ -96,13 +101,13 @@
     cursor: pointer;
     text-decoration: none;
     z-index: 1000; }
-  .offer-create .photo-box a:nth-of-type(1) {
+  .offer-save .photo-box a:nth-of-type(1) {
     background-image: url("/img/icons/redo-alt-solid.svg");
     top: 0;
     left: 0; }
-  .offer-create .photo-box a:nth-of-type(2) {
+  .offer-save .photo-box a:nth-of-type(2) {
     background-image: url("/img/icons/times-circle-solid.svg");
     top: 0;
     right: 0; }
-  .offer-create .photo-box span {
+  .offer-save .photo-box span {
     display: none; }

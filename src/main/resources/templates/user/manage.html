@@ -28,7 +28,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!--/*@thymesVar id="user" type="com.stoyanov.onlineshoestore.app.models.view.user.UserDetailsViewModel"*/-->
+                <!--/*@thymesVar id="user" type="com.stoyanov.onlineshoestore.app.models.views.user.UserDetailsViewModel"*/-->
                 <tr th:each="user, iter : ${users}" th:object="${user}">
                     <input type="hidden" name="username" th:value="*{username}" th:form="manageForm + ${iter.index}">
                     <td th:text="${#strings.substring(user.id, 0, 6) + '...' + #strings.substring(user.id, 33, 36)}">0e8bc4...00a</td>
@@ -70,7 +70,7 @@
             </table>
 
             <div>
-                <!--/*@thymesVar id="user" type="com.stoyanov.onlineshoestore.app.models.view.user.UserDetailsViewModel"*/-->
+                <!--/*@thymesVar id="user" type="com.stoyanov.onlineshoestore.app.models.views.user.UserDetailsViewModel"*/-->
                 <th:block th:each="user, iter : ${users}" th:object="${user}">
                     <form th:id="manageForm + ${iter.index}" th:action="@{/users/manage}" th:method="POST"></form>
                 </th:block>

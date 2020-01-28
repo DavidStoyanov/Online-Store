@@ -18,12 +18,12 @@
         <p class="danger" th:text="${offerExpiredError}"></p>
 
         <section class="offers">
-            <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.view.offer.offer.OfferDetailsViewModel"*/-->
-            <div class="offer-cnr" th:each="offer : ${offers}" th:object="${offer}" th:data-offer-category-id="*{categoryId}" th:data-offer-id="*{id}">
+            <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.services.offer.OffersServiceModel"*/-->
+            <div class="offer-cnr" th:each="offer : ${offers}" th:object="${offer}" th:data-offer-id="*{id}">
                 <section class="offer-img-wrapper">
                     <th:block>
-                        <img th:if="*{!photos.isEmpty()}" alt="" th:src="'https://res.cloudinary.com/dxvn93xbh/image/upload/' + *{photos.get(0).imageUrl} + '.jpg'">
-                        <img src="" alt="">
+                        <img alt="offer photo" th:src="'https://p-sf1.pcloud.com/' + *{photo.url}"
+                             th:style="'transform: rotate(' + *{photo.degree} + 'deg) translate(-50%, -50%) scale(0.7)'">
                     </th:block>
                     <div class="offer-views">
                         <i class="fas fa-eye"></i>

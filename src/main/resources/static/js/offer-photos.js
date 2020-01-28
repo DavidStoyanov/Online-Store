@@ -99,6 +99,7 @@
             for (let i = 0; i < photos.length; i++) {
                 const photoUrl = getUrl($(photos[i]));
                 const photoData = allPhotoMap.get(photoUrl);
+                photoData['position'] = i + 1;
                 result.push(photoData);
             }
 
@@ -106,7 +107,7 @@
         }
 
         function generatePhotoSection(photoUrl) {
-            const url = 'https://p-sf1.pcloud.com' + photoUrl;
+            const url = 'https://p-sf1.pcloud.com/' + photoUrl;
 
             const image = $('<img>')
                 .attr('src', url)

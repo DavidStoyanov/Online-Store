@@ -1,7 +1,7 @@
 package com.stoyanov.onlineshoestore.app.services.offers.impl;
 
 import com.google.gson.Gson;
-import com.stoyanov.onlineshoestore.app.models.view.photo.PhotoUploadResponseModel;
+import com.stoyanov.onlineshoestore.app.models.views.photo.PhotoUploadResponseModel;
 import com.stoyanov.onlineshoestore.app.services.offers.PhotoService;
 import com.stoyanov.onlineshoestore.app.services.services.PCloudService;
 import org.springframework.beans.factory.annotation.Autowired;

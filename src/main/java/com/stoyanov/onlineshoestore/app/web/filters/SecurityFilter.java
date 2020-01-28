@@ -1,0 +1,46 @@
+package com.stoyanov.onlineshoestore.app.web.filters;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+//@Component
+public class SecurityFilter implements Filter {
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        HttpServletResponse resp = (HttpServletResponse) servletResponse;
+
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        //todo cast exception fix
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        long count = userDetails.getAuthorities().stream()
+                .filter(x -> x.getAuthority().equals("ROLE_ANONYMOUS"))
+                .filter(x -> x.getAuthority().equals("USER"))
+                .filter(x -> x.getAuthority().equals("ROOT"))
+                .count();
+
+        boolean offerRoute= false;
+        if (req.getRequestURI().startsWith("/offer/create/")) {
+            offerRoute = true;
+        } else if (req.getRequestURI().startsWith("/offer/edit/")) {
+            offerRoute = true;
+        }
+
+        if (count == 0 && offerRoute) {
+            resp.sendRedirect("/home");
+            return;
+        }
+
+        filterChain.doFilter(req, resp);
+    }
+}

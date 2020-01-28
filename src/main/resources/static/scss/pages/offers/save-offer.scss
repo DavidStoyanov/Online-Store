@@ -1,4 +1,4 @@
-.offer-create {
+.offer-save {
 
   .container.offer {
     header {
@@ -11,9 +11,14 @@
     fieldset > section {
       margin-bottom: 2.5em;
 
+      &#offerData > section {
+        margin-bottom: 0.5em;
+      }
+
       label.label-flex {
         display: flex;
         align-items: baseline;
+        margin-right: 5em;
 
         span {
           font-size: 1.3em;
@@ -44,6 +49,7 @@
 
     .offer-photos, .submit-section {
       display: flex;
+      margin-right: 5em;
 
       label, .elongation {
         font-size: 1.3em;
@@ -61,6 +67,7 @@
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
+        justify-content: flex-start;
         max-width: 50em;
 
         #addPhoto {
@@ -118,7 +125,7 @@
     width: 8em;
     height: 6em;
     padding: 0.25em;
-    margin: 0 1.5em 1.5em 0;
+    margin: 0 1em 1em 0;
     overflow: hidden;
 
     img {

@@ -1,6 +1,6 @@
 package com.stoyanov.onlineshoestore.app.errors.user;
 
-public class BadLoginArgsException extends Exception {
+public class BadLoginArgsException extends RuntimeException {
 
     private static final String EXCEPTION_MESSAGE = "Invalid username or password";
 

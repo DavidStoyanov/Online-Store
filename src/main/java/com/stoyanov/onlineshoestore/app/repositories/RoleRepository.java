@@ -1,6 +1,6 @@
 package com.stoyanov.onlineshoestore.app.repositories;
 
-import com.stoyanov.onlineshoestore.app.models.entity.user.Role;
+import com.stoyanov.onlineshoestore.app.models.entities.user.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

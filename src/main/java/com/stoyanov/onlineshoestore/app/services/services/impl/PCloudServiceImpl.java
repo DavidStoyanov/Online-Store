@@ -1,7 +1,7 @@
 package com.stoyanov.onlineshoestore.app.services.services.impl;
 
 import com.pcloud.sdk.*;
-import com.stoyanov.onlineshoestore.app.models.view.photo.PhotoUploadResponseModel;
+import com.stoyanov.onlineshoestore.app.models.views.photo.PhotoUploadResponseModel;
 import com.stoyanov.onlineshoestore.app.services.services.PCloudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class PCloudServiceImpl implements PCloudService {
             ).execute();
 
             String name = multipartFile.getOriginalFilename();
-            String url = uploadedFile.createFileLink().bestUrl().getPath();
+            String url = uploadedFile.createFileLink().bestUrl().getPath().substring(1);
             Long id = uploadedFile.fileId();
             photoResponse = new PhotoUploadResponseModel(id, name, url);
         } catch (IOException | ApiError exception) {

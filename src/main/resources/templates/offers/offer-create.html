@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <link rel="stylesheet" th:href="@{/css/save-offer.css}">
+    <script th:src="@{/js/offer-photos.js}"></script>
+    <script th:src="@{/js/create-offer.js}"></script>
+</head>
+<body class="page offer-save">
+
+<header class="site-header banner">
+    <th:block th:include="~{fragments/site-header}"/>
+</header>
+
+<main class="site-content">
+
+    <div id="container" class="container offer">
+        <section class="offer-create">
+            <header>
+                <h2>Publish offer</h2>
+            </header>
+
+            <form id="form" action="/" method="POST">
+                <fieldset>
+
+                    <section>
+                        <label class="label-flex">
+                            <span>Title:</span>
+                            <input class="input" type="text" name="title" />
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="label-flex">
+                            <span>Category:</span>
+                            <select class="input" id="categoryId" name="categoryId">
+                                <option value="none" selected>Choose category</option>
+                                <option value="1">Shoes</option>
+                                <option value="2">Clothes</option>
+                            </select>
+                        </label>
+                    </section>
+
+                    <section id="offerData">
+                        <!--Generate category fields-->
+                    </section>
+
+                    <section>
+                        <label class="label-flex">
+                            <span>Description:</span>
+                            <textarea class="input" name="description" rows="7"></textarea>
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="label-flex">
+                            <span>Price:</span>
+                            <input class="input" type="number" name="price" step="0.01" />
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="label-flex">
+                            <span>Condition:</span>
+                            <select class="input" name="condition">
+                                <option value="EXCELLENT">Excellent</option>
+                                <option value="GOOD">Good</option>
+                                <option value="AVERAGE">Average</option>
+                            </select>
+                        </label>
+                    </section>
+
+                    <section class="offer-photos">
+                        <label id="allPhotosLabel" for="allPhotos">
+                            <span>Photos:</span>
+                        </label>
+                        <div id="allPhotos" class="all-photos">
+                            <a href="#" class="box" id="addPhoto" title="Add photo" onclick="return false">
+                                <span>add photo</span>
+                            </a>
+                        </div>
+                        <div>
+                            <input type="file" id="photosInput" accept="image/gif, image/jpeg, image/png" />
+                            <input id="photos" type="hidden" name="photos" />
+                        </div>
+                    </section>
+
+                    <section class="submit-section">
+                        <span class="elongation"></span>
+                        <div class="button-wrapper">
+                            <input id="submitBtn" type="submit" class="btn" value="Create" />
+                        </div>
+                    </section>
+                </fieldset>
+            </form>
+        </section>
+    </div>
+
+</main>
+
+<footer class="site-footer">
+    <th:block th:include="~{fragments/footer}"/>
+</footer>
+
+<a id="scroll-to-top" href="#head-inner">
+    <span></span>
+</a>
+
+<th:block th:include="~{fragments/scripts}"/>
+
+</body>
+</html>

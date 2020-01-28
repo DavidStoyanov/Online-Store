@@ -22,7 +22,7 @@
                 <a th:href="@{/user/login}">Log in</a>
             </h4>
 
-            <!--/*@thymesVar id="registerModel" type="com.stoyanov.onlineshoestore.app.models.view.user.UserRegisterViewModel"*/-->
+            <!--/*@thymesVar id="registerModel" type="com.stoyanov.onlineshoestore.app.models.views.user.UserRegisterViewModel"*/-->
             <form th:action="@{/user/register}" th:method="POST" th:object="${registerModel}">
                 <fieldset>
                     <section class="input-wrapper">

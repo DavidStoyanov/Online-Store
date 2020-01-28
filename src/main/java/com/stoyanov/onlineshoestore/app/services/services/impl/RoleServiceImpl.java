@@ -1,6 +1,6 @@
 package com.stoyanov.onlineshoestore.app.services.services.impl;
 
-import com.stoyanov.onlineshoestore.app.models.entity.user.Role;
+import com.stoyanov.onlineshoestore.app.models.entities.user.Role;
 import com.stoyanov.onlineshoestore.app.repositories.RoleRepository;
 import com.stoyanov.onlineshoestore.app.services.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -131,6 +131,12 @@ small.danger {
 table, th, td {
   border: 1px solid black; }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important; }
+
 .table {
   background-color: rgba(55, 55, 55, 0.2);
   border-radius: 0.2em;
@@ -270,7 +276,8 @@ body {
   background-image: linear-gradient(to top, rgba(250, 250, 250, 0.7), rgba(250, 250, 250, 0.7)), url("/img/content.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover; }
+  background-size: cover;
+  background-attachment: fixed; }
   @media screen and (min-width: 901px) {
     .site-content {
       padding: 0.2em 2em; } }

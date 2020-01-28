@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <link rel="stylesheet" th:href="@{/css/save-offer.css}">
+    <script th:src="@{/js/offer-edit-photos.js}"></script>
+    <script th:src="@{/js/edit-offer.js}"></script>
+</head>
+<body class="page offer-save">
+
+<header class="site-header banner">
+    <th:block th:include="~{fragments/site-header}"/>
+</header>
+
+<main class="site-content">
+
+    <!--/*@thymesVar id="id" type="java.lang.String"*/-->
+    <div id="container" class="container offer offer-edit" th:data-id="${id}">
+        <section class="offer-edit">
+            <header>
+                <h2>Correct offer</h2>
+            </header>
+
+            <!--/*@thymesVar id="model" type="com.stoyanov.onlineshoestore.app.models.services.offer.OfferServiceModel"*/-->
+            <form id="form" action="/" method="POST" th:object="${model}">
+                <fieldset>
+
+                    <input type="hidden" name="id" th:field="${id}" />
+
+                    <section>
+                        <label class="label-flex">
+                            <span>Title:</span>
+                            <input class="input" type="text" name="title" th:value="*{title}" />
+                        </label>
+                        <th:block th:if="${#fields.hasErrors('title')}">
+                            <small th:text="${#fields.errors('title').get(0)}"></small>
+                        </th:block>
+                    </section>
+
+                    <section>
+                        <label class="label-flex">
+                            <span>Category:</span>
+                            <select class="input" id="categoryId" name="categoryId" th:data-value="*{categoryId}">
+                                <option value="none" selected>Choose category</option>
+                                <option value="1">Shoes</option>
+                                <option value="2">Clothes</option>
+                            </select>
+                        </label>
+                    </section>
+
+                    <section id="offerData">
+                        <!--Generate category fields-->
+                    </section>
+
+                    <section>
+                        <label class="label-flex">
+                            <span>Description:</span>
+                            <textarea class="input" name="description" th:text="*{description}" rows="7"></textarea>
+                        </label>
+                        <th:block th:if="${#fields.hasErrors('description')}">
+                            <small th:text="${#fields.errors('description').get(0)}"></small>
+                        </th:block>
+                    </section>
+
+                    <section>
+                        <label class="label-flex">
+                            <span>Price:</span>
+                            <input class="input" type="number" name="price" step="0.01" th:value="*{price}" />
+                        </label>
+                        <th:block th:if="${#fields.hasErrors('price')}">
+                            <small th:text="${#fields.errors('price').get(0)}"></small>
+                        </th:block>
+                    </section>
+
+                    <section>
+                        <label class="label-flex">
+                            <span>Condition:</span>
+                            <select class="input" name="condition" th:value="*{condition}">
+                                <option value="EXCELLENT">Excellent</option>
+                                <option value="GOOD">Good</option>
+                                <option value="AVERAGE">Average</option>
+                            </select>
+                        </label>
+                        <th:block th:if="${#fields.hasErrors('condition')}">
+                            <small th:text="${#fields.errors('condition').get(0)}"></small>
+                        </th:block>
+                    </section>
+
+                    <section class="offer-photos">
+                        <label id="allPhotosLabel" for="allPhotos">
+                            <span>Photos:</span>
+                        </label>
+                        <div id="allPhotos" class="all-photos">
+                            <a href="#" class="box" id="addPhoto" title="Add photo" onclick="return false">
+                                <span>add photo</span>
+                            </a>
+                        </div>
+                        <div>
+                            <input type="file" id="photosInput" accept="image/gif, image/jpeg, image/png" />
+                            <input id="photos" type="hidden" name="photos" />
+                        </div>
+                    </section>
+
+
+                    <section class="submit-section">
+                        <span class="elongation"></span>
+                        <div class="button-wrapper">
+                            <input id="submitBtn" type="submit" class="btn" value="Save changes" />
+                        </div>
+                    </section>
+                </fieldset>
+            </form>
+        </section>
+
+    </div>
+
+</main>
+
+<footer class="site-footer">
+    <th:block th:include="~{fragments/footer}"/>
+</footer>
+
+<a id="scroll-to-top" href="#head-inner">
+    <span></span>
+</a>
+
+<th:block th:include="~{fragments/scripts}"/>
+
+</body>
+</html>

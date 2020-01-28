@@ -1,6 +1,6 @@
 package com.stoyanov.onlineshoestore.app.services.services;
 
-import com.stoyanov.onlineshoestore.app.models.view.photo.PhotoUploadResponseModel;
+import com.stoyanov.onlineshoestore.app.models.views.photo.PhotoUploadResponseModel;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

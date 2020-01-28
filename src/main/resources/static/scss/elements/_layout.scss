@@ -14,7 +14,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    
+    background-attachment: fixed;
+
     @include bp('desktop-device') { padding: 0.2em 2em; };
     
     .container {

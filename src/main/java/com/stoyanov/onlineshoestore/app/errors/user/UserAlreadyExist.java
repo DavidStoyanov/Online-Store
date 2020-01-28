@@ -1,6 +1,6 @@
 package com.stoyanov.onlineshoestore.app.errors.user;
 
-public class UserAlreadyExist extends Exception {
+public class UserAlreadyExist extends RuntimeException {
 
     private static final String EXCEPTION_MESSAGE = "User already exist";
 

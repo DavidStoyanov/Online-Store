@@ -2,11 +2,11 @@ package com.stoyanov.onlineshoestore.app.services.services.impl;
 
 import com.stoyanov.onlineshoestore.app.errors.user.UserAlreadyExist;
 import com.stoyanov.onlineshoestore.app.errors.user.UserNotFoundException;
-import com.stoyanov.onlineshoestore.app.models.entity.user.Role;
-import com.stoyanov.onlineshoestore.app.models.entity.user.User;
-import com.stoyanov.onlineshoestore.app.models.service.user.UserDetailsServiceModel;
-import com.stoyanov.onlineshoestore.app.models.service.user.UserManageServiceModel;
-import com.stoyanov.onlineshoestore.app.models.service.user.UserRegisterServiceModel;
+import com.stoyanov.onlineshoestore.app.models.entities.user.Role;
+import com.stoyanov.onlineshoestore.app.models.entities.user.User;
+import com.stoyanov.onlineshoestore.app.models.services.user.UserDetailsServiceModel;
+import com.stoyanov.onlineshoestore.app.models.services.user.UserManageServiceModel;
+import com.stoyanov.onlineshoestore.app.models.services.user.UserRegisterServiceModel;
 import com.stoyanov.onlineshoestore.app.repositories.RoleRepository;
 import com.stoyanov.onlineshoestore.app.repositories.UserRepository;
 import com.stoyanov.onlineshoestore.app.services.services.RoleService;

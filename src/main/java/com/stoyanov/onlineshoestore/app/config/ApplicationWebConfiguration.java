@@ -1,6 +1,6 @@
 package com.stoyanov.onlineshoestore.app.config;
 
-import com.stoyanov.onlineshoestore.app.filters.FaviconInterceptor;
+import com.stoyanov.onlineshoestore.app.web.interceptors.FaviconInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

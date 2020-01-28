@@ -1,7 +1,7 @@
 package com.stoyanov.onlineshoestore.app.services.services.impl;
 
-import com.stoyanov.onlineshoestore.app.models.entity.contact.Message;
-import com.stoyanov.onlineshoestore.app.models.service.contact.SendEmailServiceModel;
+import com.stoyanov.onlineshoestore.app.models.entities.contact.Message;
+import com.stoyanov.onlineshoestore.app.models.services.contact.SendEmailServiceModel;
 import com.stoyanov.onlineshoestore.app.repositories.ContactRepository;
 import com.stoyanov.onlineshoestore.app.services.services.ContactService;
 import org.modelmapper.ModelMapper;
