@@ -41,7 +41,7 @@
                 <!--/*@thymesVar id="photo" type="com.stoyanov.onlineshoestore.app.models.services.offer.PhotoServiceModel"*/-->
                 <div class="" th:each="photo : *{photos}">
                     <div>
-                        <img th:src="@{'https://p-sf1.pcloud.com/' + ${photo.url}}"
+                        <img th:src="@{${photo.url}}"
                              alt="offer photo" width="300px" height="300px"
                              th:style="'transform: rotate(' + ${photo.degree} + 'deg);'">
                     </div>

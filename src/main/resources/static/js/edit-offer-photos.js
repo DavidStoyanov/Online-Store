@@ -1,7 +1,19 @@
 (function ($) {
     const URLS = {
+        photos: '/api/offer/photos',
         upload: '/api/photo/upload',
         destroy: '/api/photo/destroy',
+    };
+
+    const fetchPhotos = (id) => {
+        return fetch(URLS.photos + '/' + id)
+            .then((response) => response.json())
+            .then((result) => {
+                return result;
+            })
+            .catch((error) => {
+                return error;
+            });
     };
 
     const upload = (data) => {
@@ -9,13 +21,13 @@
             method: 'POST',
             body: data
         })
-        .then((response) => response.json())
-        .then((result) => {
-            return result;
-        })
-        .catch((error) => {
-            return error;
-        });
+            .then((response) => response.json())
+            .then((result) => {
+                return result;
+            })
+            .catch((error) => {
+                return error;
+            });
     };
 
     const destroy = (data) => {
@@ -26,13 +38,13 @@
             },
             body: serialize(data),
         })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     };
 
     const serialize = (obj) => {
@@ -44,6 +56,9 @@
 
 
     $(() => {
+        const container = $('#container');
+        const id = container.attr('data-id');
+
         const body = $('body');
         const input = $('#photosInput');
         const photoContainer = $('.all-photos');
@@ -51,6 +66,8 @@
         const addPhoto = $('#addPhoto');
 
         const allPhotoMap = new Map();
+
+        generateAllPhotos();
 
         addPhoto.on('click', () => input.click());
 
@@ -66,20 +83,16 @@
                 );
             addPhoto.before(section);
 
-            const photoDetails = {};
             upload(formData).then(response => {
-                photoDetails.photoId = response[0].id;
-                photoDetails.photoName = response[0].name;
-                photoDetails.photoUrl = response[0].url;
-
-                allPhotoMap.set(photoDetails.photoUrl, {
-                    id: photoDetails.photoId,
-                    name: photoDetails.photoName,
-                    url: photoDetails.photoUrl,
+                allPhotoMap.set(response[0].id, {
+                    id: response[0].id,
+                    name: response[0].name,
+                    url: response[0].url,
+                    format: response[0].format,
                     degree: 0
                 });
 
-                const generatedSection = generatePhotoSection(photoDetails.photoUrl);
+                const generatedSection = generatePhotoSection(response[0].id);
                 section.replaceWith(generatedSection);
 
                 refreshInputData();
@@ -92,13 +105,42 @@
             $(this).val('');
         });
 
+        function generateAllPhotos() {
+            fetchPhotos(id)
+                .then(response => {
+                    for (const photo of response) {
+                        const section = $('<seciton>')
+                            .addClass('box')
+                            .append(
+                                $('<img src="/img/gifs/ajax-loader.gif" alt="loading" title="loading">')
+                                    .css('transform', 'scale(0.5)')
+                            );
+                        addPhoto.before(section);
+
+                        allPhotoMap.set(photo.id, {
+                            id: photo.id,
+                            name: photo.name,
+                            url: photo.url,
+                            degree: photo.degree
+                        });
+
+                        const generatedSection = generatePhotoSection(photo.id);
+                        section.replaceWith(generatedSection);
+                        refreshInputData();
+                    }
+                })
+                .catch(error => {
+                    console.warn(error);
+                });
+        }
+
         function refreshInputData() {
             const result = [];
 
             const photos = photoContainer.find('.box.photo-box');
             for (let i = 0; i < photos.length; i++) {
-                const photoUrl = getUrl($(photos[i]));
-                const photoData = allPhotoMap.get(photoUrl);
+                const photoId = getPhotoId($(photos[i]));
+                const photoData = allPhotoMap.get(photoId);
                 photoData['position'] = i + 1;
                 result.push(photoData);
             }
@@ -106,12 +148,13 @@
             photosData.val(JSON.stringify(result));
         }
 
-        function generatePhotoSection(photoUrl) {
-            const url = 'https://p-sf1.pcloud.com/' + photoUrl;
+        function generatePhotoSection(photoId) {
+            const photo = allPhotoMap.get(photoId);
 
             const image = $('<img>')
-                .attr('src', url)
-                .attr('alt', 'offer-photo');
+                .attr('src', photo.url)
+                .attr('alt', 'offer-photo')
+                .css('transform', `rotate(${photo.degree}deg)`);
 
             const rotateAnchor = $('<a>')
                 .addClass('rotatePhoto')
@@ -129,7 +172,7 @@
 
             return $('<seciton>')
                 .addClass('box photo-box')
-                .attr('data-url', photoUrl)
+                .attr('data-id', photo.id)
                 .append(image)
                 .append(rotateAnchor)
                 .append(deleteAnchor)
@@ -139,11 +182,11 @@
 
         function photoRotateFunc(event) {
             const parent = $(this).parent();
-            const photoUrl = parent.attr('data-url');
+            const photoId = parent.attr('data-id');
             const photoImg = parent.find('img');
 
-            const degree = getDegrees(allPhotoMap.get(photoUrl).degree);
-            allPhotoMap.get(photoUrl).degree = degree;
+            const degree = getDegrees(allPhotoMap.get(photoId).degree);
+            allPhotoMap.get(photoId).degree = degree;
             photoImg.css('transform', `rotate(${degree}deg)`);
 
             function getDegrees(currentDegrees) {
@@ -161,10 +204,10 @@
 
         function photoDeleteFunc(event) {
             const parent = $(this).parent();
-            const photoUrl = parent.attr('data-url');
+            const photoId = parent.attr('data-id');
 
-            destroy(allPhotoMap.get(photoUrl));
-            allPhotoMap.delete(photoUrl);
+            destroy(allPhotoMap.get(photoId));
+            allPhotoMap.delete(photoId);
 
             parent.fadeOut(500);
             setTimeout(function () {
@@ -274,7 +317,7 @@
         function getPhotoPos(selectedPhoto) {
             const allPhotos = photoContainer.find('.box.photo-box');
             for (let i = 0; i < allPhotos.length; i++) {
-                if (getUrl($(allPhotos[i])) === getUrl(selectedPhoto)) {
+                if (getPhotoId($(allPhotos[i])) === getPhotoId(selectedPhoto)) {
                     return i;
                 }
             }
@@ -282,8 +325,8 @@
             return 0;
         }
 
-        function getUrl(photoSection) {
-            return photoSection.attr('data-url')
+        function getPhotoId(photoSection) {
+            return photoSection.attr('data-id')
         }
     });
 }(jQuery));

@@ -22,8 +22,8 @@
             <div class="offer-cnr" th:each="offer : ${offers}" th:object="${offer}" th:data-offer-id="*{id}">
                 <section class="offer-img-wrapper">
                     <th:block>
-                        <img alt="offer photo" th:src="'https://p-sf1.pcloud.com/' + *{photo.url}"
-                             th:style="'transform: rotate(' + *{photo.degree} + 'deg) translate(-50%, -50%) scale(0.7)'">
+                        <img alt="offer photo" th:src="@{${offer.photo.url}}"
+                             th:style="'transform: translate(-50%, -50%) rotate(' + *{photo.degree} + 'deg) scale(0.7)'">
                     </th:block>
                     <div class="offer-views">
                         <i class="fas fa-eye"></i>

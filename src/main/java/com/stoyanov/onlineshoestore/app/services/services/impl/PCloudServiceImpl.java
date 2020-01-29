@@ -39,7 +39,8 @@ public class PCloudServiceImpl implements PCloudService {
             String name = multipartFile.getOriginalFilename();
             String url = uploadedFile.createFileLink().bestUrl().getPath().substring(1);
             Long id = uploadedFile.fileId();
-            photoResponse = new PhotoUploadResponseModel(id, name, url);
+            //photoResponse = new PhotoUploadResponseModel(id, name, url);
+            return null;
         } catch (IOException | ApiError exception) {
             exception.printStackTrace();
         }

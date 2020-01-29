@@ -26,6 +26,8 @@ public class ApplicationBeanConfiguration {
                 map().setId(null);
                 map().setCategory(null);
                 skip(destination.getAttributes());
+                skip(destination.getCreatedBy());
+                skip(destination.getCreatedOn());
             }
 
         };

@@ -13,11 +13,14 @@ import lombok.Setter;
 public class PhotoUploadResponseModel {
 
     @Expose
-    private Long id;
+    private String id;
 
     @Expose
     private String name;
 
     @Expose
     private String url;
+
+    @Expose
+    private String format;
 }
