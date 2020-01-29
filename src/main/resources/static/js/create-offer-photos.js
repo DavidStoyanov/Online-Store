@@ -25,12 +25,7 @@
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: serialize(data),
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
+        }).catch((error) => {
             console.error('Error:', error);
         });
     };
@@ -162,12 +157,11 @@
             destroy(allPhotoMap.get(photoId));
             allPhotoMap.delete(photoId);
 
-            parent.fadeOut(500);
+            parent.fadeOut(300);
             setTimeout(function () {
                 parent.remove();
-            }, 500);
-
-            refreshInputData();
+                refreshInputData();
+            }, 300);
 
             event.preventDefault();
             event.stopPropagation();

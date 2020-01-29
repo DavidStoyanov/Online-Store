@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class FaviconInterceptor extends HandlerInterceptorAdapter {
 
-    private static final String FAVICON = "https://i.imgur.com/OnfIR13.png";
+    private static final String FAVICON =
+            "https://res.cloudinary.com/dxvn93xbh/image/upload/v1580304755/important/favicon.png";
 
     @Override
     public void postHandle(HttpServletRequest request,

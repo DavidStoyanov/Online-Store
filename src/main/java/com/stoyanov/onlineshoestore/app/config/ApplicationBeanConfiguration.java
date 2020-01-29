@@ -28,6 +28,7 @@ public class ApplicationBeanConfiguration {
                 skip(destination.getAttributes());
                 skip(destination.getCreatedBy());
                 skip(destination.getCreatedOn());
+                skip(destination.getPhotos());
             }
 
         };

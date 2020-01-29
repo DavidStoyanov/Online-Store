@@ -6,6 +6,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "photos")
+/*@Table(name = "photos", uniqueConstraints =
+    @UniqueConstraint(columnNames={"position", "offer_id"})
+)*/
 public class Photo extends BaseEntity {
 
     private String name;
@@ -63,7 +66,7 @@ public class Photo extends BaseEntity {
         this.degree = degree;
     }
 
-    @ManyToOne(optional = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "offer_id", referencedColumnName = "id")
     public Offer getOffer() {
         return this.offer;
@@ -71,5 +74,25 @@ public class Photo extends BaseEntity {
 
     public void setOffer(Offer offer) {
         this.offer = offer;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (!Photo.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+
+        final Photo other = (Photo) obj;
+        if ((this.getImageId() == null) ?
+                (other.getImageId() != null) :
+                !this.getImageId().equals(other.getImageId())) {
+            return false;
+        }
+
+        return true;
     }
 }

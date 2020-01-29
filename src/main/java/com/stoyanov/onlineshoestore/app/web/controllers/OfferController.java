@@ -7,10 +7,7 @@ import com.stoyanov.onlineshoestore.app.web.controllers.base.BaseController;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -48,6 +45,12 @@ public class OfferController extends BaseController {
         mav.addObject("id", id);
         mav.setViewName("offers/offer-details.html");
         return mav;
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteConfirm(@PathVariable String id) throws OfferNotFoundException {
+        this.offerService.delete(id);
+        return "redirect:/offers";
     }
 
     @ExceptionHandler({OfferNotFoundException.class, Exception.class})

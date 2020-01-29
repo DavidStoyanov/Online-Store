@@ -107,8 +107,11 @@ public class Offer extends BaseEntity {
         this.photos = photos;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST,
-            mappedBy = "offer", targetEntity = OfferAttribute.class)
+    @OneToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.REMOVE
+    }, mappedBy = "offer", targetEntity = OfferAttribute.class)
     public Set<OfferAttribute> getAttributes() {
         return this.attributes;
     }

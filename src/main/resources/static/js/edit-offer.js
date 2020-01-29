@@ -82,11 +82,14 @@
 
         submitBtn.on('click', function (event) {
             event.preventDefault();
+            $(this).attr("disabled", true);
 
             const form = container.find('#form').get(0);
             let jsonData = formToJSON(form);
             jsonData = modifyDataAttr(jsonData);
-            jsonData.photos = JSON.parse($('#photos').val());
+            let inputPhotosData = $('#photos').val();
+            if (inputPhotosData.length === 0) inputPhotosData = "[]";
+            jsonData.photos = JSON.parse(inputPhotosData);
             const data = JSON.stringify(jsonData);
 
             updateOffer(id, data)

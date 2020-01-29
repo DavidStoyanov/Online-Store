@@ -9,6 +9,7 @@ import com.stoyanov.onlineshoestore.app.models.entities.offer.OfferAttribute;
 import com.stoyanov.onlineshoestore.app.models.entities.offer.Photo;
 import com.stoyanov.onlineshoestore.app.models.entities.user.User;
 import com.stoyanov.onlineshoestore.app.models.services.offer.OfferServiceModel;
+import com.stoyanov.onlineshoestore.app.models.services.offer.PhotoServiceModel;
 import com.stoyanov.onlineshoestore.app.repositories.*;
 import com.stoyanov.onlineshoestore.app.services.base.BaseService;
 import com.stoyanov.onlineshoestore.app.services.offers.OfferManageService;
@@ -19,9 +20,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,7 +85,6 @@ public class OfferServiceImpl extends BaseService implements OfferService {
                 .map(photoModel -> this.mapper.map(photoModel, Photo.class))
                 .peek(photo -> photo.setOffer(offer))
                 .collect(Collectors.toList());
-
         offer.setPhotos(photoList);
 
         serviceModel.getAttributes().forEach((k, v) -> {
@@ -119,6 +117,46 @@ public class OfferServiceImpl extends BaseService implements OfferService {
         this.mapper.map(serviceModel, offer);
         offer.setId(id);
         offer.setCategory(category);
+
+        serviceModel.getPhotos().forEach(photoModel -> {
+            Photo otherPhoto = this.mapper.map(photoModel, Photo.class);
+            if (offer.getPhotos().contains(otherPhoto)) {
+                int i = offer.getPhotos().indexOf(otherPhoto);
+                Photo photo = offer.getPhotos().get(i);
+                String photoId = photo.getId();
+                this.mapper.map(otherPhoto, photo);
+                photo.setId(photoId);
+                photo.setOffer(offer);
+                this.photoRepository.save(photo);
+            } else {
+                otherPhoto.setOffer(offer);
+                offer.getPhotos().add(otherPhoto);
+                this.photoRepository.save(otherPhoto);
+            }
+        });
+
+        Set<String> photoIdentifiers = serviceModel.getPhotos().stream()
+                .map(PhotoServiceModel::getId)
+                .collect(Collectors.toSet());
+        
+        Iterator<Photo> iterator = offer.getPhotos().iterator();
+        while (iterator.hasNext()) {
+            Photo photo = iterator.next();
+            if (!photoIdentifiers.contains(photo.getImageId())) {
+                offer.getPhotos().remove(photo);
+                photo.setOffer(null);
+                this.photoRepository.delete(photo);
+            }
+        }
+        /*offer.getPhotos().forEach(photo -> {
+            if (!photoIdentifiers.contains(photo.getImageId())) {
+                offer.getPhotos().remove(photo);
+                photo.setOffer(null);
+                this.photoRepository.delete(photo);
+            }
+        });*/
+
+
 
         serviceModel.getAttributes().forEach((k, v) -> {
             try {
@@ -154,12 +192,12 @@ public class OfferServiceImpl extends BaseService implements OfferService {
     public void delete(String id) {
         Offer offer = this.offerRepository.findById(id)
                 .orElseThrow(OfferNotFoundException::new);
-
+/*
         offer.getAttributes().forEach(offerAttr -> {
             offerAttr.setOffer(null);
             this.offerAttributeRepository.delete(offerAttr);
         });
-        offer.setAttributes(null);
+        offer.setAttributes(null);*/
 
         this.offerRepository.delete(offer);
     }
@@ -171,6 +209,11 @@ public class OfferServiceImpl extends BaseService implements OfferService {
 
         OfferServiceModel model = this.mapper.map(offer, OfferServiceModel.class);
         model.setAttributes(this.getAttributes(offer));
+
+        List<PhotoServiceModel> sortedPhotos = model.getPhotos().stream()
+                .sorted(Comparator.comparing(PhotoServiceModel::getPosition))
+                .collect(Collectors.toList());
+        model.setPhotos(sortedPhotos);
 
         return model;
     }
