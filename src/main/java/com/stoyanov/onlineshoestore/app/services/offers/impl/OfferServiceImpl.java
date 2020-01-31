@@ -138,25 +138,15 @@ public class OfferServiceImpl extends BaseService implements OfferService {
         Set<String> photoIdentifiers = serviceModel.getPhotos().stream()
                 .map(PhotoServiceModel::getId)
                 .collect(Collectors.toSet());
-        
-        Iterator<Photo> iterator = offer.getPhotos().iterator();
-        while (iterator.hasNext()) {
+
+        for (Iterator<Photo> iterator = offer.getPhotos().iterator(); iterator.hasNext(); ) {
             Photo photo = iterator.next();
             if (!photoIdentifiers.contains(photo.getImageId())) {
-                offer.getPhotos().remove(photo);
                 photo.setOffer(null);
                 this.photoRepository.delete(photo);
+                iterator.remove();
             }
         }
-        /*offer.getPhotos().forEach(photo -> {
-            if (!photoIdentifiers.contains(photo.getImageId())) {
-                offer.getPhotos().remove(photo);
-                photo.setOffer(null);
-                this.photoRepository.delete(photo);
-            }
-        });*/
-
-
 
         serviceModel.getAttributes().forEach((k, v) -> {
             try {

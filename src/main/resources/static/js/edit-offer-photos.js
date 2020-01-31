@@ -64,52 +64,64 @@
 
         generateAllPhotos();
 
+
+        addPhoto.get(0).ondragover = addPhoto.get(0).ondragenter = function(evt) {
+            evt.preventDefault();
+        };
+
+        addPhoto.get(0).ondrop = function(evt) {
+            evt.preventDefault();
+            input.get(0).files = evt.dataTransfer.files;
+            onInputChange();
+        };
+
         addPhoto.on('click', () => input.click());
 
-        input.on('change', function () {
-            const formData = new FormData();
-            formData.append('file', this.files[0]);
+        input.on('change', onInputChange);
 
-            const section = $('<seciton>')
-                .addClass('box')
-                .append(
-                    $('<img src="/img/gifs/ajax-loader.gif" alt="loading" title="loading">')
-                        .css('transform', 'scale(0.5)')
-                );
-            addPhoto.before(section);
+        function onInputChange() {
+            for (let i = 0; i < input.get(0).files.length; i++) {
+                const newSection = generateLoadingSection();
+                addPhoto.before(newSection);
+            }
 
-            upload(formData).then(response => {
-                allPhotoMap.set(response[0].id, {
-                    id: response[0].id,
-                    name: response[0].name,
-                    url: response[0].url,
-                    format: response[0].format,
-                    degree: 0
-                });
+            const loadingSections = photoContainer.find('.box.box-loading');
+            const findLoadingSection = (index) => $(loadingSections[index]);
 
-                const generatedSection = generatePhotoSection(response[0].id);
-                section.replaceWith(generatedSection);
+            for (let i = 0; i < input.get(0).files.length; i++) {
+                const formData = new FormData();
+                formData.append('file', input.get(0).files[i]);
 
-                refreshInputData();
-            })
-            .catch(error => {
-                console.warn(error);
-                section.remove()
-            });
+                upload(formData).then(response => {
+                    allPhotoMap.set(response[0].id, {
+                        id: response[0].id,
+                        name: response[0].name,
+                        url: response[0].url,
+                        format: response[0].format,
+                        degree: 0
+                    });
 
-            $(this).val('');
-        });
+                    const generatedSection = generatePhotoSection(response[0].id);
+                    const loadingBox = findLoadingSection(i);
+                    loadingBox.replaceWith(generatedSection);
+
+                    refreshInputData();
+                })
+                    .catch(error => {
+                        console.warn(error);
+                        findLoadingSection(i).remove();
+                    });
+            }
+
+            input.val('');
+        }
+
 
         function generateAllPhotos() {
             fetchPhotos(id)
                 .then(response => {
                     for (const photo of response) {
-                        const section = $('<seciton>')
-                            .addClass('box')
-                            .append(
-                                $('<img src="/img/gifs/ajax-loader.gif" alt="loading" title="loading">')
-                                    .css('transform', 'scale(0.5)')
-                            );
+                        const section = generateLoadingSection();
                         addPhoto.before(section);
 
                         allPhotoMap.set(photo.id, {
@@ -129,6 +141,15 @@
                 });
         }
 
+        function generateLoadingSection() {
+            return $('<seciton>')
+                .addClass('box box-loading')
+                .append(
+                    $('<img src="/img/gifs/ajax-loader.gif" alt="loading" title="loading">')
+                        .css('transform', 'scale(0.5)')
+                );
+        }
+
         function refreshInputData() {
             const result = [];
 
@@ -142,6 +163,7 @@
 
             photosData.val(JSON.stringify(result));
         }
+
 
         function generatePhotoSection(photoId) {
             const photo = allPhotoMap.get(photoId);
