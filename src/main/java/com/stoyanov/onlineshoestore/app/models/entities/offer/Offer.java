@@ -23,10 +23,12 @@ public class Offer extends BaseEntity {
     private Condition condition;
     private User createdBy;
     private Date createdOn;
+    private Long views;
     private List<Photo> photos;
     private Set<OfferAttribute> attributes;
 
     public Offer() {
+        this.views = 0L;
         this.attributes = new HashSet<>();
     }
 
@@ -95,6 +97,15 @@ public class Offer extends BaseEntity {
 
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
+    }
+
+    @Column(name = "views", nullable = false)
+    public Long getViews() {
+        return this.views;
+    }
+
+    public void setViews(Long views) {
+        this.views = views;
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,

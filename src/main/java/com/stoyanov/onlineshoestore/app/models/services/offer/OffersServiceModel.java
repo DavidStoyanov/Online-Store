@@ -16,5 +16,6 @@ public class OffersServiceModel {
     private String title;
     private BigDecimal price;
     private Date createdOn;
+    private Long views;
     private PhotoServiceModel photo;
 }

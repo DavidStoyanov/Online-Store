@@ -24,6 +24,7 @@ public class OfferServiceModel {
     private Condition condition;
     private User createdBy;
     private Date createdOn;
+    private Long views;
     private List<PhotoServiceModel> photos;
     private Map<String, String> attributes;
 }

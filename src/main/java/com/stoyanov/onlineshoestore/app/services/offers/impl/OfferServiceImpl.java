@@ -205,6 +205,9 @@ public class OfferServiceImpl extends BaseService implements OfferService {
                 .collect(Collectors.toList());
         model.setPhotos(sortedPhotos);
 
+        offer.setViews(offer.getViews() + 1);
+        this.offerRepository.save(offer);
+
         return model;
     }
 

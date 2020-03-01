@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.stoyanov.onlineshoestore.app.models.entities.offer.Offer;
 import com.stoyanov.onlineshoestore.app.models.entities.offer.Photo;
 import com.stoyanov.onlineshoestore.app.models.services.offer.OfferServiceModel;
-import com.stoyanov.onlineshoestore.app.models.services.offer.OffersServiceModel;
 import com.stoyanov.onlineshoestore.app.models.services.offer.PhotoServiceModel;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;

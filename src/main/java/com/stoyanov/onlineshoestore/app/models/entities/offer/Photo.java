@@ -5,10 +5,9 @@ import com.stoyanov.onlineshoestore.app.models.entities.base.BaseEntity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "photos")
-/*@Table(name = "photos", uniqueConstraints =
+@Table(name = "photos", uniqueConstraints =
     @UniqueConstraint(columnNames={"position", "offer_id"})
-)*/
+)
 public class Photo extends BaseEntity {
 
     private String name;
