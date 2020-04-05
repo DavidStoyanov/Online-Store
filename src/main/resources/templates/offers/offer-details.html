@@ -5,8 +5,9 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:include="~{fragments/head}"/>
+    <link rel="stylesheet" th:href="@{/css/offer-detail.css}">
 </head>
-<body>
+<body class="page offer-info">
 
 <header class="site-header banner">
     <th:block th:include="~{fragments/site-header}"/>
@@ -14,48 +15,70 @@
 
 <main class="site-content">
 
-    <div class="container offer-details">
+    <div class="container offer-info">
         <!--/*@thymesVar id="offer" type="com.stoyanov.onlineshoestore.app.models.services.offer.OfferServiceModel"*/-->
-        <div th:object="${offer}">
-            <section>
-                <h4>Title:</h4>
-                <h4 th:text="*{title}"></h4>
-            </section>
+        <section class="offer-details" th:object="${offer}">
+            <div class="header">
+                <div class="title">
+                    <h2 th:text="*{title}"></h2>
+                </div>
+                <div class="buttons" sec:authorize="hasAnyAuthority('MODERATOR', 'ROOT')">
+                    <a th:href="@{/offer/edit/{id}(id = ${id})}">Edit Offer</a>
+                    <!--/*@thymesVar id="id" type="java.lang.String"*/-->
+                    <form th:action="@{/offer/delete/{id}(id = ${id})}" th:method="POST">
+                        <button class="button danger" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
 
-            <section>
-                <h4>Description:</h4>
-                <h4 th:text="*{description}"></h4>
-            </section>
-
-            <section>
-                <h4>Price:</h4>
-                <h4 th:text="*{price}"></h4>
-            </section>
-
-            <section>
-                <h4>Condition:</h4>
-                <h4 th:text="*{condition}"></h4>
-            </section>
-
-            <section class="">
-                <!--/*@thymesVar id="photo" type="com.stoyanov.onlineshoestore.app.models.services.offer.PhotoServiceModel"*/-->
-                <div class="" th:each="photo : *{photos}">
-                    <div>
-                        <img th:src="@{${photo.url}}"
-                             alt="offer photo" width="300px" height="300px"
-                             th:style="'transform: rotate(' + ${photo.degree} + 'deg);'">
+            <div class="main">
+                <div class="photos">
+                    <div class="all-photos-wrapper">
+                        <div class="all-photos">
+                            <!--/*@thymesVar id="photo" type="com.stoyanov.onlineshoestore.app.models.services.offer.PhotoServiceModel"*/-->
+                            <div class="photo small-photo" th:id="'smallPhoto' + ${photo.position}" th:each="photo : *{photos}">
+                                <img th:src="@{${photo.url}}" alt="offer photo"
+                                     th:style="'transform: rotate(' + ${photo.degree} + 'deg);'">
+                                <div class="svg-chevron"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-wrap">
+                        <!--/*@thymesVar id="photo" type="com.stoyanov.onlineshoestore.app.models.services.offer.PhotoServiceModel"*/-->
+                        <div class="photo large-photo" th:id="'photo' + ${photo.position}" th:each="photo : *{photos}">
+                            <img th:src="@{${photo.url}}"
+                                 alt="offer photo" width="630px" height="420px"
+                                 th:style="'transform: rotate(' + ${photo.degree} + 'deg);'">
+                        </div>
                     </div>
                 </div>
-            </section>
 
-            <section sec:authorize="hasAnyAuthority('MODERATOR', 'ROOT')">
-                <a th:href="@{/offer/edit/{id}(id = ${id})}">Edit Offer</a>
-                <!--/*@thymesVar id="id" type="java.lang.String"*/-->
-                <form th:action="@{/offer/delete/{id}(id = ${id})}" th:method="POST">
-                    <button class="button danger" type="submit">Delete</button>
-                </form>
-            </section>
-        </div>
+                <div class="details">
+                    <div>
+                        <h4>Description:</h4>
+                        <h4 th:text="*{description}"></h4>
+                    </div>
+
+                    <div>
+                        <h4>Price:</h4>
+                        <h4 th:text="*{price}"></h4>
+                    </div>
+
+                    <div>
+                        <h4>Condition:</h4>
+                        <h4 th:text="*{condition}"></h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="more-offers">
+
+        </section>
+
+        <section class="last-seen">
+
+        </section>
     </div>
 
 </main>
@@ -69,6 +92,8 @@
 </a>
 
 <th:block th:include="~{fragments/scripts}"/>
+
+<script type="text/javascript" src="/js/offers/offer-details.js"></script>
 
 </body>
 </html>

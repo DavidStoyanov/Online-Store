@@ -1,3 +1,11 @@
+/*
+@include bp('mobile-device') {
+    flex-wrap: wrap;
+}
+@include bp('desktop-device') {
+    flex-wrap: nowrap;
+}
+*/
 .signup-buttons {
   display: flex;
   flex-wrap: nowrap;

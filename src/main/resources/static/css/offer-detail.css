@@ -1,0 +1,92 @@
+/*
+@include bp('mobile-device') {
+    flex-wrap: wrap;
+}
+@include bp('desktop-device') {
+    flex-wrap: nowrap;
+}
+*/
+.offer-info .offer-details .header .title {
+  font-family: "Unispace", sans-serif;
+  font-weight: 800; }
+.offer-info .offer-details .main {
+  display: block; }
+  .offer-info .offer-details .main .photos {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    overflow: hidden; }
+    .offer-info .offer-details .main .photos .all-photos-wrapper {
+      background: #FFFFFF;
+      flex: 1 0 8em;
+      height: 30em;
+      overflow: hidden; }
+    .offer-info .offer-details .main .photos .all-photos {
+      background: inherit;
+      height: 100%;
+      overflow: scroll;
+      overflow-x: hidden;
+      direction: rtl; }
+      .offer-info .offer-details .main .photos .all-photos .photo {
+        display: block;
+        position: relative;
+        margin: 0.5em;
+        direction: ltr;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        overflow: hidden; }
+        .offer-info .offer-details .main .photos .all-photos .photo:hover, .offer-info .offer-details .main .photos .all-photos .photo:focus {
+          box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }
+          .offer-info .offer-details .main .photos .all-photos .photo:hover .svg-chevron, .offer-info .offer-details .main .photos .all-photos .photo:focus .svg-chevron {
+            left: 55%; }
+        .offer-info .offer-details .main .photos .all-photos .photo .svg-chevron {
+          background-image: url("/img/png/arrow-right.png");
+          background-size: contain;
+          background-repeat: no-repeat;
+          position: absolute;
+          content: '';
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 100%;
+          z-index: 1000;
+          opacity: 0.6;
+          transition: left 0.3s ease-out 0s; }
+      .offer-info .offer-details .main .photos .all-photos img {
+        display: block;
+        width: 100%;
+        height: auto; }
+      .offer-info .offer-details .main .photos .all-photos::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #F5F5F5;
+        border-radius: 10px; }
+      .offer-info .offer-details .main .photos .all-photos::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5; }
+      .offer-info .offer-details .main .photos .all-photos::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: var(--theme-1-pool-blue-rgba); }
+    .offer-info .offer-details .main .photos .photo-wrap {
+      background: #FFFFFF;
+      flex: 1 1 75%;
+      display: block;
+      position: relative;
+      border-left: 2px solid #CCCCCC; }
+      .offer-info .offer-details .main .photos .photo-wrap .photo {
+        background: #000000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        margin: 0.5em;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        overflow: hidden;
+        transition: opacity 0.3s linear 0s; }
+      .offer-info .offer-details .main .photos .photo-wrap img {
+        display: block;
+        width: auto;
+        height: 100%; }
+      .offer-info .offer-details .main .photos .photo-wrap .photo:nth-of-type(1) {
+        opacity: 1; }

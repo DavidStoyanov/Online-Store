@@ -1,3 +1,11 @@
+/*
+@include bp('mobile-device') {
+    flex-wrap: wrap;
+}
+@include bp('desktop-device') {
+    flex-wrap: nowrap;
+}
+*/
 .offers-cnr .offers-nav ul.category:after, .offers-cnr .offers .offer-cnr .offer-img-wrapper:before {
   display: block;
   content: ''; }

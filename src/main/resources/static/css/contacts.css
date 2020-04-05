@@ -1,3 +1,11 @@
+/*
+@include bp('mobile-device') {
+    flex-wrap: wrap;
+}
+@include bp('desktop-device') {
+    flex-wrap: nowrap;
+}
+*/
 .contacts .our-place .iframe-wrapper, .contacts .call-us form input, .contacts .call-us form textarea, .contacts .call-us form .field.submit button {
   padding: 0.5em;
   outline: none;
