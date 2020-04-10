@@ -3,6 +3,7 @@ package com.stoyanov.onlineshoestore.app.models.entities.offer;
 import com.stoyanov.onlineshoestore.app.models.enums.Condition;
 import com.stoyanov.onlineshoestore.app.models.entities.base.BaseEntity;
 import com.stoyanov.onlineshoestore.app.models.entities.user.User;
+import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -51,7 +52,8 @@ public class Offer extends BaseEntity {
         this.category = category;
     }
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", length = 65535, columnDefinition="TEXT", nullable = false)
+    @Type(type = "text")
     public String getDescription() {
         return this.description;
     }

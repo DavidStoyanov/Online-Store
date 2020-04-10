@@ -53,21 +53,55 @@
                     </div>
                 </div>
 
-                <div class="details">
-                    <div>
-                        <h4>Description:</h4>
-                        <h4 th:text="*{description}"></h4>
+                <div class="visits mb">
+                    <h6 class="il-b">visited:</h6>
+                    <h6 class="il-b" th:text="*{views}"></h6>
+                </div>
+
+                <div class="published-on mb">
+                    <h6 class="il-b">published: </h6>
+                    <h6 class="il-b" th:text="*{#dates.format(createdOn, 'HH:mm dd-MMM-yyyy')}"></h6>
+                </div>
+
+                <div class="details mb">
+                    <div class="attr" th:each="attr : *{attributes}">
+                        <h4 class="il-b" th:text="${#strings.capitalize(attr.key) + ':'}"></h4>
+                        <h4 class="il-b" th:text="${attr.value}"></h4>
                     </div>
 
-                    <div>
-                        <h4>Price:</h4>
-                        <h4 th:text="*{price}"></h4>
+                    <div class="attr">
+                        <h4 class="il-b">Condition:</h4>
+                        <h4 class="il-b" th:text="*{condition}"></h4>
                     </div>
 
-                    <div>
-                        <h4>Condition:</h4>
-                        <h4 th:text="*{condition}"></h4>
+                    <div class="attr">
+                        <h4 class="il-b">Condition:</h4>
+                        <h4 class="il-b" th:text="*{condition}"></h4>
                     </div>
+
+                    <div class="attr">
+                        <h4 class="il-b">Condition:</h4>
+                        <h4 class="il-b" th:text="*{condition}"></h4>
+                    </div>
+
+                    <div class="attr">
+                        <h4 class="il-b">Condition:</h4>
+                        <h4 class="il-b" th:text="*{condition}"></h4>
+                    </div>
+
+                    <div class="attr">
+                        <h4 class="il-b">Price:</h4>
+                        <h4 class="il-b" th:text="*{price}"></h4>
+                    </div>
+                </div>
+
+                <div class="process mb">
+                    <button  onclick="scrollPhotosDown()"  class="send-msg">Send Message</button>
+                    <button onclick="scrollPhotosUp()"  class="order">Order</button>
+                </div>
+
+                <div class="description">
+                    <p th:utext="${#strings.replace(#strings.escapeXml(offer.description), T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}"></p>
                 </div>
             </div>
         </section>

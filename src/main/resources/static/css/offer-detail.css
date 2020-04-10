@@ -6,35 +6,54 @@
     flex-wrap: nowrap;
 }
 */
+:root {
+  --basic-lo-fraction: 2; }
+
 .offer-info .offer-details .header .title {
   font-family: "Unispace", sans-serif;
   font-weight: 800; }
 .offer-info .offer-details .main {
-  display: block; }
+  font-family: Lato, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row; }
   .offer-info .offer-details .main .photos {
+    background-color: #FFFFFF;
+    flex: 1 0 100%;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
+    padding: 0.5em;
+    border-radius: var(--basic-border-radius);
     overflow: hidden; }
     .offer-info .offer-details .main .photos .all-photos-wrapper {
       background: #FFFFFF;
       flex: 1 0 8em;
-      height: 30em;
+      height: 25em;
       overflow: hidden; }
     .offer-info .offer-details .main .photos .all-photos {
+      position: relative;
       background: inherit;
       height: 100%;
       overflow: scroll;
       overflow-x: hidden;
-      direction: rtl; }
+      direction: rtl;
+      scroll-behavior: smooth; }
       .offer-info .offer-details .main .photos .all-photos .photo {
-        display: block;
+        background: #FFFFFF;
+        display: flex;
         position: relative;
+        justify-content: center;
+        align-self: center;
         margin: 0.5em;
+        height: 6em;
+        width: auto;
         direction: ltr;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         overflow: hidden; }
+        .offer-info .offer-details .main .photos .all-photos .photo:first-child, .offer-info .offer-details .main .photos .all-photos .photo:last-child {
+          margin: 0 0.5em; }
         .offer-info .offer-details .main .photos .all-photos .photo:hover, .offer-info .offer-details .main .photos .all-photos .photo:focus {
           box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }
           .offer-info .offer-details .main .photos .all-photos .photo:hover .svg-chevron, .offer-info .offer-details .main .photos .all-photos .photo:focus .svg-chevron {
@@ -55,7 +74,11 @@
       .offer-info .offer-details .main .photos .all-photos img {
         display: block;
         width: 100%;
-        height: auto; }
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) !important; }
       .offer-info .offer-details .main .photos .all-photos::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         background-color: #F5F5F5;
@@ -73,12 +96,11 @@
       position: relative;
       border-left: 2px solid #CCCCCC; }
       .offer-info .offer-details .main .photos .photo-wrap .photo {
-        background: #000000;
+        background: url("/img/png/dark_stripes.png") repeat;
         display: flex;
         justify-content: center;
         align-items: center;
         position: absolute;
-        margin: 0.5em;
         width: 100%;
         height: 100%;
         opacity: 0;
@@ -90,3 +112,36 @@
         height: 100%; }
       .offer-info .offer-details .main .photos .photo-wrap .photo:nth-of-type(1) {
         opacity: 1; }
+  .offer-info .offer-details .main .visits, .offer-info .offer-details .main .published-on {
+    padding: 0 0.3em; }
+  .offer-info .offer-details .main .visits {
+    flex: 1 0 50%; }
+  .offer-info .offer-details .main .published-on {
+    flex: 1 0 50%;
+    text-align: right; }
+  .offer-info .offer-details .main .details {
+    color: var(--theme-1-pool-blue-rgba);
+    flex: 1 0 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    text-shadow: 1px 1px 0 #bcbcbc, 1px 1px 1px #9c9c9c; }
+    .offer-info .offer-details .main .details .attr {
+      flex: 0 0 auto;
+      background: rgba(250, 250, 250, 0.7);
+      border-radius: var(--basic-border-radius);
+      border: var(--basic-border-radius) solid var(--theme-1-pool-blue-rgba);
+      padding: 0.25em 0.5em;
+      margin: 0 0.5em 0.5em 0; }
+      .offer-info .offer-details .main .details .attr > * {
+        margin: 0; }
+  .offer-info .offer-details .main .process {
+    flex: 1 0 100%; }
+  .offer-info .offer-details .main .description {
+    flex: 1 0 100%; }
+
+.il-b {
+  display: inline-block; }
+
+.mb {
+  margin-bottom: 0.5em; }

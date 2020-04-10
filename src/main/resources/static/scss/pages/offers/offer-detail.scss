@@ -1,6 +1,10 @@
 @import "../../snipets/mixins";
 @import "../../snipets/snipets";
 
+:root {
+  --basic-lo-fraction: 2;
+}
+
 .offer-info {
 
   .offer-details {
@@ -19,39 +23,58 @@
     }
 
     .main {
-      display: block;
+      font-family: Lato, sans-serif;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
 
       .photos {
+        background-color: #FFFFFF;
+        flex: 1 0 100%;
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-between;
+        padding: 0.5em;
+        border-radius: var(--basic-border-radius);
         overflow: hidden;
 
         .all-photos-wrapper {
           background: #FFFFFF;
           flex: 1 0 8em;
-          height: 30em;
+          height: 25em;
           overflow: hidden;
         }
 
         .all-photos {
+          position: relative;
           background: inherit;
           height: 100%;
           overflow: scroll;
           overflow-x: hidden;
           direction: rtl;
+          scroll-behavior: smooth;
 
+          // thumbnail
           .photo {
-            display: block;
+            background: #FFFFFF;
+            display: flex;
             position: relative;
+            justify-content: center;
+            align-self: center;
             margin: 0.5em;
+            height: 6em;
+            width: auto;
             direction: ltr;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-            transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
             overflow: hidden;
 
+            &:first-child, &:last-child {
+              margin: 0 0.5em;
+            }
+
             &:hover, &:focus {
-              box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+              box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 
               .svg-chevron {
                 left: 55%;
@@ -79,23 +102,24 @@
             display: block;
             width: 100%;
             height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) !important;
           }
 
-          &::-webkit-scrollbar-track
-          {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+          &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             background-color: #F5F5F5;
             border-radius: 10px;
           }
 
-          &::-webkit-scrollbar
-          {
+          &::-webkit-scrollbar {
             width: 10px;
             background-color: #F5F5F5;
           }
 
-          &::-webkit-scrollbar-thumb
-          {
+          &::-webkit-scrollbar-thumb {
             border-radius: 10px;
             background: var(--theme-1-pool-blue-rgba);
           }
@@ -109,12 +133,12 @@
           border-left: 2px solid #CCCCCC;
 
           .photo {
-            background: #000000;
+            background: url("/img/png/dark_stripes.png") repeat;
+
             display: flex;
             justify-content: center;
             align-items: center;
             position: absolute;
-            margin: 0.5em;
             width: 100%;
             height: 100%;
             opacity: 0;
@@ -134,11 +158,59 @@
         }
       }
 
-      .details {
-
+      .visits, .published-on {
+        padding: 0 0.3em;
       }
+
+      .visits {
+        flex: 1 0 50%;
+      }
+
+      .published-on {
+        flex: 1 0 50%;
+        text-align: right;
+      }
+
+      .details {
+        color: var(--theme-1-pool-blue-rgba);
+        flex: 1 0 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        text-shadow: 1px 1px 0 #bcbcbc, 1px 1px 1px #9c9c9c;
+
+        .attr {
+          flex: 0 0 auto;
+          background: rgba(250, 250, 250, 0.7);
+          border-radius: var(--basic-border-radius);
+          border: var(--basic-border-radius) solid var(--theme-1-pool-blue-rgba);
+          padding: 0.25em 0.5em;
+          margin: 0 0.5em 0.5em 0;
+
+          & > * {
+            margin: 0;
+          }
+        }
+      }
+
+      .process {
+        flex: 1 0 100%;
+      }
+
+      .description {
+        flex: 1 0 100%;
+      }
+
     }
 
   }
 
+}
+
+.il-b {
+  display: inline-block;
+}
+
+.mb {
+  margin-bottom: 0.5em;
 }
