@@ -1,8 +1,6 @@
-var scrollPhotosDown, scrollPhotosUp;
-
 (function($) {
     const photosWrapper = $('.all-photos');
-    const smallPhotos = $('.photo.small-photo');
+    const smallPhotos = $('.thumbnail.small-photo');
     const largePhotos = $('.photo.large-photo');
 
     const mousePos = {};
@@ -119,7 +117,7 @@ var scrollPhotosDown, scrollPhotosUp;
     }
 
     const scrollPhotos = new ScrollPhotos(photosWrapper, smallPhotos);
-    scrollPhotosDown = () => scrollPhotos.scrollDown();
-    scrollPhotosUp = () => scrollPhotos.scrollUp();
+    $('#scrollDown').click(() => scrollPhotos.scrollDown());
+    $('#scrollUp').click(() => scrollPhotos.scrollUp());
 
 }(jQuery));
